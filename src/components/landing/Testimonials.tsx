@@ -5,10 +5,26 @@ import { SectionHeading } from "./SectionHeading";
 import { AnimatePresence, motion } from "framer-motion";
 
 const quotes = [
-  { text: "Aapka Credit made getting a loan incredibly simple. I closed in two days, with full clarity on every fee.", name: "Aarav Sharma", role: "Founder, Indie Studio" },
-  { text: "The eligibility check felt like magic — no impact on score, instant offers directly from Aapka Credit.", name: "Priya Iyer", role: "Product Manager" },
-  { text: "Finally a fintech that treats borrowers as family, not leads. The dashboard is genuinely useful.", name: "Rohan Mehta", role: "Small Business Owner" },
-  { text: "Honest, fast, and beautifully designed. This is what modern lending should feel like.", name: "Neha Krishnan", role: "Engineering Lead" },
+  {
+    text: "Aapka Credit made getting a loan incredibly simple. I closed in two days, with full clarity on every fee.",
+    name: "Aarav Sharma",
+    role: "Founder, Indie Studio",
+  },
+  {
+    text: "The eligibility check felt like magic — no impact on score, instant offers directly from Aapka Credit.",
+    name: "Priya Iyer",
+    role: "Product Manager",
+  },
+  {
+    text: "Finally a fintech that treats borrowers as family, not leads. The dashboard is genuinely useful.",
+    name: "Rohan Mehta",
+    role: "Small Business Owner",
+  },
+  {
+    text: "Honest, fast, and beautifully designed. This is what modern lending should feel like.",
+    name: "Neha Krishnan",
+    role: "Engineering Lead",
+  },
 ];
 
 export function Testimonials() {
@@ -24,7 +40,11 @@ export function Testimonials() {
       <div className="mx-auto max-w-5xl px-4">
         <SectionHeading
           eyebrow="Voices"
-          title={<>Loved by <span className="text-gradient-blue">borrowers across India</span></>}
+          title={
+            <>
+              Loved by <span className="text-gradient-blue">borrowers across India</span>
+            </>
+          }
         />
         <div className="relative mt-14">
           <div className="glass-strong relative overflow-hidden rounded-3xl border border-white/10 p-10 sm:p-14">

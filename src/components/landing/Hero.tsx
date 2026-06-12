@@ -7,9 +7,19 @@ import { Parallax } from "@/components/fx/Reveal";
 import { HeroScene } from "./HeroScene";
 
 const metrics = [
-  { icon: ShieldCheck, label: "Loan Eligibility", value: "Instant", tone: "from-[#3B82F6] to-[#2563EB]" },
+  {
+    icon: ShieldCheck,
+    label: "Loan Eligibility",
+    value: "Instant",
+    tone: "from-[#3B82F6] to-[#2563EB]",
+  },
   { icon: Zap, label: "Quick Approval", value: "< 24 hrs", tone: "from-[#10B981] to-[#3B82F6]" },
-  { icon: Lightbulb, label: "Smart Insights", value: "AI-led", tone: "from-[#a78bfa] to-[#3B82F6]" },
+  {
+    icon: Lightbulb,
+    label: "Smart Insights",
+    value: "AI-led",
+    tone: "from-[#a78bfa] to-[#3B82F6]",
+  },
   { icon: Lock, label: "Secure Platform", value: "256-bit", tone: "from-[#10B981] to-[#34d399]" },
 ];
 
@@ -51,8 +61,8 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.18 }}
             className="mt-6 max-w-xl text-base text-white/65 sm:text-lg"
           >
-            Aapka Credit helps you discover loan opportunities, understand eligibility, and make smarter
-            borrowing decisions through a transparent, modern digital experience.
+            Aapka Credit helps you discover loan opportunities, understand eligibility, and make
+            smarter borrowing decisions through a transparent, modern digital experience.
           </motion.p>
 
           <motion.div
@@ -78,7 +88,9 @@ export function Hero() {
                 transition={{ duration: 0.6, delay: 0.4 + i * 0.08 }}
                 className="glass rounded-2xl p-4"
               >
-                <div className={`mb-3 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br ${m.tone}`}>
+                <div
+                  className={`mb-3 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br ${m.tone}`}
+                >
                   <m.icon className="h-4 w-4 text-white" />
                 </div>
                 <p className="text-[11px] uppercase tracking-wider text-white/50">{m.label}</p>
@@ -93,8 +105,11 @@ export function Hero() {
             <Parallax offset={80} className="absolute inset-0">
               <HeroScene />
             </Parallax>
-            <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[40px] opacity-60 blur-3xl"
-              style={{ background: "radial-gradient(closest-side, rgba(59,130,246,0.5), transparent 70%)" }}
+            <div
+              className="pointer-events-none absolute -inset-4 -z-10 rounded-[40px] opacity-60 blur-3xl"
+              style={{
+                background: "radial-gradient(closest-side, rgba(59,130,246,0.5), transparent 70%)",
+              }}
             />
           </div>
         </div>

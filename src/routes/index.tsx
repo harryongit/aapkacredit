@@ -20,9 +20,17 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Aapka Credit — Smarter Loans, Better Financial Decisions" },
-      { name: "description", content: "Discover loan opportunities, check eligibility, and borrow smarter with Aapka Credit — India's next-generation digital lending platform by Prism Cosmic." },
+      {
+        name: "description",
+        content:
+          "Discover loan opportunities, check eligibility, and borrow smarter with Aapka Credit — India's next-generation digital lending platform by Prism Cosmic.",
+      },
       { property: "og:title", content: "Aapka Credit — Smarter Loans, Better Financial Decisions" },
-      { property: "og:description", content: "Discover loan opportunities, check eligibility, and borrow smarter with Aapka Credit." },
+      {
+        property: "og:description",
+        content:
+          "Discover loan opportunities, check eligibility, and borrow smarter with Aapka Credit.",
+      },
       { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],

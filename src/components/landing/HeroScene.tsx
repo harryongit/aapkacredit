@@ -5,7 +5,15 @@ import { Suspense, useRef } from "react";
 import type { Group, Mesh } from "three";
 import { ClientOnly } from "@/components/fx/ClientOnly";
 
-function CreditCard({ position, color, rotation = [0, 0, 0] as [number, number, number] }: { position: [number, number, number]; color: string; rotation?: [number, number, number] }) {
+function CreditCard({
+  position,
+  color,
+  rotation = [0, 0, 0] as [number, number, number],
+}: {
+  position: [number, number, number];
+  color: string;
+  rotation?: [number, number, number];
+}) {
   const ref = useRef<Mesh>(null);
   useFrame((state) => {
     if (!ref.current) return;
@@ -13,8 +21,22 @@ function CreditCard({ position, color, rotation = [0, 0, 0] as [number, number, 
   });
   return (
     <Float speed={1.4} rotationIntensity={0.4} floatIntensity={0.7}>
-      <RoundedBox ref={ref} args={[2.2, 1.4, 0.06]} radius={0.08} smoothness={6} position={position} rotation={rotation}>
-        <meshPhysicalMaterial color={color} metalness={0.85} roughness={0.18} clearcoat={1} clearcoatRoughness={0.1} reflectivity={0.9} />
+      <RoundedBox
+        ref={ref}
+        args={[2.2, 1.4, 0.06]}
+        radius={0.08}
+        smoothness={6}
+        position={position}
+        rotation={rotation}
+      >
+        <meshPhysicalMaterial
+          color={color}
+          metalness={0.85}
+          roughness={0.18}
+          clearcoat={1}
+          clearcoatRoughness={0.1}
+          reflectivity={0.9}
+        />
       </RoundedBox>
     </Float>
   );
@@ -25,7 +47,12 @@ function Node({ position, color }: { position: [number, number, number]; color: 
     <Float speed={2} rotationIntensity={1} floatIntensity={1.4}>
       <mesh position={position}>
         <icosahedronGeometry args={[0.18, 0]} />
-        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={1.4} toneMapped={false} />
+        <meshStandardMaterial
+          color={color}
+          emissive={color}
+          emissiveIntensity={1.4}
+          toneMapped={false}
+        />
       </mesh>
     </Float>
   );
@@ -55,7 +82,11 @@ function Rig() {
 
 function Scene() {
   return (
-    <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 6], fov: 45 }} gl={{ antialias: true, alpha: true }}>
+    <Canvas
+      dpr={[1, 2]}
+      camera={{ position: [0, 0, 6], fov: 45 }}
+      gl={{ antialias: true, alpha: true }}
+    >
       <ambientLight intensity={0.4} />
       <pointLight position={[4, 5, 5]} intensity={2.4} color="#3B82F6" />
       <pointLight position={[-5, -3, 2]} intensity={1.8} color="#10B981" />

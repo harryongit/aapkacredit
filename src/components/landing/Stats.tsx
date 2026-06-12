@@ -18,7 +18,10 @@ export function Stats() {
             <div
               aria-hidden
               className="pointer-events-none absolute -inset-px rounded-3xl opacity-40"
-              style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.15), transparent 50%, rgba(16,185,129,0.15))" }}
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(59,130,246,0.15), transparent 50%, rgba(16,185,129,0.15))",
+              }}
             />
             <div className="relative grid grid-cols-2 gap-8 lg:grid-cols-4">
               {stats.map((s) => (

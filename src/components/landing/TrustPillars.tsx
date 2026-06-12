@@ -6,10 +6,26 @@ import { StaggerGroup, itemVariants } from "@/components/fx/Reveal";
 import { motion } from "framer-motion";
 
 const pillars = [
-  { icon: ShieldCheck, title: "Security First", text: "Bank-grade encryption and zero-trust architecture protect every interaction." },
-  { icon: Eye, title: "Privacy Focused", text: "We collect only what we need, store it safely, and put you in control." },
-  { icon: Lock, title: "Transparent Lending", text: "Clear terms, honest comparisons, and no hidden fine print, ever." },
-  { icon: Cpu, title: "Technology Driven", text: "Built on a modern intelligent stack for faster, smarter lending decisions." },
+  {
+    icon: ShieldCheck,
+    title: "Security First",
+    text: "Bank-grade encryption and zero-trust architecture protect every interaction.",
+  },
+  {
+    icon: Eye,
+    title: "Privacy Focused",
+    text: "We collect only what we need, store it safely, and put you in control.",
+  },
+  {
+    icon: Lock,
+    title: "Transparent Lending",
+    text: "Clear terms, honest comparisons, and no hidden fine print, ever.",
+  },
+  {
+    icon: Cpu,
+    title: "Technology Driven",
+    text: "Built on a modern intelligent stack for faster, smarter lending decisions.",
+  },
 ];
 
 export function TrustPillars() {
@@ -18,7 +34,11 @@ export function TrustPillars() {
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeading
           eyebrow="Trust"
-          title={<>Trusted. Transparent. <span className="text-gradient-blue">Secure.</span></>}
+          title={
+            <>
+              Trusted. Transparent. <span className="text-gradient-blue">Secure.</span>
+            </>
+          }
           subtitle="Aapka Credit is engineered around four uncompromising principles."
         />
 

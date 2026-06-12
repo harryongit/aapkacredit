@@ -43,9 +43,7 @@ export function CountUp({
   }, [to, duration]);
 
   const formatted =
-    to >= 1000
-      ? Math.round(val).toLocaleString("en-IN")
-      : val.toFixed(to % 1 === 0 ? 0 : 1);
+    to >= 1000 ? Math.round(val).toLocaleString("en-IN") : val.toFixed(to % 1 === 0 ? 0 : 1);
 
   return (
     <span ref={ref}>

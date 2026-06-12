@@ -59,14 +59,25 @@ export function MagneticButton({
 
   if (href) {
     return (
-      <a href={href} onMouseMove={onMove} onMouseLeave={onLeave} className={cn(base, styles, "overflow-hidden", className)}>
+      <a
+        href={href}
+        onMouseMove={onMove}
+        onMouseLeave={onLeave}
+        className={cn(base, styles, "overflow-hidden", className)}
+      >
         {bg}
         {inner}
       </a>
     );
   }
   return (
-    <button type={type ?? "button"} onClick={onClick} onMouseMove={onMove} onMouseLeave={onLeave} className={cn(base, styles, "overflow-hidden", className)}>
+    <button
+      type={type ?? "button"}
+      onClick={onClick}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className={cn(base, styles, "overflow-hidden", className)}
+    >
       {bg}
       {inner}
     </button>

@@ -5,10 +5,26 @@ import { StaggerGroup, itemVariants } from "@/components/fx/Reveal";
 import { motion } from "framer-motion";
 
 const steps = [
-  { icon: UserPlus, title: "Create Account", text: "Sign up in under a minute with secure mobile-first onboarding." },
-  { icon: FileCheck, title: "Verify Details", text: "Quick digital KYC with PAN and Aadhaar — encrypted end-to-end." },
-  { icon: Gauge, title: "Check Eligibility", text: "Soft credit check returns personalised offers in real time." },
-  { icon: Sparkles, title: "Access Opportunities", text: "Review your offers, EMIs, tenures, and apply with one click." },
+  {
+    icon: UserPlus,
+    title: "Create Account",
+    text: "Sign up in under a minute with secure mobile-first onboarding.",
+  },
+  {
+    icon: FileCheck,
+    title: "Verify Details",
+    text: "Quick digital KYC with PAN and Aadhaar — encrypted end-to-end.",
+  },
+  {
+    icon: Gauge,
+    title: "Check Eligibility",
+    text: "Soft credit check returns personalised offers in real time.",
+  },
+  {
+    icon: Sparkles,
+    title: "Access Opportunities",
+    text: "Review your offers, EMIs, tenures, and apply with one click.",
+  },
 ];
 
 export function HowItWorks() {
@@ -17,7 +33,11 @@ export function HowItWorks() {
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeading
           eyebrow="Process"
-          title={<>From sign-up to <span className="text-gradient-blue">smart offer</span></>}
+          title={
+            <>
+              From sign-up to <span className="text-gradient-blue">smart offer</span>
+            </>
+          }
           subtitle="Four simple steps stand between you and the right loan."
         />
 
@@ -25,7 +45,10 @@ export function HowItWorks() {
           <div
             aria-hidden
             className="pointer-events-none absolute left-0 right-0 top-12 hidden h-px lg:block"
-            style={{ background: "linear-gradient(90deg, transparent, rgba(59,130,246,0.5), rgba(16,185,129,0.5), transparent)" }}
+            style={{
+              background:
+                "linear-gradient(90deg, transparent, rgba(59,130,246,0.5), rgba(16,185,129,0.5), transparent)",
+            }}
           />
 
           <StaggerGroup className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

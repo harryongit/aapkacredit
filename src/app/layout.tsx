@@ -8,12 +8,23 @@ import { SmoothScroll } from "@/components/fx/SmoothScroll";
 
 export const metadata: Metadata = {
   title: "Aapka Credit — India's Best Instant Loan App & Personal Finance Platform",
-  description: "Discover the best personal loans, business loans, and instant credit lines directly from Aapka Credit. Check eligibility instantly without impacting your credit score. Zero hidden fees.",
-  keywords: ["loan", "instant loan", "personal loan", "business loan", "finance", "Aapka Credit", "best loan app in India", "low interest loan"],
+  description:
+    "Discover the best personal loans, business loans, and instant credit lines directly from Aapka Credit. Check eligibility instantly without impacting your credit score. Zero hidden fees.",
+  keywords: [
+    "loan",
+    "instant loan",
+    "personal loan",
+    "business loan",
+    "finance",
+    "Aapka Credit",
+    "best loan app in India",
+    "low interest loan",
+  ],
   authors: [{ name: "Prism Cosmic Private Limited" }],
   openGraph: {
     title: "Aapka Credit — Instant Loans & Smarter Personal Finance",
-    description: "Get the best loan offers directly from Aapka Credit. Check eligibility instantly without impacting your credit score.",
+    description:
+      "Get the best loan offers directly from Aapka Credit. Check eligibility instantly without impacting your credit score.",
     url: "https://aapkacredit.app",
     siteName: "Aapka Credit",
     type: "website",
@@ -51,7 +62,10 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+          rel="stylesheet"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -60,30 +74,32 @@ export default function RootLayout({
               "@graph": [
                 {
                   "@type": "WebSite",
-                  "name": "Aapka Credit",
-                  "url": "https://aapkacredit.app"
+                  name: "Aapka Credit",
+                  url: "https://aapkacredit.app",
                 },
                 {
                   "@type": "FinancialProduct",
-                  "name": "Aapka Credit Instant Personal Loan",
-                  "description": "Fast, transparent personal loans with flexible EMIs directly from Aapka Credit.",
-                  "brand": {
+                  name: "Aapka Credit Instant Personal Loan",
+                  description:
+                    "Fast, transparent personal loans with flexible EMIs directly from Aapka Credit.",
+                  brand: {
                     "@type": "Brand",
-                    "name": "Aapka Credit"
-                  }
-                }
-              ]
+                    name: "Aapka Credit",
+                  },
+                },
+              ],
             }),
           }}
         />
       </head>
-      <body className="relative min-h-screen bg-background text-foreground antialiased" suppressHydrationWarning>
+      <body
+        className="relative min-h-screen bg-background text-foreground antialiased"
+        suppressHydrationWarning
+      >
         <SmoothScroll>
           <Providers>
             <Navbar />
-            <main>
-              {children}
-            </main>
+            <main>{children}</main>
             <Footer />
             <Toaster />
           </Providers>

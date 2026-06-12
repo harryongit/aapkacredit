@@ -5,10 +5,30 @@ import { StaggerGroup, itemVariants } from "@/components/fx/Reveal";
 import { motion } from "framer-motion";
 
 const products = [
-  { icon: User, title: "Personal Loans", text: "Fast access to flexible financing for life's important moments.", tag: "Up to ₹40L" },
-  { icon: Briefcase, title: "Business Loans", text: "Working capital and growth funding for ambitious businesses.", tag: "Up to ₹2Cr" },
-  { icon: GraduationCap, title: "Education Loans", text: "Invest in your future without compromising on the program.", tag: "Up to ₹75L" },
-  { icon: Gauge, title: "Eligibility Check", text: "Know your borrowing options in seconds, with zero impact on credit score.", tag: "Instant" },
+  {
+    icon: User,
+    title: "Personal Loans",
+    text: "Fast access to flexible financing for life's important moments.",
+    tag: "Up to ₹40L",
+  },
+  {
+    icon: Briefcase,
+    title: "Business Loans",
+    text: "Working capital and growth funding for ambitious businesses.",
+    tag: "Up to ₹2Cr",
+  },
+  {
+    icon: GraduationCap,
+    title: "Education Loans",
+    text: "Invest in your future without compromising on the program.",
+    tag: "Up to ₹75L",
+  },
+  {
+    icon: Gauge,
+    title: "Eligibility Check",
+    text: "Know your borrowing options in seconds, with zero impact on credit score.",
+    tag: "Instant",
+  },
 ];
 
 export function LoanProducts() {
@@ -17,7 +37,11 @@ export function LoanProducts() {
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeading
           eyebrow="Lending"
-          title={<>Loans built for <span className="text-gradient-blue">every life stage</span></>}
+          title={
+            <>
+              Loans built for <span className="text-gradient-blue">every life stage</span>
+            </>
+          }
           subtitle="Discover, evaluate, and choose the right loan with clarity and confidence."
         />
 
@@ -28,14 +52,19 @@ export function LoanProducts() {
               variants={itemVariants}
               href="#contact"
               className="group relative overflow-hidden rounded-3xl p-px"
-              style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.4), rgba(16,185,129,0.25) 50%, rgba(255,255,255,0.05))" }}
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(59,130,246,0.4), rgba(16,185,129,0.25) 50%, rgba(255,255,255,0.05))",
+              }}
             >
               <div className="relative h-full rounded-[calc(1.5rem-1px)] bg-[#0a1428] p-8 transition-transform duration-500 group-hover:-translate-y-1">
                 <div className="flex items-start justify-between">
                   <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
                     <p.icon className="h-5 w-5 text-[#93c5fd]" />
                   </div>
-                  <span className="rounded-full bg-white/5 px-3 py-1 text-[11px] font-medium text-white/70 ring-1 ring-white/10">{p.tag}</span>
+                  <span className="rounded-full bg-white/5 px-3 py-1 text-[11px] font-medium text-white/70 ring-1 ring-white/10">
+                    {p.tag}
+                  </span>
                 </div>
                 <h3 className="mt-6 font-display text-2xl font-semibold text-white">{p.title}</h3>
                 <p className="mt-2 max-w-sm text-sm leading-relaxed text-white/60">{p.text}</p>
@@ -45,7 +74,9 @@ export function LoanProducts() {
                 <div
                   aria-hidden
                   className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
-                  style={{ background: "radial-gradient(closest-side, rgba(59,130,246,0.45), transparent)" }}
+                  style={{
+                    background: "radial-gradient(closest-side, rgba(59,130,246,0.45), transparent)",
+                  }}
                 />
               </div>
             </motion.a>

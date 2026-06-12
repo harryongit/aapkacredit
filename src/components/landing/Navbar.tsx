@@ -41,14 +41,21 @@ export function Navbar() {
             scrolled && "glass-strong border-white/10",
           )}
         >
-          <a href="#home" className="flex items-center gap-2 font-display text-base font-semibold tracking-tight text-white">
+          <a
+            href="#home"
+            className="flex items-center gap-2 font-display text-base font-semibold tracking-tight text-white"
+          >
             <Image src={whitelogo} alt="Aapka Credit Logo" className="h-8 w-auto" priority />
             <span>Aapka Credit</span>
           </a>
 
           <nav className="hidden items-center gap-8 lg:flex">
             {links.map((l) => (
-              <a key={l.href} href={l.href} className="group relative text-sm text-white/70 transition hover:text-white">
+              <a
+                key={l.href}
+                href={l.href}
+                className="group relative text-sm text-white/70 transition hover:text-white"
+              >
                 {l.label}
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-to-r from-[#3B82F6] to-[#10B981] transition-all duration-300 group-hover:w-full" />
               </a>

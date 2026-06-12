@@ -6,12 +6,36 @@ import { StaggerGroup, itemVariants } from "@/components/fx/Reveal";
 import { motion } from "framer-motion";
 
 const features = [
-  { icon: Brain, title: "Smart Eligibility Assessment", text: "Soft-check models that show what you can borrow without hurting your score." },
-  { icon: Compass, title: "Loan Discovery", text: "Curated offers tailored to your profile directly from our lending suite." },
-  { icon: BarChart3, title: "Financial Insights", text: "Plain-English breakdowns of EMI, tenure, and total cost of borrowing." },
-  { icon: ShieldCheck, title: "Secure Experience", text: "End-to-end encryption, secure infrastructure, and responsible data handling." },
-  { icon: FileCheck2, title: "Transparent Process", text: "Every fee, every rate, every term — visible upfront. No surprises." },
-  { icon: LayoutDashboard, title: "User-Friendly Dashboard", text: "Track applications, repayments, and offers from one elegant workspace." },
+  {
+    icon: Brain,
+    title: "Smart Eligibility Assessment",
+    text: "Soft-check models that show what you can borrow without hurting your score.",
+  },
+  {
+    icon: Compass,
+    title: "Loan Discovery",
+    text: "Curated offers tailored to your profile directly from our lending suite.",
+  },
+  {
+    icon: BarChart3,
+    title: "Financial Insights",
+    text: "Plain-English breakdowns of EMI, tenure, and total cost of borrowing.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Secure Experience",
+    text: "End-to-end encryption, secure infrastructure, and responsible data handling.",
+  },
+  {
+    icon: FileCheck2,
+    title: "Transparent Process",
+    text: "Every fee, every rate, every term — visible upfront. No surprises.",
+  },
+  {
+    icon: LayoutDashboard,
+    title: "User-Friendly Dashboard",
+    text: "Track applications, repayments, and offers from one elegant workspace.",
+  },
 ];
 
 export function Features() {
@@ -20,7 +44,11 @@ export function Features() {
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeading
           eyebrow="Features"
-          title={<>Everything you need <span className="text-gradient-blue">before you borrow</span></>}
+          title={
+            <>
+              Everything you need <span className="text-gradient-blue">before you borrow</span>
+            </>
+          }
           subtitle="A complete toolkit designed for confident, informed financial decisions."
         />
 
