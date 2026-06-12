@@ -48,7 +48,7 @@ export function Footer() {
               Aapka Credit
             </Link>
             <p className="mt-4 max-w-sm text-sm text-white/60">
-              Smarter Loans. Better Financial Decisions. India's next-generation digital lending
+              Smarter Loans. Better Financial Decisions. India&apos;s next-generation digital lending
               platform.
             </p>
             <p className="mt-6 text-[11px] uppercase tracking-wider text-white/40">Built by</p>
