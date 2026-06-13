@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://aapkacredit.com"),
   title: "Aapka Credit — India's Best Instant Loan App & Personal Finance Platform",
   description:
     "Discover the best personal loans, business loans, and instant credit lines directly from Aapka Credit. Check eligibility instantly without impacting your credit score. Zero hidden fees.",
@@ -21,12 +22,12 @@ export const metadata: Metadata = {
     "best loan app in India",
     "low interest loan",
   ],
-  authors: [{ name: "Prism Cosmic Private Limited" }],
+  authors: [{ name: "Prism Cosmic Private Limited", url: "https://prismcosmic.com" }],
   openGraph: {
     title: "Aapka Credit — Instant Loans & Smarter Personal Finance",
     description:
       "Get the best loan offers directly from Aapka Credit. Check eligibility instantly without impacting your credit score.",
-    url: "https://aapkacredit.app",
+    url: "https://aapkacredit.com",
     siteName: "Aapka Credit",
     type: "website",
     locale: "en_IN",
@@ -59,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"

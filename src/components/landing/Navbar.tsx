@@ -8,13 +8,15 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const links = [
-  { label: "Home", href: "#home" },
-  { label: "Loans", href: "#loans" },
-  { label: "Eligibility", href: "#how" },
-  { label: "Features", href: "#features" },
-  { label: "Security", href: "#security" },
-  { label: "FAQs", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/#home" },
+  { label: "Loans", href: "/#loans" },
+  { label: "Calculator", href: "/calculator" },
+  { label: "Blog", href: "/blog" },
+  { label: "Eligibility", href: "/#how" },
+  { label: "Features", href: "/#features" },
+  { label: "Security", href: "/#security" },
+  { label: "FAQs", href: "/#faq" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function Navbar() {

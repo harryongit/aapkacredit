@@ -56,9 +56,9 @@ export function HowItWorks() {
               <motion.div key={s.title} variants={itemVariants} className="relative">
                 <div className="relative grid h-24 w-24 place-items-center">
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#2563EB]/20 to-[#10B981]/10 blur-xl" />
-                  <div className="relative grid h-24 w-24 place-items-center rounded-full bg-[#0a1428] ring-1 ring-white/10">
-                    <s.icon className="h-6 w-6 text-[#93c5fd]" />
-                    <span className="absolute -top-2 -right-2 grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] text-xs font-semibold text-foreground">
+                  <div className="relative grid h-24 w-24 place-items-center rounded-full bg-card dark:bg-[#0a1428] ring-1 ring-border">
+                    <s.icon className="h-6 w-6 text-primary dark:text-[#93c5fd]" />
+                    <span className="absolute -top-2 -right-2 grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] text-xs font-semibold text-white">
                       {i + 1}
                     </span>
                   </div>

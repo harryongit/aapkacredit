@@ -8,11 +8,13 @@ const cols = [
   {
     title: "Product",
     links: [
-      { label: "Loans", href: "#loans" },
-      { label: "Features", href: "#features" },
-      { label: "Security", href: "#security" },
-      { label: "FAQs", href: "#faq" },
-      { label: "Contact", href: "#contact" },
+      { label: "Loans", href: "/#loans" },
+      { label: "Calculator", href: "/calculator" },
+      { label: "Features", href: "/#features" },
+      { label: "Blog", href: "/blog" },
+      { label: "Security", href: "/#security" },
+      { label: "FAQs", href: "/#faq" },
+      { label: "Contact", href: "/#contact" },
     ],
   },
   {
@@ -53,7 +55,7 @@ export function Footer() {
             </p>
             <p className="mt-6 text-[11px] uppercase tracking-wider text-foreground/40">Built by</p>
             <a
-              href="https://www.prismcosmic.com/"
+              href="https://prismcosmic.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm font-medium text-foreground hover:text-[#3B82F6] transition"
@@ -62,26 +64,35 @@ export function Footer() {
             </a>
 
             <div className="mt-6 flex gap-2">
-              {[
-                Instagram,
-                Linkedin,
-                Facebook,
-                (props: any) => (
-                  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-                    <path d="M18.244 2H21l-6.5 7.43L22 22h-6.844l-4.78-6.245L4.8 22H2l7-7.987L1.6 2h6.978l4.32 5.71L18.244 2Zm-2.4 18h1.66L8.245 4h-1.78l9.379 16Z" />
-                  </svg>
-                ),
-                Github,
-              ].map((Icon: any, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  aria-label="Social"
-                  className="grid h-9 w-9 place-items-center rounded-full glass text-foreground/70 transition hover:text-foreground"
-                >
-                  <Icon className="h-4 w-4" />
-                </a>
-              ))}
+              <a
+                href="https://www.linkedin.com/showcase/aapkacredit/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="grid h-9 w-9 place-items-center rounded-full glass text-foreground/70 transition hover:text-foreground"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+              <a
+                href="https://www.instagram.com/aapkacredit"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="grid h-9 w-9 place-items-center rounded-full glass text-foreground/70 transition hover:text-foreground"
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a
+                href="https://www.youtube.com/channel/UCqveHQesgiWUyAjeb9-YU3A"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="grid h-9 w-9 place-items-center rounded-full glass text-foreground/70 transition hover:text-foreground"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+              </a>
             </div>
           </div>
 
