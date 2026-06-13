@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const links = [
-  { label: "Home", href: "/#home" },
   { label: "Loans", href: "/#loans" },
   { label: "Calculator", href: "/calculator" },
   { label: "Blog", href: "/blog" },
@@ -72,10 +71,10 @@ export function Navbar() {
             </MagneticButton>
           </div>
 
-            <button
-              type="button"
-              className="rounded-full p-2 text-foreground lg:hidden"
-              onClick={() => setOpen((v) => !v)}
+          <button
+            type="button"
+            className="rounded-full p-2 text-foreground lg:hidden"
+            onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
