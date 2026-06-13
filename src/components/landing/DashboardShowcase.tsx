@@ -30,8 +30,8 @@ function HealthRing({ value = 78 }: { value?: number }) {
       </svg>
       <div className="absolute inset-0 grid place-items-center">
         <div className="text-center">
-          <p className="font-display text-3xl font-semibold text-white">{value}</p>
-          <p className="text-[10px] uppercase tracking-wider text-white/50">Health</p>
+          <p className="font-display text-3xl font-semibold text-foreground">{value}</p>
+          <p className="text-[10px] uppercase tracking-wider text-foreground/50">Health</p>
         </div>
       </div>
     </div>
@@ -83,28 +83,28 @@ export function DashboardShowcase() {
               background: "radial-gradient(closest-side, rgba(59,130,246,0.5), transparent 70%)",
             }}
           />
-          <div className="glass-strong relative rounded-3xl border border-white/10 p-3 shadow-elegant sm:p-5">
+          <div className="glass-strong relative rounded-3xl border border-foreground/10 p-3 shadow-elegant sm:p-5">
             {/* window chrome */}
             <div className="mb-4 flex items-center gap-2 px-2">
               <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
               <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/70" />
-              <span className="ml-3 text-[11px] text-white/40">aapkacredit.app / dashboard</span>
+              <span className="ml-3 text-[11px] text-foreground/40">aapkacredit.app / dashboard</span>
             </div>
 
             <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
               {/* profile */}
               <div className="glass rounded-2xl p-5 lg:col-span-4">
-                <p className="text-[11px] uppercase tracking-wider text-white/50">Credit Profile</p>
+                <p className="text-[11px] uppercase tracking-wider text-foreground/50">Credit Profile</p>
                 <div className="mt-3 flex items-center gap-4">
                   <HealthRing value={78} />
                   <div className="space-y-2">
                     <div>
-                      <p className="text-xs text-white/50">Score</p>
-                      <p className="font-display text-2xl font-semibold text-white">782</p>
+                      <p className="text-xs text-foreground/50">Score</p>
+                      <p className="font-display text-2xl font-semibold text-foreground">782</p>
                     </div>
                     <div>
-                      <p className="text-xs text-white/50">Utilization</p>
+                      <p className="text-xs text-foreground/50">Utilization</p>
                       <p className="text-sm font-medium text-emerald-400">28%</p>
                     </div>
                   </div>
@@ -114,8 +114,8 @@ export function DashboardShowcase() {
               {/* offers */}
               <div className="glass rounded-2xl p-5 lg:col-span-5">
                 <div className="flex items-center justify-between">
-                  <p className="text-[11px] uppercase tracking-wider text-white/50">Loan Offers</p>
-                  <Wallet className="h-4 w-4 text-white/40" />
+                  <p className="text-[11px] uppercase tracking-wider text-foreground/50">Loan Offers</p>
+                  <Wallet className="h-4 w-4 text-foreground/40" />
                 </div>
                 <ul className="mt-3 space-y-2">
                   {offers.map((o) => (
@@ -124,16 +124,16 @@ export function DashboardShowcase() {
                       className="flex items-center justify-between rounded-xl bg-white/[0.03] p-3 ring-1 ring-white/5"
                     >
                       <div>
-                        <p className="text-sm font-medium text-white">{o.product}</p>
+                        <p className="text-sm font-medium text-foreground">{o.product}</p>
                         <p className={`text-[11px] ${o.tone}`}>{o.tag}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-xs text-white/50">EMI</p>
-                        <p className="text-sm font-semibold text-white">{o.emi}</p>
+                        <p className="text-xs text-foreground/50">EMI</p>
+                        <p className="text-sm font-semibold text-foreground">{o.emi}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-xs text-white/50">Rate</p>
-                        <p className="text-sm font-semibold text-white">{o.rate}</p>
+                        <p className="text-xs text-foreground/50">Rate</p>
+                        <p className="text-sm font-semibold text-foreground">{o.rate}</p>
                       </div>
                     </li>
                   ))}
@@ -143,23 +143,23 @@ export function DashboardShowcase() {
               {/* EMI calc */}
               <div className="glass rounded-2xl p-5 lg:col-span-3">
                 <div className="flex items-center justify-between">
-                  <p className="text-[11px] uppercase tracking-wider text-white/50">EMI Planner</p>
-                  <Calculator className="h-4 w-4 text-white/40" />
+                  <p className="text-[11px] uppercase tracking-wider text-foreground/50">EMI Planner</p>
+                  <Calculator className="h-4 w-4 text-foreground/40" />
                 </div>
-                <p className="mt-3 font-display text-3xl font-semibold text-white">₹18,420</p>
-                <p className="text-xs text-white/50">/ month</p>
+                <p className="mt-3 font-display text-3xl font-semibold text-foreground">₹18,420</p>
+                <p className="text-xs text-foreground/50">/ month</p>
                 <div className="mt-4 space-y-2 text-xs">
-                  <div className="flex justify-between text-white/60">
+                  <div className="flex justify-between text-foreground/60">
                     <span>Amount</span>
-                    <span className="text-white">₹10,00,000</span>
+                    <span className="text-foreground">₹10,00,000</span>
                   </div>
-                  <div className="flex justify-between text-white/60">
+                  <div className="flex justify-between text-foreground/60">
                     <span>Tenure</span>
-                    <span className="text-white">60 mo</span>
+                    <span className="text-foreground">60 mo</span>
                   </div>
-                  <div className="flex justify-between text-white/60">
+                  <div className="flex justify-between text-foreground/60">
                     <span>Rate</span>
-                    <span className="text-white">10.4%</span>
+                    <span className="text-foreground">10.4%</span>
                   </div>
                 </div>
               </div>
@@ -167,8 +167,8 @@ export function DashboardShowcase() {
               {/* timeline */}
               <div className="glass rounded-2xl p-5 lg:col-span-7">
                 <div className="flex items-center justify-between">
-                  <p className="text-[11px] uppercase tracking-wider text-white/50">Activity</p>
-                  <Activity className="h-4 w-4 text-white/40" />
+                  <p className="text-[11px] uppercase tracking-wider text-foreground/50">Activity</p>
+                  <Activity className="h-4 w-4 text-foreground/40" />
                 </div>
                 <ul className="mt-3 space-y-3 text-sm">
                   {[
@@ -184,10 +184,10 @@ export function DashboardShowcase() {
                     <li key={a.t} className="flex items-start gap-3">
                       <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-400" />
                       <div className="flex-1">
-                        <p className="text-white">{a.t}</p>
-                        <p className="text-xs text-white/50">{a.s}</p>
+                        <p className="text-foreground">{a.t}</p>
+                        <p className="text-xs text-foreground/50">{a.s}</p>
                       </div>
-                      <span className="text-xs text-white/40">{a.time}</span>
+                      <span className="text-xs text-foreground/40">{a.time}</span>
                     </li>
                   ))}
                 </ul>
@@ -196,7 +196,7 @@ export function DashboardShowcase() {
               {/* trend */}
               <div className="glass rounded-2xl p-5 lg:col-span-5">
                 <div className="flex items-center justify-between">
-                  <p className="text-[11px] uppercase tracking-wider text-white/50">
+                  <p className="text-[11px] uppercase tracking-wider text-foreground/50">
                     Repayment Trend
                   </p>
                   <TrendingUp className="h-4 w-4 text-emerald-400" />
@@ -219,7 +219,7 @@ export function DashboardShowcase() {
                     strokeWidth="2"
                   />
                 </svg>
-                <div className="mt-2 flex justify-between text-[11px] text-white/50">
+                <div className="mt-2 flex justify-between text-[11px] text-foreground/50">
                   <span>Jan</span>
                   <span>Mar</span>
                   <span>May</span>

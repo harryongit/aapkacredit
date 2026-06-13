@@ -5,6 +5,7 @@ import Image from "next/image";
 import whitelogo from "@/assets/whitelogo.svg";
 import { MagneticButton } from "@/components/fx/MagneticButton";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const links = [
   { label: "Home", href: "#home" },
@@ -38,14 +39,14 @@ export function Navbar() {
         <div
           className={cn(
             "flex items-center justify-between rounded-full border border-transparent px-4 py-2.5 transition-all duration-500 sm:px-6",
-            scrolled && "glass-strong border-white/10",
+            scrolled && "glass-strong border-foreground/10",
           )}
         >
           <a
             href="#home"
-            className="flex items-center gap-2 font-display text-base font-semibold tracking-tight text-white"
+            className="flex items-center gap-2 font-display text-base font-semibold tracking-tight text-foreground"
           >
-            <Image src={whitelogo} alt="Aapka Credit Logo" className="h-8 w-auto" priority />
+            <Image src={whitelogo} alt="Aapka Credit Logo" className="h-8 w-auto dark:invert-0 invert" priority />
             <span>Aapka Credit</span>
           </a>
 
@@ -54,7 +55,7 @@ export function Navbar() {
               <a
                 key={l.href}
                 href={l.href}
-                className="group relative text-sm text-white/70 transition hover:text-white"
+                className="group relative text-sm text-foreground/70 transition hover:text-foreground"
               >
                 {l.label}
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-to-r from-[#3B82F6] to-[#10B981] transition-all duration-300 group-hover:w-full" />
@@ -62,16 +63,17 @@ export function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-4">
+            <ThemeToggle />
             <MagneticButton href="#contact" variant="primary" className="px-5 py-2.5 text-xs">
               Check Eligibility
             </MagneticButton>
           </div>
 
-          <button
-            type="button"
-            className="rounded-full p-2 text-white lg:hidden"
-            onClick={() => setOpen((v) => !v)}
+            <button
+              type="button"
+              className="rounded-full p-2 text-foreground lg:hidden"
+              onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -79,14 +81,14 @@ export function Navbar() {
         </div>
 
         {open && (
-          <div className="glass-strong mt-2 rounded-3xl border border-white/10 p-4 lg:hidden">
+          <div className="glass-strong mt-2 rounded-3xl border border-foreground/10 p-4 lg:hidden">
             <nav className="flex flex-col gap-1">
               {links.map((l) => (
                 <a
                   key={l.href}
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-3 py-2.5 text-sm text-white/80 hover:bg-white/5 hover:text-white"
+                  className="rounded-xl px-3 py-2.5 text-sm text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
                 >
                   {l.label}
                 </a>
@@ -94,7 +96,7 @@ export function Navbar() {
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="mt-2 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#10B981] px-3 py-2.5 text-center text-sm font-medium text-white"
+                className="mt-2 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#10B981] px-3 py-2.5 text-center text-sm font-medium text-foreground"
               >
                 Check Eligibility
               </a>

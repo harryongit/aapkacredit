@@ -8,7 +8,7 @@ export default function TermsPage() {
         title="Terms of Service"
         subtitle="Our terms and conditions of use."
       />
-      <div className="mt-12 text-white/70">
+      <div className="mt-12 text-foreground/70">
         <p>This page is currently under construction. Please check back later.</p>
       </div>
     </div>

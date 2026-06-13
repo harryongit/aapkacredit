@@ -58,12 +58,12 @@ export function Faq() {
               <AccordionItem
                 key={f.q}
                 value={`item-${i}`}
-                className="overflow-hidden rounded-2xl border border-white/10 glass px-5 data-[state=open]:shadow-elegant"
+                className="overflow-hidden rounded-2xl border border-foreground/10 glass px-5 data-[state=open]:shadow-elegant"
               >
-                <AccordionTrigger className="py-5 text-left text-base font-medium text-white hover:no-underline">
+                <AccordionTrigger className="py-5 text-left text-base font-medium text-foreground hover:no-underline">
                   {f.q}
                 </AccordionTrigger>
-                <AccordionContent className="pb-5 text-sm leading-relaxed text-white/65">
+                <AccordionContent className="pb-5 text-sm leading-relaxed text-foreground/65">
                   {f.a}
                 </AccordionContent>
               </AccordionItem>

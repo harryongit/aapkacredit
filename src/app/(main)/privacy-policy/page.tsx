@@ -8,7 +8,7 @@ export default function PrivacyPolicyPage() {
         title="Privacy Policy"
         subtitle="How we protect and manage your data."
       />
-      <div className="mt-12 text-white/70">
+      <div className="mt-12 text-foreground/70">
         <p>This page is currently under construction. Please check back later.</p>
       </div>
     </div>

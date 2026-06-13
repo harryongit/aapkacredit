@@ -59,15 +59,15 @@ export function LoanProducts() {
             >
               <div className="relative h-full rounded-[calc(1.5rem-1px)] bg-[#0a1428] p-8 transition-transform duration-500 group-hover:-translate-y-1">
                 <div className="flex items-start justify-between">
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-foreground/5 ring-1 ring-white/10">
                     <p.icon className="h-5 w-5 text-[#93c5fd]" />
                   </div>
-                  <span className="rounded-full bg-white/5 px-3 py-1 text-[11px] font-medium text-white/70 ring-1 ring-white/10">
+                  <span className="rounded-full bg-foreground/5 px-3 py-1 text-[11px] font-medium text-foreground/70 ring-1 ring-white/10">
                     {p.tag}
                   </span>
                 </div>
-                <h3 className="mt-6 font-display text-2xl font-semibold text-white">{p.title}</h3>
-                <p className="mt-2 max-w-sm text-sm leading-relaxed text-white/60">{p.text}</p>
+                <h3 className="mt-6 font-display text-2xl font-semibold text-foreground">{p.title}</h3>
+                <p className="mt-2 max-w-sm text-sm leading-relaxed text-foreground/60">{p.text}</p>
                 <div className="mt-6 inline-flex items-center gap-1.5 text-sm text-[#93c5fd] transition-transform duration-500 group-hover:translate-x-1">
                   Explore <ArrowUpRight className="h-4 w-4" />
                 </div>

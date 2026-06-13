@@ -56,11 +56,11 @@ export function Features() {
           {features.map((f) => (
             <motion.div key={f.title} variants={itemVariants}>
               <SpotlightCard className="h-full p-7">
-                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10">
+                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-foreground/5 ring-1 ring-white/10">
                   <f.icon className="h-5 w-5 text-[#93c5fd]" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">{f.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/60">{f.text}</p>
+                <h3 className="text-lg font-semibold text-foreground">{f.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-foreground/60">{f.text}</p>
               </SpotlightCard>
             </motion.div>
           ))}

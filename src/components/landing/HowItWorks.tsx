@@ -58,13 +58,13 @@ export function HowItWorks() {
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#2563EB]/20 to-[#10B981]/10 blur-xl" />
                   <div className="relative grid h-24 w-24 place-items-center rounded-full bg-[#0a1428] ring-1 ring-white/10">
                     <s.icon className="h-6 w-6 text-[#93c5fd]" />
-                    <span className="absolute -top-2 -right-2 grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] text-xs font-semibold text-white">
+                    <span className="absolute -top-2 -right-2 grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] text-xs font-semibold text-foreground">
                       {i + 1}
                     </span>
                   </div>
                 </div>
-                <h3 className="mt-6 font-display text-xl font-semibold text-white">{s.title}</h3>
-                <p className="mt-2 max-w-xs text-sm leading-relaxed text-white/60">{s.text}</p>
+                <h3 className="mt-6 font-display text-xl font-semibold text-foreground">{s.title}</h3>
+                <p className="mt-2 max-w-xs text-sm leading-relaxed text-foreground/60">{s.text}</p>
               </motion.div>
             ))}
           </StaggerGroup>

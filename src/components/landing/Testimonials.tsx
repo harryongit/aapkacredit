@@ -47,8 +47,8 @@ export function Testimonials() {
           }
         />
         <div className="relative mt-14">
-          <div className="glass-strong relative overflow-hidden rounded-3xl border border-white/10 p-10 sm:p-14">
-            <Quote className="absolute right-8 top-8 h-12 w-12 text-white/5" />
+          <div className="glass-strong relative overflow-hidden rounded-3xl border border-foreground/10 p-10 sm:p-14">
+            <Quote className="absolute right-8 top-8 h-12 w-12 text-foreground/5" />
             <AnimatePresence mode="wait">
               <motion.blockquote
                 key={i}
@@ -56,15 +56,15 @@ export function Testimonials() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.5 }}
-                className="font-display text-2xl font-medium leading-snug text-white sm:text-3xl"
+                className="font-display text-2xl font-medium leading-snug text-foreground sm:text-3xl"
               >
                 &ldquo;{q.text}&rdquo;
               </motion.blockquote>
             </AnimatePresence>
             <div className="mt-8 flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-white">{q.name}</p>
-                <p className="text-xs text-white/50">{q.role}</p>
+                <p className="text-sm font-semibold text-foreground">{q.name}</p>
+                <p className="text-xs text-foreground/50">{q.role}</p>
               </div>
               <div className="flex gap-2">
                 {quotes.map((_, idx) => (
@@ -72,7 +72,7 @@ export function Testimonials() {
                     key={idx}
                     onClick={() => setI(idx)}
                     aria-label={`Quote ${idx + 1}`}
-                    className={`h-1.5 rounded-full transition-all ${idx === i ? "w-8 bg-white" : "w-4 bg-white/20"}`}
+                    className={`h-1.5 rounded-full transition-all ${idx === i ? "w-8 bg-white" : "w-4 bg-foreground/20"}`}
                   />
                 ))}
               </div>

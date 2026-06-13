@@ -35,7 +35,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-flex items-center gap-2 rounded-full glass px-3 py-1.5 text-xs text-white/80"
+            className="inline-flex items-center gap-2 rounded-full glass px-3 py-1.5 text-xs text-foreground/80"
           >
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
@@ -48,7 +48,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 font-display text-5xl font-semibold leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl"
+            className="mt-6 font-display text-5xl font-semibold leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-7xl"
           >
             Get the right loan
             <br />
@@ -59,7 +59,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.18 }}
-            className="mt-6 max-w-xl text-base text-white/65 sm:text-lg"
+            className="mt-6 max-w-xl text-base text-foreground/65 sm:text-lg"
           >
             Aapka Credit helps you discover loan opportunities, understand eligibility, and make
             smarter borrowing decisions through a transparent, modern digital experience.
@@ -93,8 +93,8 @@ export function Hero() {
                 >
                   <m.icon className="h-4 w-4 text-white" />
                 </div>
-                <p className="text-[11px] uppercase tracking-wider text-white/50">{m.label}</p>
-                <p className="mt-0.5 text-sm font-semibold text-white">{m.value}</p>
+                <p className="text-[11px] uppercase tracking-wider text-foreground/50">{m.label}</p>
+                <p className="mt-0.5 text-sm font-semibold text-foreground">{m.value}</p>
               </motion.div>
             ))}
           </div>

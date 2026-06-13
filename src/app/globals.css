@@ -52,7 +52,58 @@
 
 :root {
   --radius: 0.625rem;
-  /* Aapka Credit - dark-first fintech palette */
+  /* Aapka Credit - Light Theme Palette */
+  --background: oklch(0.98 0.01 240); /* very light blue/gray */
+  --foreground: oklch(0.16 0.05 264); /* deep navy */
+  --card: oklch(1 0 0); /* white */
+  --card-foreground: oklch(0.16 0.05 264);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.16 0.05 264);
+  --primary: oklch(0.58 0.22 264); /* royal blue #2563EB */
+  --primary-foreground: oklch(0.99 0.005 240);
+  --electric: oklch(0.68 0.18 254); /* electric blue #3B82F6 */
+  --secondary: oklch(0.95 0.02 240);
+  --secondary-foreground: oklch(0.2 0.05 264);
+  --muted: oklch(0.95 0.02 240);
+  --muted-foreground: oklch(0.45 0.05 250);
+  --accent: oklch(0.95 0.02 240);
+  --accent-foreground: oklch(0.16 0.05 264);
+  --success: oklch(0.65 0.17 160); /* emerald */
+  --destructive: oklch(0.62 0.24 27);
+  --destructive-foreground: oklch(0.985 0.005 240);
+  --border: oklch(0 0 0 / 10%);
+  --input: oklch(0 0 0 / 12%);
+  --ring: oklch(0.68 0.18 254);
+  --chart-1: oklch(0.68 0.18 254);
+  --chart-2: oklch(0.72 0.17 160);
+  --chart-3: oklch(0.62 0.18 220);
+  --chart-4: oklch(0.74 0.15 200);
+  --chart-5: oklch(0.58 0.22 264);
+  --sidebar: oklch(0.98 0.01 240);
+  --sidebar-foreground: oklch(0.16 0.05 264);
+  --sidebar-primary: oklch(0.58 0.22 264);
+  --sidebar-primary-foreground: oklch(0.99 0.005 240);
+  --sidebar-accent: oklch(0.95 0.02 240);
+  --sidebar-accent-foreground: oklch(0.16 0.05 264);
+  --sidebar-border: oklch(0 0 0 / 10%);
+  --sidebar-ring: oklch(0.68 0.18 254);
+
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-strong-bg: rgba(255, 255, 255, 0.85);
+  --glass-strong-border: rgba(0, 0, 0, 0.12);
+
+  --gradient-primary: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #10b981 100%);
+  --gradient-aurora:
+    radial-gradient(60% 80% at 20% 10%, rgba(59, 130, 246, 0.15) 0%, transparent 60%),
+    radial-gradient(50% 70% at 85% 20%, rgba(37, 99, 235, 0.1) 0%, transparent 60%),
+    radial-gradient(60% 70% at 50% 90%, rgba(16, 185, 129, 0.1) 0%, transparent 60%);
+  --shadow-glow: 0 20px 80px -20px rgba(59, 130, 246, 0.25);
+  --shadow-elegant:
+    0 30px 60px -30px rgba(2, 8, 23, 0.15), 0 12px 30px -15px rgba(59, 130, 246, 0.1);
+}
+
+.dark {
   --background: oklch(0.16 0.05 264); /* deep navy #071124 */
   --foreground: oklch(0.985 0.005 240); /* near-white */
   --card: oklch(0.2 0.05 264);
@@ -87,6 +138,11 @@
   --sidebar-accent-foreground: oklch(0.985 0.005 240);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.68 0.18 254);
+
+  --glass-bg: rgba(15, 23, 42, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-strong-bg: rgba(7, 17, 36, 0.7);
+  --glass-strong-border: rgba(255, 255, 255, 0.1);
 
   --gradient-primary: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #10b981 100%);
   --gradient-aurora:
@@ -125,19 +181,19 @@
 }
 
 @utility glass {
-  background: rgba(15, 23, 42, 0.55);
+  background: var(--glass-bg);
   backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--glass-border);
 }
 
 @utility glass-strong {
-  background: rgba(7, 17, 36, 0.7);
+  background: var(--glass-strong-bg);
   backdrop-filter: blur(28px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-strong-border);
 }
 
 @utility text-gradient {
-  background: linear-gradient(135deg, #ffffff 0%, #93c5fd 50%, #6ee7b7 100%);
+  background: linear-gradient(135deg, var(--color-foreground) 0%, var(--color-primary) 50%, var(--color-success) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

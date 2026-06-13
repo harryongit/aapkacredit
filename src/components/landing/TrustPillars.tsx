@@ -49,8 +49,8 @@ export function TrustPillars() {
                 <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-[#2563EB]/30 to-[#10B981]/20 ring-1 ring-white/10">
                   <p.icon className="h-5 w-5 text-[#93c5fd]" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">{p.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/60">{p.text}</p>
+                <h3 className="text-lg font-semibold text-foreground">{p.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-foreground/60">{p.text}</p>
               </SpotlightCard>
             </motion.div>
           ))}

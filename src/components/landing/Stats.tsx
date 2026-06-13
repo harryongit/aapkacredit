@@ -14,7 +14,7 @@ export function Stats() {
     <section className="relative py-24">
       <div className="mx-auto max-w-7xl px-4">
         <Reveal>
-          <div className="glass-strong relative overflow-hidden rounded-3xl border border-white/10 p-8 sm:p-12">
+          <div className="glass-strong relative overflow-hidden rounded-3xl border border-foreground/10 p-8 sm:p-12">
             <div
               aria-hidden
               className="pointer-events-none absolute -inset-px rounded-3xl opacity-40"
@@ -26,10 +26,10 @@ export function Stats() {
             <div className="relative grid grid-cols-2 gap-8 lg:grid-cols-4">
               {stats.map((s) => (
                 <div key={s.label}>
-                  <p className="font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+                  <p className="font-display text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
                     <CountUp to={s.value} suffix={s.suffix} />
                   </p>
-                  <p className="mt-2 text-sm text-white/60">{s.label}</p>
+                  <p className="mt-2 text-sm text-foreground/60">{s.label}</p>
                 </div>
               ))}
             </div>

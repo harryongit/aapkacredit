@@ -36,10 +36,10 @@ function FloatInput({
   error?: string;
 }) {
   const common =
-    "peer w-full rounded-2xl bg-white/[0.04] px-4 pt-6 pb-2 text-sm text-white outline-none ring-1 ring-white/10 transition focus:ring-2 focus:ring-[#3B82F6]";
+    "peer w-full rounded-2xl bg-white/[0.04] px-4 pt-6 pb-2 text-sm text-foreground outline-none ring-1 ring-white/10 transition focus:ring-2 focus:ring-[#3B82F6]";
   return (
     <div className="relative">
-      <Icon className="pointer-events-none absolute right-4 top-5 h-4 w-4 text-white/30" />
+      <Icon className="pointer-events-none absolute right-4 top-5 h-4 w-4 text-foreground/30" />
       {textarea ? (
         <textarea
           id={id}
@@ -61,7 +61,7 @@ function FloatInput({
       )}
       <label
         htmlFor={id}
-        className="pointer-events-none absolute left-4 top-2 text-[11px] uppercase tracking-wider text-white/50 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2 peer-focus:text-[11px] peer-focus:uppercase peer-focus:tracking-wider"
+        className="pointer-events-none absolute left-4 top-2 text-[11px] uppercase tracking-wider text-foreground/50 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2 peer-focus:text-[11px] peer-focus:uppercase peer-focus:tracking-wider"
       >
         {label}
       </label>
@@ -107,7 +107,7 @@ export function Contact() {
         <Reveal className="mt-14">
           <form
             onSubmit={onSubmit}
-            className="glass-strong relative overflow-hidden rounded-3xl border border-white/10 p-6 sm:p-10"
+            className="glass-strong relative overflow-hidden rounded-3xl border border-foreground/10 p-6 sm:p-10"
           >
             <div
               aria-hidden

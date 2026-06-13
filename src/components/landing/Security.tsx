@@ -57,18 +57,18 @@ export function Security() {
           {/* shield visual */}
           <div className="relative flex items-center justify-center lg:col-span-5">
             <div className="relative h-72 w-72">
-              <div className="absolute inset-0 rounded-full border border-white/10 animate-pulse-ring" />
+              <div className="absolute inset-0 rounded-full border border-foreground/10 animate-pulse-ring" />
               <div
-                className="absolute inset-6 rounded-full border border-white/10 animate-pulse-ring"
+                className="absolute inset-6 rounded-full border border-foreground/10 animate-pulse-ring"
                 style={{ animationDelay: "0.6s" }}
               />
               <div
-                className="absolute inset-12 rounded-full border border-white/10 animate-pulse-ring"
+                className="absolute inset-12 rounded-full border border-foreground/10 animate-pulse-ring"
                 style={{ animationDelay: "1.2s" }}
               />
               <div className="absolute inset-0 grid place-items-center">
                 <div className="grid h-32 w-32 place-items-center rounded-3xl bg-gradient-to-br from-[#2563EB] to-[#10B981] shadow-glow">
-                  <ShieldCheck className="h-14 w-14 text-white" />
+                  <ShieldCheck className="h-14 w-14 text-foreground" />
                 </div>
               </div>
             </div>
@@ -82,12 +82,12 @@ export function Security() {
                 variants={itemVariants}
                 className="group flex items-start gap-4 rounded-2xl glass p-5 transition hover:-translate-y-0.5 hover:shadow-elegant"
               >
-                <div className="grid h-11 w-11 flex-none place-items-center rounded-xl bg-white/5 ring-1 ring-white/10">
+                <div className="grid h-11 w-11 flex-none place-items-center rounded-xl bg-foreground/5 ring-1 ring-white/10">
                   <it.icon className="h-5 w-5 text-[#93c5fd]" />
                 </div>
                 <div>
-                  <h4 className="text-base font-semibold text-white">{it.title}</h4>
-                  <p className="mt-1 text-sm text-white/60">{it.text}</p>
+                  <h4 className="text-base font-semibold text-foreground">{it.title}</h4>
+                  <p className="mt-1 text-sm text-foreground/60">{it.text}</p>
                 </div>
               </motion.div>
             ))}
