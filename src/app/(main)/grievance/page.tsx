@@ -1,16 +1,61 @@
+import { Metadata } from "next";
 import { SectionHeading } from "@/components/landing/SectionHeading";
+
+export const metadata: Metadata = {
+  title: "Grievance Redressal | Aapka Credit",
+  description: "Aapka Credit's Grievance Redressal Mechanism to ensure customer complaints are resolved efficiently.",
+  alternates: {
+    canonical: "https://aapkacredit.com/grievance",
+  },
+};
 
 export default function GrievancePage() {
   return (
-    <div className="relative pt-32 pb-24 min-h-[60vh] max-w-4xl mx-auto px-6">
-      <SectionHeading
-        eyebrow="Legal"
-        title="Grievance Redressal"
-        subtitle="How to raise and resolve complaints."
-      />
-      <div className="mt-12 text-foreground/70">
-        <p>This page is currently under construction. Please check back later.</p>
+    <main className="min-h-screen bg-background pt-32 pb-24">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          eyebrow="Support"
+          title="Grievance Redressal"
+          subtitle="We are here to resolve your concerns swiftly and fairly."
+        />
+
+        <div className="mt-16 glass p-8 sm:p-12 rounded-3xl border border-border">
+          <div className="prose prose-invert prose-lg max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-li:text-muted-foreground">
+            <h2>Our Commitment</h2>
+            <p>
+              At Aapka Credit, customer satisfaction is our top priority. We have established a robust Grievance Redressal Mechanism to address any complaints or concerns you may have regarding our services or our lending partners.
+            </p>
+
+            <h2>Level 1: Customer Support</h2>
+            <p>
+              If you have a query or complaint, your first step should be to contact our customer support team. They are equipped to handle and resolve most issues promptly.
+            </p>
+            <ul>
+              <li><strong>Email:</strong> support@prismcosmic.com</li>
+              <li><strong>Response Time:</strong> 24-48 business hours</li>
+            </ul>
+
+            <h2>Level 2: Grievance Redressal Officer (GRO)</h2>
+            <p>
+              If your issue is not resolved within 7 days by Level 1, or if you are dissatisfied with the resolution provided, you may escalate your complaint to our appointed Grievance Redressal Officer.
+            </p>
+            <div className="p-6 bg-foreground/5 rounded-xl border border-border not-prose mt-6 mb-6">
+              <h4 className="font-semibold text-foreground mb-2">Grievance Redressal Officer</h4>
+              <p className="text-muted-foreground text-sm space-y-1">
+                <span className="block"><strong>Name:</strong> [Officer Name]</span>
+                <span className="block"><strong>Email:</strong> grievance@prismcosmic.com</span>
+                <span className="block"><strong>Phone:</strong> +91 [Phone Number]</span>
+                <span className="block"><strong>Address:</strong> Prism Cosmic Private Limited, [Address Line 1, Address Line 2, City, State, PIN]</span>
+              </p>
+            </div>
+
+            <h2>Level 3: Regulatory Escalation</h2>
+            <p>
+              If your complaint remains unresolved within 30 days of filing it with our GRO, or if you are unsatisfied with the final resolution, you may escalate the matter directly to the Reserve Bank of India (RBI) via the Complaint Management System (CMS) portal.
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
