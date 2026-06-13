@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X, Sparkles } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import whitelogo from "@/assets/whitelogo.svg";
 import { MagneticButton } from "@/components/fx/MagneticButton";
 import { cn } from "@/lib/utils";
@@ -43,13 +44,13 @@ export function Navbar() {
             scrolled && "glass-strong border-foreground/10",
           )}
         >
-          <a
+          <Link
             href="/"
             className="flex items-center gap-2 font-display text-base font-semibold tracking-tight text-foreground"
           >
             <Image src={whitelogo} alt="Aapka Credit Logo" className="h-8 w-auto dark:invert-0 invert" priority />
             <span>Aapka Credit</span>
-          </a>
+          </Link>
 
           <nav className="hidden items-center gap-8 lg:flex">
             {links.map((l) => (
