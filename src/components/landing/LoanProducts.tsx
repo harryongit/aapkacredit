@@ -10,24 +10,28 @@ const products = [
     title: "Personal Loans",
     text: "Fast access to flexible financing for life's important moments.",
     tag: "Up to ₹40L",
+    href: "/personal-loan",
   },
   {
     icon: Briefcase,
     title: "Business Loans",
     text: "Working capital and growth funding for ambitious businesses.",
     tag: "Up to ₹2Cr",
+    href: "/business-loan",
   },
   {
     icon: GraduationCap,
     title: "Education Loans",
     text: "Invest in your future without compromising on the program.",
     tag: "Up to ₹75L",
+    href: "/education-loan",
   },
   {
     icon: Gauge,
     title: "Eligibility Check",
     text: "Know your borrowing options in seconds, with zero impact on credit score.",
     tag: "Instant",
+    href: "/#how",
   },
 ];
 
@@ -50,7 +54,7 @@ export function LoanProducts() {
             <motion.a
               key={p.title}
               variants={itemVariants}
-              href="#contact"
+              href={p.href}
               className="group relative overflow-hidden rounded-3xl p-px"
               style={{
                 background:
