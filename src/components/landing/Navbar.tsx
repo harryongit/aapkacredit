@@ -44,7 +44,7 @@ export function Navbar() {
           )}
         >
           <a
-            href="#home"
+            href="/"
             className="flex items-center gap-2 font-display text-base font-semibold tracking-tight text-foreground"
           >
             <Image src={whitelogo} alt="Aapka Credit Logo" className="h-8 w-auto dark:invert-0 invert" priority />
