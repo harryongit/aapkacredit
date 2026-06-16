@@ -1,9 +1,10 @@
 import { blogPosts } from "@/lib/blog";
+import { getAuthorById } from "@/lib/authors";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { MagneticButton } from "@/components/fx/MagneticButton";
 
 interface Props {
@@ -16,6 +17,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) return {};
 
+  const authorName = post.authorId ? getAuthorById(post.authorId)?.name || "Aapka Credit Finance Team" : "Aapka Credit Finance Team";
+
   return {
     title: `${post.title} | Aapka Credit`,
     description: post.description,
@@ -25,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.description,
       type: "article",
       publishedTime: post.date,
-      authors: ["Aapka Credit Finance Team"],
+      authors: [authorName],
     },
   };
 }
@@ -44,6 +47,9 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
+  const author = post.authorId ? getAuthorById(post.authorId) : null;
+  const authorName = author ? author.name : "Aapka Credit";
+  
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -51,8 +57,9 @@ export default async function BlogPostPage({ params }: Props) {
     description: post.description,
     datePublished: post.date,
     author: {
-      "@type": "Organization",
-      name: "Aapka Credit",
+      "@type": "Organization", // For author schema we could use Person if an individual, but Organization works for both
+      name: authorName,
+      ...(author ? { url: "https://aapkacredit.com/authors" } : {})
     },
   };
 
@@ -80,10 +87,16 @@ export default async function BlogPostPage({ params }: Props) {
         </Link>
 
         <header className="mb-12 border-b border-border pb-8">
-          <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
             <span className="bg-primary/10 text-primary px-3 py-1 rounded-full font-medium">
               {post.category}
             </span>
+            {author && (
+              <Link href="/authors" className="flex items-center gap-1.5 hover:text-primary transition-colors">
+                <User className="h-4 w-4" />
+                {author.name}
+              </Link>
+            )}
             <span className="flex items-center gap-1.5">
               <Calendar className="h-4 w-4" />
               {new Date(post.date).toLocaleDateString('en-IN', { month: 'long', day: 'numeric', year: 'numeric' })}

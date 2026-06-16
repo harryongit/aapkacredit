@@ -11,8 +11,10 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-displ
 // ─── Site-wide constants ─────────────────────────────────────────────────────
 const SITE_URL = "https://aapkacredit.com";
 const SITE_NAME = "Aapka Credit";
-// TODO: Replace with your actual GA4 Measurement ID (format: G-XXXXXXXXXX)
-const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID ?? "G-XXXXXXXXXX";
+// GA4 Measurement ID — set NEXT_PUBLIC_GA4_ID in .env.local
+const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID ?? "";
+// Google Search Console — set NEXT_PUBLIC_GSC_CODE in .env.local  
+const GSC_CODE = process.env.NEXT_PUBLIC_GSC_CODE ?? "";
 
 // ─── Root Metadata ───────────────────────────────────────────────────────────
 export const metadata: Metadata = {
@@ -50,11 +52,10 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
 
-  // ✅ Google Search Console verification
-  // TODO: Replace with your actual GSC HTML tag content value
-  verification: {
-    google: "TODO_REPLACE_WITH_GSC_VERIFICATION_CODE",
-  },
+  // ✅ Google Search Console verification — reads from NEXT_PUBLIC_GSC_CODE env var
+  ...(GSC_CODE && GSC_CODE !== "TODO_REPLACE_WITH_GSC_VERIFICATION_CODE" ? {
+    verification: { google: GSC_CODE },
+  } : {}),
 
   // ✅ Open Graph — complete with image
   openGraph: {
@@ -238,8 +239,8 @@ export default function RootLayout({
           <Toaster />
         </Providers>
 
-        {/* ✅ Google Analytics 4 — loads after page is interactive */}
-        {GA4_ID !== "G-XXXXXXXXXX" && (
+        {/* ✅ Google Analytics 4 — loads after page is interactive, non-blocking */}
+        {GA4_ID && GA4_ID.startsWith("G-") && (
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
@@ -253,6 +254,7 @@ export default function RootLayout({
                 gtag('config', '${GA4_ID}', {
                   page_path: window.location.pathname,
                   send_page_view: true,
+                  cookie_flags: 'SameSite=None;Secure',
                 });
               `}
             </Script>
