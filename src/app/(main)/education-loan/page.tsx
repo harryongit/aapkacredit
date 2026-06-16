@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { FaqSchema } from "@/components/seo/FaqSchema";
 import { MagneticButton } from "@/components/fx/MagneticButton";
 import { GraduationCap, IndianRupee, Globe, Percent } from "lucide-react";
 
@@ -29,22 +31,7 @@ export default function EducationLoanPage() {
     }
   };
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://aapkacredit.com"
-    },{
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Education Loan",
-      "item": "https://aapkacredit.com/education-loan"
-    }]
-  };
-
+  // FAQ data — used both for display (JSX) and schema (FaqSchema component)
   const faqs = [
     {
       question: "Which courses and countries are covered under the education loan?",
@@ -60,24 +47,13 @@ export default function EducationLoanPage() {
     }
   ];
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(f => ({
-      "@type": "Question",
-      "name": f.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": f.answer
-      }
-    }))
-  };
-
   return (
     <main className="min-h-screen bg-background pt-32 pb-24">
-      <JsonLd data={schema} />
-      <JsonLd data={breadcrumbSchema} />
-      <JsonLd data={faqSchema} />
+      <JsonLd data={schema} id="education-loan-schema" />
+      {/* ✅ Migrated to reusable BreadcrumbSchema component */}
+      <BreadcrumbSchema items={[{ name: "Education Loan", url: "https://aapkacredit.com/education-loan" }]} />
+      {/* ✅ Migrated to reusable FaqSchema component */}
+      <FaqSchema faqs={faqs} id="education-loan-faq-schema" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">

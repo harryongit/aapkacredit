@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { FaqSchema } from "@/components/seo/FaqSchema";
 import { MagneticButton } from "@/components/fx/MagneticButton";
 import { Briefcase, IndianRupee, TrendingUp, ShieldCheck } from "lucide-react";
 
@@ -75,9 +77,11 @@ export default function BusinessLoanPage() {
 
   return (
     <main className="min-h-screen bg-background pt-32 pb-24">
-      <JsonLd data={schema} />
-      <JsonLd data={breadcrumbSchema} />
-      <JsonLd data={faqSchema} />
+      <JsonLd data={schema} id="business-loan-schema" />
+      {/* ✅ Reusable BreadcrumbSchema component */}
+      <BreadcrumbSchema items={[{ name: "Business Loan", url: "https://aapkacredit.com/business-loan" }]} />
+      {/* ✅ Reusable FaqSchema component */}
+      <FaqSchema faqs={faqs} id="business-loan-faq-schema" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">

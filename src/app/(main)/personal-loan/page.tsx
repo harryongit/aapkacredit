@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { FaqSchema } from "@/components/seo/FaqSchema";
 import { MagneticButton } from "@/components/fx/MagneticButton";
 import { CheckCircle2, IndianRupee, Clock, ShieldCheck } from "lucide-react";
 
@@ -75,9 +77,11 @@ export default function PersonalLoanPage() {
 
   return (
     <main className="min-h-screen bg-background pt-32 pb-24">
-      <JsonLd data={schema} />
-      <JsonLd data={breadcrumbSchema} />
-      <JsonLd data={faqSchema} />
+      <JsonLd data={schema} id="personal-loan-schema" />
+      {/* ✅ Reusable BreadcrumbSchema component */}
+      <BreadcrumbSchema items={[{ name: "Personal Loan", url: "https://aapkacredit.com/personal-loan" }]} />
+      {/* ✅ Reusable FaqSchema component */}
+      <FaqSchema faqs={faqs} id="personal-loan-faq-schema" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Hero */}

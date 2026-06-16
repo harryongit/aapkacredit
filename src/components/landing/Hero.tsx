@@ -106,10 +106,7 @@ export function Hero() {
               <HeroScene />
             </Parallax>
             <div
-              className="pointer-events-none absolute -inset-4 -z-10 rounded-[40px] opacity-60 blur-3xl"
-              style={{
-                background: "radial-gradient(closest-side, rgba(59,130,246,0.5), transparent 70%)",
-              }}
+              className="pointer-events-none absolute -inset-4 -z-10 rounded-[40px] opacity-60 blur-3xl bg-radial-blue"
             />
           </div>
         </div>

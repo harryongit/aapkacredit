@@ -17,11 +17,7 @@ export function Stats() {
           <div className="glass-strong relative overflow-hidden rounded-3xl border border-foreground/10 p-8 sm:p-12">
             <div
               aria-hidden
-              className="pointer-events-none absolute -inset-px rounded-3xl opacity-40"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(59,130,246,0.15), transparent 50%, rgba(16,185,129,0.15))",
-              }}
+              className="pointer-events-none absolute -inset-px rounded-3xl opacity-40 bg-gradient-stats"
             />
             <div className="relative grid grid-cols-2 gap-8 lg:grid-cols-4">
               {stats.map((s) => (

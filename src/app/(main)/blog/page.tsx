@@ -2,23 +2,51 @@ import { blogPosts } from "@/lib/blog";
 import Link from "next/link";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { Metadata } from "next";
+import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Aapka Credit Blog - Personal Finance & Loan Tips",
-  description: "Expert advice on personal loans, improving your credit score, home loan tax benefits, EMI calculation, and debt management.",
-  keywords: ["finance blog", "personal loan tips", "credit score guide", "loan advice india"],
+  title: "Personal Finance Blog – Credit & Loan Guides | Aapka Credit",
+  description: "Expert guides on improving your CIBIL score, personal loan eligibility, EMI calculation, home loan tax benefits, and smart debt management strategies.",
+  keywords: ["finance blog", "personal loan tips", "credit score guide", "loan advice india", "improve cibil score", "emi planning"],
+  alternates: {
+    canonical: "https://aapkacredit.com/blog",
+  },
 };
 
 export default function BlogIndexPage() {
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Aapka Credit Financial Insights & Guides",
+    "description": "Expert guides on personal loans, credit scores, EMI planning, and smart borrowing in India.",
+    "url": "https://aapkacredit.com/blog",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Aapka Credit",
+      "url": "https://aapkacredit.com"
+    },
+    "blogPost": blogPosts.map((post) => ({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.description,
+      "url": `https://aapkacredit.com/blog/${post.slug}`,
+      "datePublished": post.date,
+      "keywords": post.keywords.join(", "),
+    }))
+  };
+
   return (
     <main className="min-h-screen bg-background pt-32 pb-24">
+      <JsonLd data={blogSchema} id="blog-schema" />
+      <BreadcrumbSchema items={[{ name: "Blog", url: "https://aapkacredit.com/blog" }]} />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
-            Financial Insights & Guides
+            Financial Insights &amp; Guides
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Master your personal finances with our expert guides on credit scores, loan eligibility, and smart debt management.
+            Master your personal finances with expert guides on credit scores, loan eligibility, EMI planning, and smart debt management — written by the Aapka Credit team.
           </p>
         </div>
 

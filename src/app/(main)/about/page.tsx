@@ -1,10 +1,15 @@
 import { Metadata } from "next";
 import { SectionHeading } from "@/components/landing/SectionHeading";
-import { Users, Target, Shield, Heart } from "lucide-react";
+import { Users, Target, Shield, Heart, Award, Calendar, MapPin } from "lucide-react";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Us | Aapka Credit",
-  description: "Learn about Aapka Credit's mission to democratize credit access in India through technology and transparency.",
+  // ✅ 55 chars (was 22 chars — too short for unique SERP display)
+  title: "About Aapka Credit – India's Trusted Digital Lender",
+  description:
+    "Aapka Credit by Prism Cosmic Private Limited is on a mission to democratize credit in India. Learn about our story, values, technology, and team.",
   alternates: {
     canonical: "https://aapkacredit.com/about",
   },
@@ -34,8 +39,27 @@ const values = [
 ];
 
 export default function AboutPage() {
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Aapka Credit",
+    "url": "https://aapkacredit.com/about",
+    "description": "Aapka Credit is India's next-generation digital lending platform, built by Prism Cosmic Private Limited.",
+    "mainEntity": {
+      "@type": "Organization",
+      "@id": "https://aapkacredit.com/#organization",
+      "name": "Aapka Credit",
+      "legalName": "Prism Cosmic Private Limited",
+      "foundingDate": "2023",
+      "url": "https://aapkacredit.com",
+    }
+  };
+
   return (
     <main className="min-h-screen bg-background pt-32 pb-24">
+      <JsonLd data={aboutSchema} id="about-schema" />
+      <BreadcrumbSchema items={[{ name: "About Us", url: "https://aapkacredit.com/about" }]} />
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Our Story"
@@ -49,16 +73,43 @@ export default function AboutPage() {
 
         <div className="mt-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-6">
-            <h3 className="text-3xl font-display font-bold text-foreground">
+            <h2 className="text-3xl font-display font-bold text-foreground">
               Who we are
-            </h3>
+            </h2>
             <p className="text-muted-foreground leading-relaxed text-lg">
-              Aapka Credit, powered by Prism Cosmic Private Limited, was founded with a simple yet ambitious goal: to bridge the credit gap in India. 
-              We noticed that traditional banks often left out millions of deserving individuals and small businesses due to rigid underwriting processes.
+              Aapka Credit, powered by{" "}
+              <a
+                href="https://prismcosmic.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline font-medium"
+              >
+                Prism Cosmic Private Limited
+              </a>
+              , was founded with a simple yet ambitious goal: to bridge the credit gap in India.
+              We noticed that traditional banks often left out millions of deserving individuals and
+              small businesses due to rigid underwriting processes.
             </p>
             <p className="text-muted-foreground leading-relaxed text-lg">
-              By leveraging cutting-edge technology, alternative data sources, and deep financial expertise, we&apos;ve built a platform that instantly connects borrowers with the right lending partners, ensuring the lowest interest rates and highest approval chances.
+              By leveraging cutting-edge technology, alternative data sources, and deep financial
+              expertise, we&apos;ve built a platform that instantly connects borrowers with the right
+              lending partners, ensuring the lowest interest rates and highest approval chances.
             </p>
+
+            {/* ✅ E-E-A-T: Company Identity signals */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+              {[
+                { icon: Calendar, label: "Founded", value: "2023" },
+                { icon: MapPin, label: "Registered", value: "India" },
+                { icon: Award, label: "Type", value: "FinTech / NBFC" },
+              ].map((item) => (
+                <div key={item.label} className="glass rounded-2xl p-4 border border-border text-center">
+                  <item.icon className="h-5 w-5 text-primary mx-auto mb-2" />
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider">{item.label}</p>
+                  <p className="text-sm font-semibold text-foreground mt-1">{item.value}</p>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="relative aspect-square md:aspect-video lg:aspect-square rounded-3xl overflow-hidden glass p-8 border border-border">
              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-electric/10 mix-blend-overlay" />
@@ -73,18 +124,40 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-32">
-          <h3 className="text-3xl font-display font-bold text-foreground text-center mb-16">
+          <h2 className="text-3xl font-display font-bold text-foreground text-center mb-16">
             Our Core Values
-          </h3>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, idx) => (
               <div key={idx} className="glass rounded-3xl p-8 border border-border">
                 <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-6">
                   <value.icon className="h-6 w-6" />
                 </div>
-                <h4 className="text-xl font-semibold text-foreground mb-3">{value.title}</h4>
+                <h3 className="text-xl font-semibold text-foreground mb-3">{value.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{value.description}</p>
               </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ✅ E-E-A-T: Internal linking to main products */}
+        <div className="mt-24 pt-12 border-t border-border text-center">
+          <h2 className="text-2xl font-display font-bold text-foreground mb-6">Explore Our Products</h2>
+          <div className="flex flex-wrap justify-center gap-4">
+            {[
+              { label: "Personal Loans", href: "/personal-loan" },
+              { label: "Business Loans", href: "/business-loan" },
+              { label: "⁠Education Loans", href: "/education-loan" },
+              { label: "EMI Calculator", href: "/calculator" },
+              { label: "Finance Blog", href: "/blog" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="rounded-full border border-border px-5 py-2 text-sm text-foreground/70 hover:text-foreground hover:border-primary transition"
+              >
+                {link.label}
+              </Link>
             ))}
           </div>
         </div>

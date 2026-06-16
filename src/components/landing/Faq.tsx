@@ -7,6 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Reveal } from "@/components/fx/Reveal";
+import { FaqSchema } from "@/components/seo/FaqSchema";
 
 const faqs = [
   {
@@ -39,9 +40,15 @@ const faqs = [
   },
 ];
 
+// Map FAQ data to the FaqSchema interface
+const faqSchemaData = faqs.map((f) => ({ question: f.q, answer: f.a }));
+
 export function Faq() {
   return (
     <section id="faq" className="relative py-28">
+      {/* ✅ FAQ JSON-LD for Google rich snippets */}
+      <FaqSchema faqs={faqSchemaData} id="homepage-faq-schema" />
+
       <div className="mx-auto max-w-3xl px-4">
         <SectionHeading
           eyebrow="FAQ"
