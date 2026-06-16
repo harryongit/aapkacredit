@@ -229,17 +229,8 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-      </head>
-      <body
-        className="relative min-h-screen bg-background text-foreground antialiased"
-        suppressHydrationWarning
-      >
-        <Providers>
-          {children}
-          <Toaster />
-        </Providers>
 
-        {/* ✅ Google Analytics 4 — loads after page is interactive, non-blocking */}
+        {/* ✅ Google Analytics 4 (Placed directly in <head> as requested by Google) */}
         {GA4_ID && GA4_ID.startsWith("G-") && (
           <>
             <Script
@@ -260,6 +251,16 @@ export default function RootLayout({
             </Script>
           </>
         )}
+      </head>
+      <body
+        className="relative min-h-screen bg-background text-foreground antialiased"
+        suppressHydrationWarning
+      >
+        <Providers>
+          {children}
+          <Toaster />
+        </Providers>
+
       </body>
     </html>
   );
