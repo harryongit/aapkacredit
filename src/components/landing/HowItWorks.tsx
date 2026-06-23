@@ -1,8 +1,6 @@
 "use client";
 import { UserPlus, FileCheck, Gauge, Sparkles } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
-import { StaggerGroup, itemVariants } from "@/components/fx/Reveal";
-import { motion } from "framer-motion";
 import { GsapParallax } from "@/components/fx/GsapParallax";
 
 const steps = [
@@ -30,46 +28,48 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="how" className="relative py-28">
+    <section id="how" className="relative py-32 bg-background z-10 border-t border-white/10">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeading
           eyebrow="Process"
           title={
             <>
-              From sign-up to <span className="text-gradient-blue">smart offer</span>
+              From sign-up to <br/><span className="text-white/40">smart offer.</span>
             </>
           }
-          subtitle="Four simple steps stand between you and the right loan."
+          subtitle="Four structured steps stand between you and the right loan."
         />
 
-        <div className="relative mt-16">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute left-0 right-0 top-12 hidden h-px lg:block"
-            style={{
-              background:
-                "linear-gradient(90deg, transparent, rgba(59,130,246,0.5), rgba(16,185,129,0.5), transparent)",
-            }}
-          />
-
+        <div className="relative mt-24">
           <GsapParallax speed={0.15} direction="y">
-            <StaggerGroup className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-0 border border-white/10">
               {steps.map((s, i) => (
-                <motion.div key={s.title} variants={itemVariants} className="relative">
-                  <div className="relative grid h-24 w-24 place-items-center">
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#2563EB]/20 to-[#10B981]/10 blur-xl" />
-                    <div className="relative grid h-24 w-24 place-items-center rounded-full bg-card dark:bg-[#0a1428] ring-1 ring-border">
-                      <s.icon className="h-6 w-6 text-primary dark:text-[#93c5fd]" />
-                      <span className="absolute -top-2 -right-2 grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] text-xs font-semibold text-white">
-                        {i + 1}
+                <div key={s.title} className={`group relative p-8 border-white/10 transition-all hover:bg-white/[0.02] ${i !== steps.length - 1 ? 'border-b md:border-r md:border-b-0' : ''}`}>
+                  
+                  {/* Step Connector Line */}
+                  {i !== steps.length - 1 && (
+                    <div className="hidden md:block absolute top-14 -right-[15px] w-8 h-[1px] bg-primary z-20" />
+                  )}
+
+                  <div className="relative flex flex-col h-full justify-between">
+                    <div>
+                      <span className="text-5xl font-display font-bold text-white/20 mb-6 block transition-colors group-hover:text-primary">
+                        {String(i + 1).padStart(2, '0')}
                       </span>
+                      <div className="mb-6 inline-flex h-10 w-10 items-center justify-center border border-white/20 text-white">
+                        <s.icon className="h-4 w-4" />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground mb-3">{s.title}</h3>
+                      <p className="text-sm leading-relaxed text-foreground/60">{s.text}</p>
                     </div>
                   </div>
-                  <h3 className="mt-6 font-display text-xl font-semibold text-foreground">{s.title}</h3>
-                  <p className="mt-2 max-w-xs text-sm leading-relaxed text-foreground/60">{s.text}</p>
-                </motion.div>
+                  
+                </div>
               ))}
-            </StaggerGroup>
+            </div>
           </GsapParallax>
         </div>
       </div>

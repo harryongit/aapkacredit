@@ -1,9 +1,7 @@
 "use client";
 import { Brain, Compass, BarChart3, ShieldCheck, FileCheck2, LayoutDashboard } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
-import { SpotlightCard } from "@/components/fx/SpotlightCard";
-import { StaggerGroup, itemVariants } from "@/components/fx/Reveal";
-import { motion } from "framer-motion";
+import { GsapParallax } from "@/components/fx/GsapParallax";
 
 const features = [
   {
@@ -40,31 +38,39 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="relative py-28">
+    <section id="features" className="relative py-32 bg-background z-10 border-t border-white/10">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeading
-          eyebrow="Features"
+          eyebrow="Capabilities"
           title={
             <>
-              Everything you need <span className="text-gradient-blue">before you borrow</span>
+              Everything you need <br/><span className="text-white/40">before you borrow.</span>
             </>
           }
           subtitle="A complete toolkit designed for confident, informed financial decisions."
         />
 
-        <StaggerGroup className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((f) => (
-            <motion.div key={f.title} variants={itemVariants}>
-              <SpotlightCard className="h-full p-7">
-                <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-foreground/5 ring-1 ring-white/10">
-                  <f.icon className="h-5 w-5 text-[#93c5fd]" />
+        <GsapParallax speed={0.1} direction="y">
+          <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-white/10">
+            {features.map((f, i) => (
+              <div 
+                key={f.title} 
+                className={`group relative p-10 sm:p-12 border-white/10 transition-colors duration-500 hover:bg-white/[0.02]
+                  ${i < 3 ? 'border-b' : ''}
+                  ${i % 3 !== 2 ? 'md:border-r' : ''}
+                `}
+              >
+                <div className="relative z-10">
+                  <div className="mb-8 inline-flex h-12 w-12 items-center justify-center border border-white/20 text-white transition-transform duration-500 group-hover:bg-primary group-hover:border-primary group-hover:-translate-y-2">
+                    <f.icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="text-lg font-display font-semibold text-foreground uppercase tracking-wider">{f.title}</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-foreground/60">{f.text}</p>
                 </div>
-                <h3 className="text-lg font-semibold text-foreground">{f.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-foreground/60">{f.text}</p>
-              </SpotlightCard>
-            </motion.div>
-          ))}
-        </StaggerGroup>
+              </div>
+            ))}
+          </div>
+        </GsapParallax>
       </div>
     </section>
   );

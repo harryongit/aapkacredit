@@ -1,8 +1,7 @@
 "use client";
 import { User, Briefcase, GraduationCap, Gauge, ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
-import { StaggerGroup, itemVariants } from "@/components/fx/Reveal";
-import { motion } from "framer-motion";
+import { GsapParallax } from "@/components/fx/GsapParallax";
 
 const products = [
   {
@@ -37,55 +36,51 @@ const products = [
 
 export function LoanProducts() {
   return (
-    <section id="loans" className="relative py-28">
+    <section id="loans" className="relative py-32 bg-background z-10 border-t border-white/10">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeading
-          eyebrow="Lending"
+          eyebrow="Products"
           title={
             <>
-              Loans built for <span className="text-gradient-blue">every life stage</span>
+              Loans built for <br/><span className="text-white/40">every stage.</span>
             </>
           }
-          subtitle="Discover, evaluate, and choose the right loan with clarity and confidence."
+          subtitle="Discover, evaluate, and choose the right loan with absolute clarity."
         />
 
-        <StaggerGroup className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2">
-          {products.map((p) => (
-            <motion.a
-              key={p.title}
-              variants={itemVariants}
-              href={p.href}
-              className="group relative overflow-hidden rounded-3xl p-px"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(59,130,246,0.4), rgba(16,185,129,0.25) 50%, rgba(255,255,255,0.05))",
-              }}
-            >
-              <div className="relative h-full rounded-[calc(1.5rem-1px)] bg-card dark:bg-[#0a1428] p-8 transition-transform duration-500 group-hover:-translate-y-1">
-                <div className="flex items-start justify-between">
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-foreground/5 ring-1 ring-border">
-                    <p.icon className="h-5 w-5 text-primary dark:text-[#93c5fd]" />
+        <div className="relative mt-24">
+          <GsapParallax speed={0.12} direction="y" scaleDepth={0.95}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-white/10">
+              {products.map((p, i) => (
+                <a
+                  key={p.title}
+                  href={p.href}
+                  className={`group relative flex flex-col justify-between p-10 sm:p-14 border-white/10 transition-colors duration-500 hover:bg-white/[0.02] min-h-[300px]
+                    ${i < 2 ? 'border-b' : ''}
+                    ${i % 2 === 0 ? 'md:border-r' : ''}
+                  `}
+                >
+                  <div className="flex items-start justify-between relative z-10">
+                    <div className="inline-flex h-12 w-12 items-center justify-center border border-white/20 text-white transition-colors duration-500 group-hover:border-primary group-hover:text-primary">
+                      <p.icon className="h-5 w-5" />
+                    </div>
+                    <span className="border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-widest text-foreground/70">
+                      {p.tag}
+                    </span>
                   </div>
-                  <span className="rounded-full bg-foreground/5 px-3 py-1 text-[11px] font-medium text-foreground/70 ring-1 ring-border">
-                    {p.tag}
-                  </span>
-                </div>
-                <h3 className="mt-6 font-display text-2xl font-semibold text-foreground">{p.title}</h3>
-                <p className="mt-2 max-w-sm text-sm leading-relaxed text-foreground/60">{p.text}</p>
-                <div className="mt-6 inline-flex items-center gap-1.5 text-sm text-primary dark:text-[#93c5fd] transition-transform duration-500 group-hover:translate-x-1">
-                  Explore <ArrowUpRight className="h-4 w-4" />
-                </div>
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
-                  style={{
-                    background: "radial-gradient(closest-side, rgba(59,130,246,0.45), transparent)",
-                  }}
-                />
-              </div>
-            </motion.a>
-          ))}
-        </StaggerGroup>
+                  
+                  <div className="relative z-10 mt-16">
+                    <h3 className="font-display text-2xl font-bold uppercase tracking-wider text-foreground mb-4">{p.title}</h3>
+                    <p className="max-w-sm text-sm leading-relaxed text-foreground/60">{p.text}</p>
+                    <div className="mt-8 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/40 transition-colors duration-500 group-hover:text-primary">
+                      Explore <ArrowUpRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </GsapParallax>
+        </div>
       </div>
     </section>
   );

@@ -63,32 +63,32 @@ const faqSchemaData = faqs.map((f) => ({ question: f.q, answer: f.a }));
 
 export function Faq() {
   return (
-    <section id="faq" className="relative py-28" aria-label="Frequently Asked Questions">
+    <section id="faq" className="relative py-32 bg-background z-10 border-t border-white/10" aria-label="Frequently Asked Questions">
       {/* ✅ FAQPage JSON-LD — eligible for Google rich snippets */}
       <FaqSchema faqs={faqSchemaData} id="homepage-faq-schema" />
 
-      <div className="mx-auto max-w-3xl px-4">
+      <div className="mx-auto max-w-4xl px-4">
         <SectionHeading
           eyebrow="FAQ"
           title={
             <>
-              Questions, <span className="text-gradient-blue">answered</span>
+              Questions, <br/><span className="text-white/40">answered.</span>
             </>
           }
           subtitle="Detailed answers to the most common questions about borrowing with Aapka Credit."
         />
-        <Reveal className="mt-12">
-          <Accordion type="single" collapsible className="space-y-3">
+        <Reveal className="mt-20">
+          <Accordion type="single" collapsible className="space-y-0 border-t border-white/10">
             {faqs.map((f, i) => (
               <AccordionItem
                 key={f.q}
                 value={`item-${i}`}
-                className="overflow-hidden rounded-2xl border border-foreground/10 glass px-5 data-[state=open]:shadow-elegant"
+                className="border-b border-white/10 rounded-none bg-transparent transition-colors hover:bg-white/[0.02]"
               >
-                <AccordionTrigger className="py-5 text-left text-base font-medium text-foreground hover:no-underline">
+                <AccordionTrigger className="py-6 px-4 text-left font-display text-lg font-bold uppercase tracking-wide text-foreground hover:no-underline hover:text-primary">
                   {f.q}
                 </AccordionTrigger>
-                <AccordionContent className="pb-5 text-sm leading-relaxed text-foreground/70">
+                <AccordionContent className="pb-6 px-4 text-sm leading-relaxed text-foreground/70 max-w-3xl">
                   {f.a}
                 </AccordionContent>
               </AccordionItem>
@@ -97,13 +97,13 @@ export function Faq() {
         </Reveal>
 
         {/* Internal link to full FAQ / contact */}
-        <p className="mt-8 text-center text-sm text-foreground/50">
+        <p className="mt-12 text-center text-xs uppercase tracking-widest text-foreground/50">
           Still have questions?{" "}
-          <Link href="/#contact" className="text-primary hover:underline font-medium">
+          <Link href="/#contact" className="text-primary hover:text-foreground transition-colors font-bold">
             Talk to our team
           </Link>{" "}
           or read our{" "}
-          <Link href="/blog" className="text-primary hover:underline font-medium">
+          <Link href="/blog" className="text-primary hover:text-foreground transition-colors font-bold">
             finance guides
           </Link>
           .

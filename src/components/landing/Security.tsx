@@ -2,8 +2,7 @@
 import { ShieldCheck, KeyRound, Server, FileLock, Building2 } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
 import { GlobeScene } from "./GlobeScene";
-import { StaggerGroup, itemVariants } from "@/components/fx/Reveal";
-import { motion } from "framer-motion";
+import { GsapParallax } from "@/components/fx/GsapParallax";
 
 const items = [
   {
@@ -35,8 +34,8 @@ const items = [
 
 export function Security() {
   return (
-    <section id="security" className="relative overflow-hidden py-28">
-      <div className="pointer-events-none absolute inset-0 opacity-60">
+    <section id="security" className="relative overflow-hidden py-32 bg-background z-10 border-t border-white/10">
+      <div className="pointer-events-none absolute inset-0 opacity-40">
         <div className="absolute left-1/2 top-1/2 h-[120%] w-[120%] -translate-x-1/2 -translate-y-1/2">
           <GlobeScene />
         </div>
@@ -47,51 +46,52 @@ export function Security() {
           eyebrow="Security"
           title={
             <>
-              Security you can <span className="text-gradient-blue">trust</span>
+              Security you can <br/><span className="text-white/40">trust.</span>
             </>
           }
           subtitle="Built on enterprise-grade foundations so your money and data stay protected."
         />
 
-        <div className="mt-16 grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
+        <div className="mt-20 grid grid-cols-1 items-center gap-0 lg:grid-cols-12 border border-white/10 bg-background/80 backdrop-blur-sm">
           {/* shield visual */}
-          <div className="relative flex items-center justify-center lg:col-span-5">
+          <div className="relative flex items-center justify-center p-12 lg:p-0 lg:col-span-5 border-b lg:border-b-0 lg:border-r border-white/10 h-full">
             <div className="relative h-72 w-72">
-              <div className="absolute inset-0 rounded-full border border-foreground/10 animate-pulse-ring" />
+              <div className="absolute inset-0 border border-white/10 animate-pulse-ring rounded-none" />
               <div
-                className="absolute inset-6 rounded-full border border-foreground/10 animate-pulse-ring"
+                className="absolute inset-6 border border-white/10 animate-pulse-ring rounded-none"
                 style={{ animationDelay: "0.6s" }}
               />
               <div
-                className="absolute inset-12 rounded-full border border-foreground/10 animate-pulse-ring"
+                className="absolute inset-12 border border-white/10 animate-pulse-ring rounded-none"
                 style={{ animationDelay: "1.2s" }}
               />
               <div className="absolute inset-0 grid place-items-center">
-                <div className="grid h-32 w-32 place-items-center rounded-3xl bg-gradient-to-br from-[#2563EB] to-[#10B981] shadow-glow">
-                  <ShieldCheck className="h-14 w-14 text-foreground" />
+                <div className="grid h-32 w-32 place-items-center bg-primary/10 border border-primary/20">
+                  <ShieldCheck className="h-14 w-14 text-primary" />
                 </div>
               </div>
             </div>
           </div>
 
           {/* list */}
-          <StaggerGroup className="space-y-3 lg:col-span-7">
-            {items.map((it) => (
-              <motion.div
-                key={it.title}
-                variants={itemVariants}
-                className="group flex items-start gap-4 rounded-2xl glass p-5 transition hover:-translate-y-0.5 hover:shadow-elegant"
-              >
-                <div className="grid h-11 w-11 flex-none place-items-center rounded-xl bg-foreground/5 ring-1 ring-white/10">
-                  <it.icon className="h-5 w-5 text-[#93c5fd]" />
+          <div className="lg:col-span-7 flex flex-col">
+            <GsapParallax speed={0.1} direction="y">
+              {items.map((it, i) => (
+                <div
+                  key={it.title}
+                  className={`group flex items-start gap-6 p-8 transition-colors duration-500 hover:bg-white/[0.02] ${i !== items.length - 1 ? 'border-b border-white/10' : ''}`}
+                >
+                  <div className="grid h-12 w-12 flex-none place-items-center border border-white/20 transition-colors duration-500 group-hover:border-primary group-hover:text-primary">
+                    <it.icon className="h-5 w-5 text-white transition-colors duration-500 group-hover:text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">{it.title}</h4>
+                    <p className="mt-2 text-sm leading-relaxed text-foreground/60">{it.text}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-base font-semibold text-foreground">{it.title}</h4>
-                  <p className="mt-1 text-sm text-foreground/60">{it.text}</p>
-                </div>
-              </motion.div>
-            ))}
-          </StaggerGroup>
+              ))}
+            </GsapParallax>
+          </div>
         </div>
       </div>
     </section>

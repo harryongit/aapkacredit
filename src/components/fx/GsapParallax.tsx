@@ -12,13 +12,17 @@ export function GsapParallax({
   direction = "y",
   start = "top bottom",
   end = "bottom top",
+  scaleDepth = 1, // 1 = no scaling. <1 = shrinks into background. >1 = zooms into foreground.
+  opacityFade = false, // If true, fades out as it scrolls.
 }: {
   children: React.ReactNode;
   className?: string;
-  speed?: number; // 1 means it moves 100px for every 100px scrolled. 0.5 means it moves slower (parallax depth)
-  direction?: "y" | "x";
+  speed?: number; 
+  direction?: "y" | "x" | "none";
   start?: string;
   end?: string;
+  scaleDepth?: number;
+  opacityFade?: boolean;
 }) {
   const triggerRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
@@ -41,10 +45,14 @@ export function GsapParallax({
         {
           y: direction === "y" ? -yValue : 0,
           x: direction === "x" ? -xValue : 0,
+          scale: 1,
+          opacity: 1,
         },
         {
           y: direction === "y" ? yValue : 0,
           x: direction === "x" ? xValue : 0,
+          scale: scaleDepth,
+          opacity: opacityFade ? 0 : 1,
           ease: "none",
           scrollTrigger: {
             trigger: trigger,
@@ -57,11 +65,11 @@ export function GsapParallax({
     });
 
     return () => ctx.revert(); // Cleanup on unmount
-  }, [speed, direction, start, end]);
+  }, [speed, direction, start, end, scaleDepth, opacityFade]);
 
   return (
     <div ref={triggerRef} className={cn("relative", className)}>
-      <div ref={targetRef} className="w-full h-full">
+      <div ref={targetRef} className="w-full h-full transform-style-3d">
         {children}
       </div>
     </div>

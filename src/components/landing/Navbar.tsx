@@ -6,7 +6,6 @@ import Link from "next/link";
 import whitelogo from "@/assets/whitelogo.svg";
 import { MagneticButton } from "@/components/fx/MagneticButton";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { LoginModal } from "@/components/auth/LoginModal";
 
 const links = [
@@ -68,7 +67,7 @@ export function Navbar() {
           </nav>
 
           <div className="hidden lg:flex items-center gap-4">
-            <ThemeToggle />
+
             <MagneticButton onClick={() => setIsLoginModalOpen(true)} variant="primary" className="px-5 py-2.5 text-xs">
               Login / Apply
             </MagneticButton>
