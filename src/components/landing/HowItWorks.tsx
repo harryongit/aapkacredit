@@ -3,6 +3,7 @@ import { UserPlus, FileCheck, Gauge, Sparkles } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
 import { StaggerGroup, itemVariants } from "@/components/fx/Reveal";
 import { motion } from "framer-motion";
+import { GsapParallax } from "@/components/fx/GsapParallax";
 
 const steps = [
   {
@@ -51,23 +52,25 @@ export function HowItWorks() {
             }}
           />
 
-          <StaggerGroup className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s, i) => (
-              <motion.div key={s.title} variants={itemVariants} className="relative">
-                <div className="relative grid h-24 w-24 place-items-center">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#2563EB]/20 to-[#10B981]/10 blur-xl" />
-                  <div className="relative grid h-24 w-24 place-items-center rounded-full bg-card dark:bg-[#0a1428] ring-1 ring-border">
-                    <s.icon className="h-6 w-6 text-primary dark:text-[#93c5fd]" />
-                    <span className="absolute -top-2 -right-2 grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] text-xs font-semibold text-white">
-                      {i + 1}
-                    </span>
+          <GsapParallax speed={0.15} direction="y">
+            <StaggerGroup className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {steps.map((s, i) => (
+                <motion.div key={s.title} variants={itemVariants} className="relative">
+                  <div className="relative grid h-24 w-24 place-items-center">
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#2563EB]/20 to-[#10B981]/10 blur-xl" />
+                    <div className="relative grid h-24 w-24 place-items-center rounded-full bg-card dark:bg-[#0a1428] ring-1 ring-border">
+                      <s.icon className="h-6 w-6 text-primary dark:text-[#93c5fd]" />
+                      <span className="absolute -top-2 -right-2 grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] text-xs font-semibold text-white">
+                        {i + 1}
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <h3 className="mt-6 font-display text-xl font-semibold text-foreground">{s.title}</h3>
-                <p className="mt-2 max-w-xs text-sm leading-relaxed text-foreground/60">{s.text}</p>
-              </motion.div>
-            ))}
-          </StaggerGroup>
+                  <h3 className="mt-6 font-display text-xl font-semibold text-foreground">{s.title}</h3>
+                  <p className="mt-2 max-w-xs text-sm leading-relaxed text-foreground/60">{s.text}</p>
+                </motion.div>
+              ))}
+            </StaggerGroup>
+          </GsapParallax>
         </div>
       </div>
     </section>

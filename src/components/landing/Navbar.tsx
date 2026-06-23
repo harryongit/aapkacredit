@@ -7,6 +7,7 @@ import whitelogo from "@/assets/whitelogo.svg";
 import { MagneticButton } from "@/components/fx/MagneticButton";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { LoginModal } from "@/components/auth/LoginModal";
 
 const links = [
   { label: "Loans", href: "/#loans" },
@@ -22,6 +23,7 @@ const links = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -67,8 +69,8 @@ export function Navbar() {
 
           <div className="hidden lg:flex items-center gap-4">
             <ThemeToggle />
-            <MagneticButton href="#contact" variant="primary" className="px-5 py-2.5 text-xs">
-              Check Eligibility
+            <MagneticButton onClick={() => setIsLoginModalOpen(true)} variant="primary" className="px-5 py-2.5 text-xs">
+              Login / Apply
             </MagneticButton>
           </div>
 
@@ -95,17 +97,21 @@ export function Navbar() {
                   {l.label}
                 </a>
               ))}
-              <a
-                href="#contact"
-                onClick={() => setOpen(false)}
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  setIsLoginModalOpen(true);
+                }}
                 className="mt-2 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#10B981] px-3 py-2.5 text-center text-sm font-medium text-foreground"
               >
-                Check Eligibility
-              </a>
+                Login / Apply
+              </button>
             </nav>
           </div>
         )}
       </div>
+      <LoginModal isOpen={isLoginModalOpen} onOpenChange={setIsLoginModalOpen} />
     </header>
   );
 }

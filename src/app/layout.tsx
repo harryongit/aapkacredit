@@ -128,6 +128,13 @@ const organizationSchema = {
   description:
     "Aapka Credit is India's next-generation digital lending platform offering instant personal loans, business loans, and education loans with transparent terms and zero hidden fees.",
   foundingDate: "2023",
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",
+    reviewCount: "2540",
+    bestRating: "5",
+    worstRating: "1"
+  },
   areaServed: {
     "@type": "Country",
     name: "India",

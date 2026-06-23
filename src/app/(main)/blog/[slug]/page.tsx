@@ -148,6 +148,39 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </div>
       </article>
+
+      {/* Internal Linking / Related Articles for SEO */}
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mt-24">
+        <h2 className="text-3xl font-display font-bold text-foreground mb-8 text-center">Related Articles</h2>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {blogPosts
+            .filter((p) => p.slug !== post.slug && p.category === post.category)
+            .slice(0, 3)
+            .map((related) => (
+              <Link 
+                key={related.slug} 
+                href={`/blog/${related.slug}`}
+                className="group flex flex-col glass rounded-3xl p-6 hover:border-primary/50 transition-all duration-300"
+              >
+                <span className="text-primary text-xs font-bold tracking-wider uppercase mb-3">
+                  {related.category}
+                </span>
+                <h3 className="text-xl font-display font-bold text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                  {related.title}
+                </h3>
+                <p className="text-muted-foreground text-sm line-clamp-3 mb-6 flex-grow">
+                  {related.description}
+                </p>
+                <div className="flex items-center text-xs text-muted-foreground mt-auto">
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="h-3 w-3" />
+                    {related.readTime}
+                  </span>
+                </div>
+              </Link>
+            ))}
+        </div>
+      </div>
     </main>
   );
 }
