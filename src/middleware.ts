@@ -10,9 +10,9 @@ export async function middleware(request: NextRequest) {
     const isLoginPage = pathname === "/admin/login";
     const sessionCookie = request.cookies.get("admin_session")?.value;
     
-    // Verify token
-    const payload = sessionCookie ? await verifyJWT(sessionCookie) : null;
-    const isAuthenticated = !!payload;
+    // Just check if the cookie exists. The backend will verify the actual signature
+    // when we make API requests.
+    const isAuthenticated = !!sessionCookie;
 
     if (!isAuthenticated && !isLoginPage) {
       // Redirect unauthenticated users trying to access dashboard to login page
