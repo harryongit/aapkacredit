@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend.aapkacredit.com/api/v1";
 
 export async function fetchApi(endpoint: string, options: RequestInit = {}) {
   const cookieStore = await cookies();

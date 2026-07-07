@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend.aapkacredit.com/api/v1";
 
 export async function loginAction(prevState: any, formData: FormData) {
   const username = formData.get("username") as string;
