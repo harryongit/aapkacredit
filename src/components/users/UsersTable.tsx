@@ -14,50 +14,19 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { MoreHorizontal, Eye, Edit, Ban, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
-const usersData = [
-  {
-    id: "USR-001",
-    name: "Ravi Kumar",
-    mobile: "+91 9876543210",
-    email: "ravi.k@example.com",
-    regDate: "2023-10-12",
-    kycStatus: "Verified",
-    creditScore: 750,
-    loanStatus: "Active",
-  },
-  {
-    id: "USR-002",
-    name: "Priya Sharma",
-    mobile: "+91 9876543211",
-    email: "priya.s@example.com",
-    regDate: "2023-10-14",
-    kycStatus: "Pending",
-    creditScore: 680,
-    loanStatus: "None",
-  },
-  {
-    id: "USR-003",
-    name: "Amit Singh",
-    mobile: "+91 9876543212",
-    email: "amit.s@example.com",
-    regDate: "2023-10-15",
-    kycStatus: "Verified",
-    creditScore: 520,
-    loanStatus: "Defaulted",
-  },
-  {
-    id: "USR-004",
-    name: "Sneha Gupta",
-    mobile: "+91 9876543213",
-    email: "sneha.g@example.com",
-    regDate: "2023-10-18",
-    kycStatus: "Verified",
-    creditScore: 810,
-    loanStatus: "Closed",
-  },
-];
+export function UsersTable({ initialUsers = [] }: { initialUsers?: any[] }) {
+  const usersData = initialUsers.map((u: any) => ({
+    id: `USR-${u.id.split("-")[0].toUpperCase()}`,
+    rawId: u.id,
+    name: u.full_name || "Not Provided",
+    mobile: u.mobile_number || "N/A",
+    email: u.email || "N/A",
+    regDate: u.created_at ? new Date(u.created_at).toISOString().split('T')[0] : "Unknown",
+    kycStatus: u.pan_number ? "Verified" : "Pending",
+    creditScore: u.credit_score || 0,
+    loanStatus: u.is_active ? "Active" : "Closed",
+  }));
 
-export function UsersTable() {
   return (
     <div className="rounded-md border border-border bg-card/50 backdrop-blur">
       <Table>

@@ -1,18 +1,28 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { signJWT } from "@/lib/auth";
 import { redirect } from "next/navigation";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
 
 export async function loginAction(prevState: any, formData: FormData) {
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
 
-  if (username === "admin" && password === "admin") {
-    // Generate JWT
-    const token = await signJWT({ user: "admin", role: "super_admin" });
+  try {
+    const res = await fetch(`${API_URL}/auth/admin-login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
 
-    // Set HTTP-only cookie
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      return { error: data.message || "Invalid username or password" };
+    }
+
+    const token = data.data.access_token;
     const cookieStore = await cookies();
     cookieStore.set("admin_session", token, {
       httpOnly: true,
@@ -21,11 +31,11 @@ export async function loginAction(prevState: any, formData: FormData) {
       maxAge: 60 * 60 * 24 * 7, // 1 week
       path: "/",
     });
-
-    redirect("/admin");
+  } catch (err) {
+    return { error: "Failed to connect to authentication server" };
   }
 
-  return { error: "Invalid username or password" };
+  redirect("/admin");
 }
 
 export async function logoutAction() {

@@ -40,7 +40,7 @@ export default function LoginPage() {
                   required
                   autoComplete="off"
                   className="block w-full pl-10 pr-3 py-2.5 border border-border rounded-xl bg-background/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all sm:text-sm"
-                  placeholder="admin"
+                  placeholder="Enter admin username"
                 />
               </div>
             </div>
@@ -56,7 +56,7 @@ export default function LoginPage() {
                   name="password"
                   required
                   className="block w-full pl-10 pr-3 py-2.5 border border-border rounded-xl bg-background/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all sm:text-sm"
-                  placeholder="••••••••"
+                  placeholder="Enter admin password"
                 />
               </div>
             </div>

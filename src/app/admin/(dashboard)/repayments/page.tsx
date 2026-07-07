@@ -1,6 +1,10 @@
 import { CollectionsDashboard } from "@/components/repayments/CollectionsDashboard";
+import { fetchApi } from "@/lib/apiClient";
 
-export default function RepaymentsPage() {
+export default async function RepaymentsPage() {
+  const response = await fetchApi("/admin/repayments").catch(() => ([]));
+  const repayments = Array.isArray(response) ? response : response?.data || [];
+
   return (
     <div className="space-y-6">
       <div>
@@ -9,7 +13,7 @@ export default function RepaymentsPage() {
           Track today&apos;s collections and manage overdue accounts.
         </p>
       </div>
-      <CollectionsDashboard />
+      <CollectionsDashboard initialRepayments={repayments} />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ActiveLoansTable } from "@/components/loans/ActiveLoansTable";
 import { IndianRupee, AlertCircle, Clock } from "lucide-react";
 
-export function CollectionsDashboard() {
+export function CollectionsDashboard({ initialRepayments = [] }: { initialRepayments?: any[] }) {
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-3">
@@ -42,7 +42,7 @@ export function CollectionsDashboard() {
 
       <div>
         <h3 className="text-lg font-medium mb-4">Action Required: Overdue Accounts</h3>
-        <ActiveLoansTable />
+        <ActiveLoansTable initialLoans={initialRepayments} />
       </div>
     </div>
   );

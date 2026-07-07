@@ -1,8 +1,11 @@
 import { UsersTable } from "@/components/users/UsersTable";
 import { Button } from "@/components/ui/button";
 import { Download, Plus } from "lucide-react";
+import { fetchApi } from "@/lib/apiClient";
 
-export default function UsersPage() {
+export default async function UsersPage() {
+  const response = await fetchApi("/admin/users").catch(() => ([]));
+  const users = Array.isArray(response) ? response : response?.data || [];
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -22,7 +25,7 @@ export default function UsersPage() {
         </div>
       </div>
       
-      <UsersTable />
+      <UsersTable initialUsers={users} />
     </div>
   );
 }

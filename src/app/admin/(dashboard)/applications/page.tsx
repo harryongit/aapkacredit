@@ -1,8 +1,11 @@
 import { ApplicationQueueTable } from "@/components/applications/ApplicationQueueTable";
 import { Button } from "@/components/ui/button";
 import { Filter } from "lucide-react";
+import { fetchApi } from "@/lib/apiClient";
 
-export default function ApplicationsPage() {
+export default async function ApplicationsPage() {
+  const response = await fetchApi("/admin/loans").catch(() => ([]));
+  const applications = Array.isArray(response) ? response : response?.data || [];
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -19,7 +22,7 @@ export default function ApplicationsPage() {
         </div>
       </div>
       
-      <ApplicationQueueTable />
+      <ApplicationQueueTable initialApplications={applications} />
     </div>
   );
 }

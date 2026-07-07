@@ -7,9 +7,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CheckCircle2, AlertTriangle, FileText, Smartphone, Ban, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-export function UserProfileDetails({ userId }: { userId: string }) {
-  // Mock user data
-  const user = {
+export function UserProfileDetails({ userId, initialData }: { userId: string, initialData?: any }) {
+  // Use real data if available, otherwise mock data
+  const user = initialData || {
     id: userId,
     name: "Ravi Kumar",
     mobile: "+91 9876543210",

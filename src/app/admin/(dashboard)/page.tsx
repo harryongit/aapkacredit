@@ -1,7 +1,10 @@
 import { MetricsCards } from "@/components/dashboard/MetricsCards";
 import { TrendCharts } from "@/components/dashboard/TrendCharts";
+import { fetchApi } from "@/lib/apiClient";
 
-export default function AdminDashboardPage() {
+export default async function AdminDashboardPage() {
+  const statsResponse = await fetchApi("/admin/stats").catch(() => ({ data: null }));
+  const stats = statsResponse?.data || null;
   return (
     <div className="space-y-6">
       <div>
@@ -11,7 +14,7 @@ export default function AdminDashboardPage() {
         </p>
       </div>
       
-      <MetricsCards />
+      <MetricsCards initialData={stats} />
       <TrendCharts />
     </div>
   );

@@ -10,40 +10,18 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
-const loansData = [
-  {
-    id: "LN-5001",
-    user: "Karan Johar",
-    amount: "₹2,50,000",
-    interest: "12%",
-    emi: "₹22,190",
-    balance: "₹1,80,000",
-    dueDate: "2023-11-05",
-    status: "Current",
-  },
-  {
-    id: "LN-5002",
-    user: "Rahul Dravid",
-    amount: "₹50,000",
-    interest: "15%",
-    emi: "₹4,512",
-    balance: "₹15,000",
-    dueDate: "2023-10-30",
-    status: "Due Soon",
-  },
-  {
-    id: "LN-5003",
-    user: "Sanya Mirza",
-    amount: "₹1,00,000",
-    interest: "14%",
-    emi: "₹8,970",
-    balance: "₹85,000",
-    dueDate: "2023-10-15",
-    status: "Overdue",
-  },
-];
+export function ActiveLoansTable({ initialLoans = [] }: { initialLoans?: any[] }) {
+  const loansData = initialLoans.map((l: any) => ({
+    id: `LN-${l.id.split("-")[0].toUpperCase()}`,
+    user: `User ${l.user_id.split("-")[0].toUpperCase()}`,
+    amount: l.approved_amount ? `₹${l.approved_amount.toLocaleString()}` : "Pending",
+    interest: l.interest_rate ? `${l.interest_rate}%` : "TBD",
+    emi: "TBD",
+    balance: "TBD",
+    dueDate: "TBD",
+    status: l.current_step.replace(/_/g, ' '),
+  }));
 
-export function ActiveLoansTable() {
   return (
     <div className="rounded-md border border-border bg-card/50 backdrop-blur">
       <Table>

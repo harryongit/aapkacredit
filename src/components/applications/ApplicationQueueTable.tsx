@@ -52,7 +52,20 @@ const applicationsData = [
   },
 ];
 
-export function ApplicationQueueTable() {
+export function ApplicationQueueTable({ initialApplications = [] }: { initialApplications?: any[] }) {
+  // Use backend applications if available, otherwise use mock data
+  const apps = initialApplications.length > 0 
+    ? initialApplications.map((app: any) => ({
+        id: app.id,
+        user: app.user_id, // Ideally, backend should join user table and return name
+        amount: `₹${app.requested_amount}`,
+        tenure: `${app.requested_tenure_months} months`,
+        riskScore: "Medium", // Backend schema doesn't have risk score yet
+        status: app.current_step,
+        date: app.created_at ? new Date(app.created_at).toLocaleDateString() : "N/A",
+      }))
+    : applicationsData;
+
   return (
     <div className="rounded-md border border-border bg-card/50 backdrop-blur">
       <Table>
@@ -69,7 +82,7 @@ export function ApplicationQueueTable() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {applicationsData.map((app) => (
+          {apps.map((app) => (
             <TableRow key={app.id} className="border-border hover:bg-muted/50">
               <TableCell className="font-medium text-primary">{app.id}</TableCell>
               <TableCell>{app.user}</TableCell>
