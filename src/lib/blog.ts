@@ -247,10 +247,10 @@ export const blogPosts: BlogPost[] = [
       <p>Always ask: "Is this a flat rate or a reducing balance rate?" Aapka Credit's personal loans start from 10.49% per annum on a reducing balance basis.</p>
 
       <h3>2. Processing Fees and Other Charges</h3>
-      <p>Processing fees typically range from 1% to 3% of the loan amount plus 18% GST. On a ₹5 lakh loan with a 2% processing fee, that's ₹10,000 + ₹1,800 GST = ₹11,800 deducted from your disbursal. Some lenders also charge loan insurance premiums (which are often optional but aggressively mis-sold), documentation fees, and EMI bounce charges. Review the Key Fact Statement (KFS) — which RBI mandates all digital lenders to provide — before signing anything.</p>
+      <p>Processing fees typically range from 1% to 3% of the loan amount plus 18% GST. On a ₹5 lakh loan with a 2% processing fee, that's ₹10,000 + ₹1,800 GST = ₹11,800 deducted from your disbursal. Some lenders also charge loan insurance premiums (which are often optional but aggressively mis-sold), documentation fees, and EMI bounce charges. Review the Key Fact Statement (KFS) — which our Money Lending License mandates all digital lenders to provide — before signing anything.</p>
 
       <h3>3. Prepayment and Foreclosure Charges</h3>
-      <p>If you anticipate receiving a bonus or windfall during the loan tenure, foreclosure charges matter significantly. RBI guidelines prohibit prepayment penalties on floating-rate loans. For fixed-rate personal loans, charges typically range from 2% to 5% of the outstanding principal. Lenders who offer zero foreclosure fees give borrowers maximum financial flexibility.</p>
+      <p>If you anticipate receiving a bonus or windfall during the loan tenure, foreclosure charges matter significantly. Money Lending License guidelines prohibit prepayment penalties on floating-rate loans. For fixed-rate personal loans, charges typically range from 2% to 5% of the outstanding principal. Lenders who offer zero foreclosure fees give borrowers maximum financial flexibility.</p>
 
       <h3>4. Loan Tenure and EMI Flexibility</h3>
       <p>Personal loan tenures in India range from 12 to 84 months. A longer tenure reduces your monthly EMI but significantly increases total interest paid. Use our <a href="/calculator">EMI calculator</a> to model different scenarios. For example, a ₹3 lakh loan at 12% per annum: at 24 months, your EMI is ₹14,131 and total interest is ₹39,148. At 60 months, your EMI is ₹6,672 but total interest is ₹1,00,334 — more than 2.5× more interest for the same loan.</p>
@@ -294,7 +294,7 @@ export const blogPosts: BlogPost[] = [
       </ul>
 
       <h2>Red Flags to Watch Out For</h2>
-      <p>India's digital lending space includes both reputable institutions and predatory apps. Avoid any lender that: charges upfront fees before disbursing (advance fee fraud), does not provide a Key Fact Statement, promises instant approval with no credit check, uses WhatsApp or Instagram as the primary loan channel, or accesses your entire phonebook for "KYC" purposes (in violation of RBI data guidelines).</p>
+      <p>India's digital lending space includes both reputable institutions and predatory apps. Avoid any lender that: charges upfront fees before disbursing (advance fee fraud), does not provide a Key Fact Statement, promises instant approval with no credit check, uses WhatsApp or Instagram as the primary loan channel, or accesses your entire phonebook for "KYC" purposes (in violation of Money Lending License data guidelines).</p>
 
       <h2>Using the EMI Calculator Before You Apply</h2>
       <p>Before you submit any application, model your loan on our <a href="/calculator">free EMI calculator</a>. Enter three variables: loan amount, interest rate, and tenure. The calculator will show your monthly EMI, total interest payable, and a month-by-month amortization schedule. This gives you a complete picture of your loan cost and helps you choose a tenure that fits comfortably within your monthly budget (ideally keeping your total EMI burden below 40% of your take-home income).</p>
@@ -779,11 +779,11 @@ export const blogPosts: BlogPost[] = [
 
       <h2>The Sanction Letter: Critical for Your Student Visa</h2>
       <p>A loan sanction letter (also called a provisional sanction letter) is one of the most critical documents for your student visa application. It proves to the US Embassy (F-1 visa), UK Home Office (Student visa), or Canadian IRCC (Study Permit) that you have the financial means to fund your education without working illegally.</p>
-      <p>A sanction letter from Aapka Credit can be issued within 5–7 working days of complete document submission. It includes: your name, the sanctioned amount, the disbursement schedule, and the lender's authorised signatory seal. Most embassies and high commissions accept sanction letters from RBI-registered NBFCs like Aapka Credit.</p>
+      <p>A sanction letter from Aapka Credit can be issued within 5–7 working days of complete document submission. It includes: your name, the sanctioned amount, the disbursement schedule, and the lender's authorised signatory seal. Most embassies and high commissions accept sanction letters from direct lenders like Aapka Credit.</p>
       <p><strong>Pro tip:</strong> Apply for your education loan before applying for your visa. A strong sanction letter significantly strengthens your financial proof and reduces visa rejection risk.</p>
 
       <h2>How Foreign Currency Disbursal Works</h2>
-      <p>Study abroad loans are disbursed in Indian Rupees (INR) to either: the foreign university directly in foreign currency (via wire transfer under LRS — Liberalised Remittance Scheme), or your Indian account for self-remittance using FEMA-compliant channels. The exchange rate used for conversion is the RBI reference rate on the date of disbursal, which can fluctuate. Some lenders offer forex hedging options to protect against exchange rate movements.</p>
+      <p>Study abroad loans are disbursed in Indian Rupees (INR) to either: the foreign university directly in foreign currency (via wire transfer under LRS — Liberalised Remittance Scheme), or your Indian account for self-remittance using FEMA-compliant channels. The exchange rate used for conversion is the official reference rate on the date of disbursal, which can fluctuate. Some lenders offer forex hedging options to protect against exchange rate movements.</p>
 
       <h2>Moratorium Period for Study Abroad Loans</h2>
       <p>Study abroad loans typically have a moratorium period equal to the course duration + 6 months (for job search) or + 1 year. During this period, you are not required to make principal repayments. Simple interest accrues, which can be paid monthly to keep the loan balance flat, or capitalised (added to principal) if you want zero cash outflow during studies.</p>

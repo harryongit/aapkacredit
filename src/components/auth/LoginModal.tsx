@@ -111,7 +111,7 @@ export function LoginModal({ isOpen, onOpenChange }: LoginModalProps) {
                 </div>
                 <div className="text-xs">
                   <p className="font-medium text-white">Trust Score: Excellent</p>
-                  <p className="text-white/60">Based on RBI guidelines</p>
+                  <p className="text-white/60">Based on Money Lending License guidelines</p>
                 </div>
               </div>
             </div>

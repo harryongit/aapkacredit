@@ -179,7 +179,7 @@ export function HomepageSeoContent() {
                 {[
                   { icon: Lock, text: "AES-256 bit encryption for all data in transit and at rest" },
                   { icon: ShieldCheck, text: "ISO-27001 aligned data center infrastructure" },
-                  { icon: Award, text: "Compliant with RBI digital lending guidelines" },
+                  { icon: Award, text: "Compliant with our Money Lending License guidelines" },
                   { icon: Users, text: "Your data is never sold to third parties — ever" },
                 ].map((item) => (
                   <li key={item.text} className="flex items-start gap-3 text-sm text-foreground/70">
@@ -195,7 +195,7 @@ export function HomepageSeoContent() {
                 { label: "Data Encryption Standard", value: "AES-256" },
                 { label: "Infrastructure Alignment", value: "ISO-27001" },
                 { label: "Credit Check Type", value: "Soft Pull Only" },
-                { label: "Regulatory Framework", value: "RBI Guidelines" },
+                { label: "Regulatory Framework", value: "Money Lending License" },
               ].map((cert) => (
                 <div
                   key={cert.label}
@@ -223,7 +223,7 @@ export function HomepageSeoContent() {
                 250 million strong MSME sector.
               </p>
               <p>
-                The RBI&apos;s progressive digital lending guidelines, combined with the Account Aggregator
+                The government's progressive digital lending guidelines, combined with the Account Aggregator
                 framework and DigiLocker integration, are creating the infrastructure for a truly
                 paperless borrowing experience. Aapka Credit is built natively on this new stack.
               </p>

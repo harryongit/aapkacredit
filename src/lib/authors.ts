@@ -19,7 +19,7 @@ export const authors: Author[] = [
     id: "aapka-credit-finance-team",
     name: "Aapka Credit Finance Team",
     role: "Editorial Team",
-    bio: "The Aapka Credit Finance Team consists of certified financial analysts, former bankers, and FinTech product specialists with a combined 50+ years of experience in Indian lending markets. Our editorial content is fact-checked against RBI guidelines, SEBI regulations, and current lending practices before publication.",
+    bio: "The Aapka Credit Finance Team consists of certified financial analysts, former bankers, and FinTech product specialists with a combined 50+ years of experience in Indian lending markets. Our editorial content is fact-checked against Money Lending License guidelines, SEBI regulations, and current lending practices before publication.",
     expertise: [
       "Personal Finance",
       "Credit Assessment",
@@ -37,12 +37,12 @@ export const authors: Author[] = [
     id: "prism-cosmic",
     name: "Prism Cosmic Research",
     role: "Technology & Research",
-    bio: "The Prism Cosmic Research team focuses on FinTech innovation, AI-driven credit assessment, and India's evolving digital lending landscape. Their research informs Aapka Credit's product decisions and educational content, drawing on data from the Reserve Bank of India, SIDBI, and global fintech benchmarks.",
+    bio: "The Prism Cosmic Research team focuses on FinTech innovation, AI-driven credit assessment, and India's evolving digital lending landscape. Their research informs Aapka Credit's product decisions and educational content, drawing on data from regulatory bodies, SIDBI, and global fintech benchmarks.",
     expertise: [
       "FinTech Research",
       "AI in Lending",
       "Credit Bureau Analytics",
-      "RBI Regulatory Framework",
+      "Digital Lending Regulatory Framework",
       "Account Aggregator Framework",
     ],
     avatar: "/team/research-team.png",

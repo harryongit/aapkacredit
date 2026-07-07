@@ -37,7 +37,7 @@ export default function TermsPage() {
 
             <h2>3. Products and Services</h2>
             <p>
-              Aapka Credit acts solely as a loan facilitator connecting borrowers with RBI-registered Banks and NBFCs. The final decision to approve or reject a loan application rests entirely with the lending partner. We do not guarantee loan approval.
+              Aapka Credit acts as a direct lender under its valid Money Lending License. We assess your credit profile internally and the final decision to approve or reject a loan application rests entirely with our underwriting team. We do not guarantee loan approval.
             </p>
 
             <h2>4. User Data and Privacy</h2>

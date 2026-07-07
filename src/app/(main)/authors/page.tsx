@@ -58,7 +58,7 @@ export default function AuthorsPage() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Every article on Aapka Credit is researched and written by financial professionals with deep
             expertise in Indian lending, credit assessment, and FinTech. Our content is fact-checked
-            against RBI guidelines before publication.
+            against Money Lending License guidelines before publication.
           </p>
         </div>
 

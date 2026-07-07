@@ -51,7 +51,7 @@ export default function GrievancePage() {
 
             <h2>Level 3: Regulatory Escalation</h2>
             <p>
-              If your complaint remains unresolved within 30 days of filing it with our GRO, or if you are unsatisfied with the final resolution, you may escalate the matter directly to the Reserve Bank of India (RBI) via the Complaint Management System (CMS) portal.
+              If your complaint remains unresolved within 30 days of filing it with our GRO, or if you are unsatisfied with the final resolution, you may escalate the matter directly to the relevant regulatory authority as per our Money Lending License.
             </p>
           </div>
         </div>

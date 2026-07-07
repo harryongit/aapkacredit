@@ -101,7 +101,7 @@ export default function AboutPage() {
               {[
                 { icon: Calendar, label: "Founded", value: "2023" },
                 { icon: MapPin, label: "Registered", value: "India" },
-                { icon: Award, label: "Type", value: "FinTech / NBFC" },
+                { icon: Award, label: "Type", value: "Direct Lender" },
               ].map((item) => (
                 <div key={item.label} className="glass rounded-2xl p-4 border border-border text-center">
                   <item.icon className="h-5 w-5 text-primary mx-auto mb-2" />

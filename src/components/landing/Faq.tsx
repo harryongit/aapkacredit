@@ -43,7 +43,7 @@ const faqs = [
   },
   {
     q: "Are there any hidden fees or prepayment charges?",
-    a: "No — transparency is a core principle at Aapka Credit. Before you accept any loan offer, you will see a clear, itemised loan summary that includes: the interest rate (annual percentage rate), processing fees (if any, typically 1–3% of the loan amount), GST on processing fees at 18%, and any applicable stamp duty. There are no hidden charges added after disbursement. For prepayment, Aapka Credit follows RBI guidelines: floating-rate loans have zero prepayment penalties. Fixed-rate personal loans may have a foreclosure fee of 2–4% of the outstanding principal, which will always be communicated upfront in your loan agreement. We encourage borrowers to review their Loan Agreement (Key Fact Statement) carefully before signing.",
+    a: "No — transparency is a core principle at Aapka Credit. Before you accept any loan offer, you will see a clear, itemised loan summary that includes: the interest rate (annual percentage rate), processing fees (if any, typically 1–3% of the loan amount), GST on processing fees at 18%, and any applicable stamp duty. There are no hidden charges added after disbursement. For prepayment, Aapka Credit follows Money Lending License guidelines: floating-rate loans have zero prepayment penalties. Fixed-rate personal loans may have a foreclosure fee of 2–4% of the outstanding principal, which will always be communicated upfront in your loan agreement. We encourage borrowers to review their Loan Agreement (Key Fact Statement) carefully before signing.",
   },
   {
     q: "Can I get a loan if I am self-employed?",
@@ -51,7 +51,7 @@ const faqs = [
   },
   {
     q: "Who is Aapka Credit? Is it a bank or NBFC?",
-    a: "Aapka Credit is a digital lending platform operated by Prism Cosmic Private Limited, a registered company in India. We are a FinTech company that provides direct loans and works within the regulatory framework laid out by the Reserve Bank of India (RBI) for digital lenders. We are not a bank, but like banks and NBFCs, we follow RBI's Digital Lending Guidelines (2022) which mandate transparent loan terms, fair recovery practices, a mandatory Key Fact Statement, and strict data privacy protocols. Our mission is to democratise credit access in India by using technology to make lending faster, fairer, and more transparent than traditional financial institutions.",
+    a: "Aapka Credit is a digital lending platform operated by Prism Cosmic Private Limited. We are a direct lender holding a valid Money Lending License. We lend our own funds directly to our customers, allowing us to offer faster approvals and transparent loan terms without relying on third-party banks or NBFCs. Our mission is to democratise credit access in India by using technology to make lending faster, fairer, and more transparent than traditional financial institutions.",
   },
   {
     q: "What should I do if I can't repay my EMI on time?",
