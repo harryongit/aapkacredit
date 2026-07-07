@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ActiveLoansTable } from "@/components/loans/ActiveLoansTable";
+import { RepaymentsTable } from "@/components/repayments/RepaymentsTable";
 import { IndianRupee, AlertCircle, Clock } from "lucide-react";
 
 export function CollectionsDashboard({ initialRepayments = [] }: { initialRepayments?: any[] }) {
@@ -41,8 +41,8 @@ export function CollectionsDashboard({ initialRepayments = [] }: { initialRepaym
       </div>
 
       <div>
-        <h3 className="text-lg font-medium mb-4">Action Required: Overdue Accounts</h3>
-        <ActiveLoansTable initialLoans={initialRepayments} />
+        <h3 className="text-lg font-medium mb-4">Repayment Schedule</h3>
+        <RepaymentsTable initialRepayments={initialRepayments} />
       </div>
     </div>
   );
