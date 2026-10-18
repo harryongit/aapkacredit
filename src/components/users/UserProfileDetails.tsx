@@ -6,9 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CheckCircle2, AlertTriangle, FileText, Smartphone, Ban, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export function UserProfileDetails({ userId, initialData }: { userId: string, initialData?: any }) {
-  // Use real data if available, otherwise mock data
+  const [showEdit, setShowEdit] = useState(false);
   const user = initialData || {
     id: userId,
     name: "Ravi Kumar",
@@ -42,12 +43,22 @@ export function UserProfileDetails({ userId, initialData }: { userId: string, in
           <p className="text-muted-foreground">User ID: {user.id} • Joined {user.regDate}</p>
         </div>
         <div className="ml-auto flex gap-2">
-          <Button variant="outline" className="border-border">Edit Profile</Button>
+          <Button variant="outline" className="border-border" onClick={() => setShowEdit(true)}>
+            Edit Profile
+          </Button>
           <Button variant="destructive" className="bg-destructive/20 text-destructive hover:bg-destructive/30 border border-destructive/30">
             <Ban className="w-4 h-4 mr-2" /> Suspend
           </Button>
         </div>
       </div>
+
+      {showEdit && (
+        <div className="mt-4 p-4 bg-primary/5 border-primary/20 rounded-md mb-6">
+          <h3 className="font-medium text-primary mb-2">Edit Profile</h3>
+          <p className="text-sm text-muted-foreground">Edit profile fields (implementation pending backend)</p>
+          <Button variant="outline" size="sm" onClick={() => setShowEdit(false)">Cancel</Button>
+        </div>
+      )}
 
       <div className="grid gap-4 md:grid-cols-4">
         <Card className="md:col-span-1 bg-card/50 backdrop-blur border-border">
@@ -111,7 +122,7 @@ export function UserProfileDetails({ userId, initialData }: { userId: string, in
           </Card>
         </TabsContent>
         <TabsContent value="loans" className="mt-4 space-y-4">
-           <Card className="bg-card/50 backdrop-blur border-border">
+          <Card className="bg-card/50 backdrop-blur border-border">
             <CardHeader>
               <CardTitle>Loan Applications</CardTitle>
               <CardDescription>Recent loan history for this user.</CardDescription>
@@ -124,6 +135,13 @@ export function UserProfileDetails({ userId, initialData }: { userId: string, in
                     <p className="text-sm text-muted-foreground">Applied on Oct 20, 2023</p>
                   </div>
                   <Badge className="bg-primary/20 text-primary border-primary/30">Active</Badge>
+                </div>
+                <div className="flex items-center justify-between border-b border-border pb-4">
+                  <div>
+                    <p className="font-medium">Car Loan - ₹3,00,000</p>
+                    <p className="text-sm text-muted-foreground">Applied on Jan 15, 2024</p>
+                  </div>
+                  <Badge className="bg-success/20 text-success hover:bg-success/30 border-success/30">Closed</Badge>
                 </div>
               </div>
             </CardContent>
@@ -147,6 +165,13 @@ export function UserProfileDetails({ userId, initialData }: { userId: string, in
                 <div>
                   <p className="font-medium text-amber-500">Risk Assessment</p>
                   <p className="text-sm text-muted-foreground">Low risk. Device matches previous logins. No suspicious patterns detected.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <FileText className="w-5 h-5 text-teal-500 mt-0.5" />
+                <div>
+                  <p className="font-medium">KYC Documents</p>
+                  <p className="text-sm text-muted-foreground">Aadhaar: Verified • PAN: Verified</p>
                 </div>
               </div>
             </CardContent>

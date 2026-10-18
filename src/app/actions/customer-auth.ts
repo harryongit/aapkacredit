@@ -4,9 +4,9 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { signJWT } from "@/lib/auth";
 
-export async function customerLoginAction() {
+export async function customerLoginAction(phone?: string, otp?: string, referralCode?: string) {
   // Generate a mock JWT for the demo customer
-  const token = await signJWT({ user: "demo_customer", role: "customer" });
+  const token = await signJWT({ user: "demo_customer", role: "customer", phone, referralCode });
 
   const cookieStore = await cookies();
   cookieStore.set("customer_session", token, {

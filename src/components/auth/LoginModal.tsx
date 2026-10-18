@@ -24,6 +24,7 @@ export function LoginModal({ isOpen, onOpenChange }: LoginModalProps) {
   const [step, setStep] = useState<"phone" | "otp">("phone");
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
+  const [referralCode, setReferralCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -55,7 +56,7 @@ export function LoginModal({ isOpen, onOpenChange }: LoginModalProps) {
     
     setTimeout(async () => {
       try {
-        await customerLoginAction();
+        await customerLoginAction(phone, otp, referralCode);
       } catch (err) {
         setIsLoading(false);
         setError("Something went wrong. Please try again.");
@@ -203,6 +204,26 @@ export function LoginModal({ isOpen, onOpenChange }: LoginModalProps) {
                       </InputOTP>
                     </div>
                     {error && step === "otp" && <p className="text-sm text-destructive font-medium animate-in fade-in">{error}</p>}
+                  </div>
+
+                  <div className="space-y-3">
+                    <label htmlFor="referralCode" className="text-sm font-semibold text-foreground">
+                      Referral Code (Optional)
+                    </label>
+                    <div className="group relative flex items-center rounded-xl border border-input bg-transparent shadow-sm transition-all focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary">
+                      <div className="flex items-center pl-4 pr-2 text-muted-foreground font-medium text-sm border-r border-border mr-2 h-6">
+                        <Sparkles className="h-4 w-4" />
+                      </div>
+                      <input
+                        id="referralCode"
+                        type="text"
+                        placeholder="Enter code"
+                        maxLength={10}
+                        value={referralCode}
+                        onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
+                        className="flex h-12 w-full bg-transparent pr-4 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none uppercase"
+                      />
+                    </div>
                   </div>
 
                   <div className="space-y-3 pt-4">

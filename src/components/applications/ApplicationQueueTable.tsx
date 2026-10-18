@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Eye } from "lucide-react";
 import Link from "next/link";
+import { useState, useMemo } from "react";
 
 const applicationsData = [
   {
@@ -50,24 +51,132 @@ const applicationsData = [
     status: "Approved",
     date: "2023-10-26",
   },
+  {
+    id: "APP-1033",
+    user: "Rohit Sharma",
+    amount: "₹1,50,000",
+    tenure: "36 months",
+    riskScore: "Medium",
+    status: "Under Review",
+    date: "2023-10-27",
+  },
 ];
 
-export function ApplicationQueueTable({ initialApplications = [] }: { initialApplications?: any[] }) {
-  // Use backend applications if available, otherwise use mock data
-  const apps = initialApplications.length > 0 
-    ? initialApplications.map((app: any) => ({
-        id: app.id,
-        user: app.user_id, // Ideally, backend should join user table and return name
-        amount: `₹${app.requested_amount}`,
-        tenure: `${app.requested_tenure_months} months`,
-        riskScore: "Medium", // Backend schema doesn't have risk score yet
-        status: app.current_step,
-        date: app.created_at ? new Date(app.created_at).toLocaleDateString() : "N/A",
-      }))
-    : applicationsData;
+type ApplicationRow = {
+  id: string;
+  user: string;
+  amount: string;
+  tenure: string;
+  riskScore: string;
+  status: string;
+  date: string;
+};
+
+function filterApplications(
+  apps: ApplicationRow[],
+  riskFilter: string | null,
+  statusFilter: string | null
+) {
+  return apps.filter((app) => {
+    const matchesRisk = !riskFilter || app.riskScore === riskFilter;
+    const matchesStatus = !statusFilter || app.status === statusFilter;
+    return matchesRisk && matchesStatus;
+  });
+}
+
+export function ApplicationQueueTable({ initialApplications }: { initialApplications?: any[] }) {
+  const [riskFilter, setRiskFilter] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState<string | null>(null);
+  const apps = useMemo(() => {
+    const rowApps = initialApplications.length > 0
+      ? initialApplications.map((app: any) => ({
+          id: app.id,
+          user: app.user_id || "Unknown",
+          amount: `₹${app.requested_amount || 0}`,
+          tenure: `${app.requested_tenure_months || 12} months`,
+          riskScore: app.riskScore || "Medium",
+          status: app.current_step || "Under Review",
+          date: app.created_at ? new Date(app.created_at).toLocaleDateString() : "N/A",
+        }))
+      : applicationsData;
+
+    return filterApplications(rowApps, riskFilter, statusFilter);
+  }, [riskFilter, statusFilter, initialApplications]);
 
   return (
-    <div className="rounded-md border border-border bg-card/50 backdrop-blur">
+    <div className="rounded-md border border-bg mb-4">
+      <div className="px-4 py-3 border-b border-border flex items-center justify-between">
+        <h2 className="text-lg font-bold">Application Queue</h2>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setRiskFilter(null)}
+            className="py-1.5 px-3 text-sm"
+          >
+            All Risks
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setRiskFilter("Low")}
+            className="py-1.5 px-3 text-sm"
+          >
+            Low
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setRiskFilter("Medium")}
+            className="py-1.5 px-3 text-sm"
+          >
+            Medium
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setRiskFilter("High")}
+            className="py-1.5 px-3 text-sm"
+          >
+            High
+          </Button>
+        </div>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setStatusFilter(null)}
+            className="py-1.5 px-3 text-xs"
+          >
+            All
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setStatusFilter("Approved")}
+            className="py-1.5 px-3 text-xs"
+          >
+            Approved
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setStatusFilter("Rejected")}
+            className="py-1.5 px-3 text-xs"
+          >
+            Rejected
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setStatusFilter("Under Review")}
+            className="py-1.5 px-3 text-xs"
+          >
+            Under Review
+          </Button>
+        </div>
+      </div>
+
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent border-border">
