@@ -10,170 +10,97 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Eye } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Eye, Search, CheckCircle, XCircle, Send } from "lucide-react";
 import Link from "next/link";
 import { useState, useMemo } from "react";
 
-const applicationsData = [
-  {
-    id: "APP-1029",
-    user: "Suresh Menon",
-    amount: "₹50,000",
-    tenure: "12 months",
-    riskScore: "Medium",
-    status: "Under Review",
-    date: "2023-10-24",
-  },
-  {
-    id: "APP-1030",
-    user: "Anita Roy",
-    amount: "₹1,00,000",
-    tenure: "24 months",
-    riskScore: "Low",
-    status: "New",
-    date: "2023-10-25",
-  },
-  {
-    id: "APP-1031",
-    user: "Vikram Singh",
-    amount: "₹25,000",
-    tenure: "6 months",
-    riskScore: "High",
-    status: "Rejected",
-    date: "2023-10-25",
-  },
-  {
-    id: "APP-1032",
-    user: "Pooja Das",
-    amount: "₹75,000",
-    tenure: "18 months",
-    riskScore: "Low",
-    status: "Approved",
-    date: "2023-10-26",
-  },
-  {
-    id: "APP-1033",
-    user: "Rohit Sharma",
-    amount: "₹1,50,000",
-    tenure: "36 months",
-    riskScore: "Medium",
-    status: "Under Review",
-    date: "2023-10-27",
-  },
-];
-
-type ApplicationRow = {
-  id: string;
-  user: string;
-  amount: string;
-  tenure: string;
-  riskScore: string;
-  status: string;
-  date: string;
-};
-
-function filterApplications(
-  apps: ApplicationRow[],
-  riskFilter: string | null,
-  statusFilter: string | null
-) {
-  return apps.filter((app) => {
-    const matchesRisk = !riskFilter || app.riskScore === riskFilter;
-    const matchesStatus = !statusFilter || app.status === statusFilter;
-    return matchesRisk && matchesStatus;
-  });
-}
-
-export function ApplicationQueueTable({ initialApplications }: { initialApplications?: any[] }) {
+export function ApplicationQueueTable({ initialApplications = [] }: { initialApplications?: any[] }) {
+  const [search, setSearch] = useState("");
   const [riskFilter, setRiskFilter] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
-  const apps = useMemo(() => {
-    const rowApps = initialApplications.length > 0
-      ? initialApplications.map((app: any) => ({
-          id: app.id,
-          user: app.user_id || "Unknown",
-          amount: `₹${app.requested_amount || 0}`,
-          tenure: `${app.requested_tenure_months || 12} months`,
-          riskScore: app.riskScore || "Medium",
-          status: app.current_step || "Under Review",
-          date: app.created_at ? new Date(app.created_at).toLocaleDateString() : "N/A",
-        }))
-      : applicationsData;
 
-    return filterApplications(rowApps, riskFilter, statusFilter);
-  }, [riskFilter, statusFilter, initialApplications]);
+  const applications = useMemo(() => {
+    return initialApplications.map((app: any) => ({
+      id: String(app.id),
+      user: app.user_name || app.user_id || "Applicant",
+      mobile: app.user_mobile || "N/A",
+      amount: app.approved_amount || app.requested_amount || 0,
+      tenure: app.tenure_months || 12,
+      riskScore: app.risk_score || "Medium",
+      status: app.status || app.current_step || "Under Review",
+      date: app.created_at ? new Date(app.created_at).toLocaleDateString() : "Recent",
+      cibil: app.cibil_score || 700,
+    }));
+  }, [initialApplications]);
+
+  const filteredApps = useMemo(() => {
+    return applications.filter((app) => {
+      const matchesSearch =
+        search === "" ||
+        app.id.toLowerCase().includes(search.toLowerCase()) ||
+        app.user.toLowerCase().includes(search.toLowerCase()) ||
+        app.mobile.includes(search);
+
+      const matchesRisk = !riskFilter || app.riskScore === riskFilter;
+      const matchesStatus = !statusFilter || app.status.toLowerCase().replace(/_/g, " ") === statusFilter.toLowerCase().replace(/_/g, " ");
+
+      return matchesSearch && matchesRisk && matchesStatus;
+    });
+  }, [applications, search, riskFilter, statusFilter]);
 
   return (
-    <div className="rounded-md border border-bg mb-4">
-      <div className="px-4 py-3 border-b border-border flex items-center justify-between">
-        <h2 className="text-lg font-bold">Application Queue</h2>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setRiskFilter(null)}
-            className="py-1.5 px-3 text-sm"
-          >
-            All Risks
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setRiskFilter("Low")}
-            className="py-1.5 px-3 text-sm"
-          >
-            Low
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setRiskFilter("Medium")}
-            className="py-1.5 px-3 text-sm"
-          >
-            Medium
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setRiskFilter("High")}
-            className="py-1.5 px-3 text-sm"
-          >
-            High
-          </Button>
+    <div className="rounded-xl border border-border bg-card/50 backdrop-blur overflow-hidden">
+      {/* Search and Filters Header */}
+      <div className="p-4 border-b border-border flex flex-wrap items-center justify-between gap-4">
+        <div className="relative w-full max-w-xs">
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search by ID, name, mobile..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="pl-9 bg-background/50 border-border"
+          />
         </div>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setStatusFilter(null)}
-            className="py-1.5 px-3 text-xs"
-          >
-            All
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setStatusFilter("Approved")}
-            className="py-1.5 px-3 text-xs"
-          >
-            Approved
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setStatusFilter("Rejected")}
-            className="py-1.5 px-3 text-xs"
-          >
-            Rejected
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setStatusFilter("Under Review")}
-            className="py-1.5 px-3 text-xs"
-          >
-            Under Review
-          </Button>
+
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Status Tabs */}
+          <div className="flex bg-muted/40 p-1 rounded-lg border border-border">
+            {[
+              { label: "All", value: null },
+              { label: "Under Review", value: "bureau checked" },
+              { label: "Approved", value: "offer generated" },
+              { label: "Disbursed", value: "disbursed" },
+              { label: "Rejected", value: "rejected" },
+            ].map((tab) => (
+              <button
+                key={tab.label}
+                onClick={() => setStatusFilter(tab.value)}
+                className={`px-3 py-1 text-xs rounded-md font-medium transition-colors ${
+                  statusFilter === tab.value
+                    ? "bg-primary text-primary-foreground shadow"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Risk Badges */}
+          <div className="flex gap-1">
+            {["Low", "Medium", "High"].map((risk) => (
+              <Button
+                key={risk}
+                variant={riskFilter === risk ? "default" : "outline"}
+                size="sm"
+                onClick={() => setRiskFilter(riskFilter === risk ? null : risk)}
+                className="h-7 text-xs border-border"
+              >
+                {risk} Risk
+              </Button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -182,50 +109,80 @@ export function ApplicationQueueTable({ initialApplications }: { initialApplicat
           <TableRow className="hover:bg-transparent border-border">
             <TableHead>App ID</TableHead>
             <TableHead>Applicant</TableHead>
-            <TableHead>Requested Amount</TableHead>
+            <TableHead>Requested</TableHead>
             <TableHead>Tenure</TableHead>
-            <TableHead>Risk Score</TableHead>
+            <TableHead>CIBIL / Risk</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Date</TableHead>
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {apps.map((app) => (
-            <TableRow key={app.id} className="border-border hover:bg-muted/50">
-              <TableCell className="font-medium text-primary">{app.id}</TableCell>
-              <TableCell>{app.user}</TableCell>
-              <TableCell className="font-medium">{app.amount}</TableCell>
-              <TableCell>{app.tenure}</TableCell>
-              <TableCell>
-                <Badge variant="outline" className={
-                  app.riskScore === 'Low' ? 'border-success text-success' :
-                  app.riskScore === 'Medium' ? 'border-amber-500 text-amber-500' :
-                  'border-destructive text-destructive'
-                }>
-                  {app.riskScore}
-                </Badge>
+          {filteredApps.map((app) => (
+            <TableRow key={app.id} className="border-border hover:bg-muted/40 transition-colors">
+              <TableCell className="font-mono font-medium text-primary">
+                {app.id}
               </TableCell>
               <TableCell>
-                <Badge className={
-                  app.status === 'Approved' ? 'bg-success/20 text-success hover:bg-success/30' :
-                  app.status === 'Rejected' ? 'bg-destructive/20 text-destructive hover:bg-destructive/30' :
-                  app.status === 'Under Review' ? 'bg-primary/20 text-primary hover:bg-primary/30' :
-                  'bg-secondary text-secondary-foreground hover:bg-secondary/80'
-                }>
-                  {app.status}
+                <div>
+                  <p className="font-medium text-foreground">{app.user}</p>
+                  <p className="text-xs text-muted-foreground">{app.mobile}</p>
+                </div>
+              </TableCell>
+              <TableCell className="font-bold text-foreground">
+                ₹{Number(app.amount).toLocaleString()}
+              </TableCell>
+              <TableCell className="text-muted-foreground">{app.tenure} mo</TableCell>
+              <TableCell>
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold text-xs">{app.cibil}</span>
+                  <Badge
+                    variant="outline"
+                    className={`text-[10px] px-1.5 py-0 ${
+                      app.riskScore === "Low"
+                        ? "border-success text-success bg-success/10"
+                        : app.riskScore === "Medium"
+                        ? "border-amber-500 text-amber-500 bg-amber-500/10"
+                        : "border-destructive text-destructive bg-destructive/10"
+                    }`}
+                  >
+                    {app.riskScore}
+                  </Badge>
+                </div>
+              </TableCell>
+              <TableCell>
+                <Badge
+                  className={`capitalize text-xs ${
+                    app.status.toLowerCase().includes("disbursed")
+                      ? "bg-success/20 text-success border-success/30"
+                      : app.status.toLowerCase().includes("approved") || app.status.toLowerCase().includes("offer")
+                      ? "bg-teal-500/20 text-teal-400 border-teal-500/30"
+                      : app.status.toLowerCase().includes("rejected")
+                      ? "bg-destructive/20 text-destructive border-destructive/30"
+                      : "bg-primary/20 text-primary border-primary/30"
+                  }`}
+                >
+                  {app.status.replace(/_/g, " ")}
                 </Badge>
               </TableCell>
-              <TableCell>{app.date}</TableCell>
+              <TableCell className="text-xs text-muted-foreground">{app.date}</TableCell>
               <TableCell className="text-right">
-                <Button variant="ghost" size="sm" asChild className="hover:bg-primary/20 hover:text-primary">
+                <Button variant="outline" size="sm" asChild className="h-8 border-border hover:bg-primary hover:text-primary-foreground">
                   <Link href={`/admin/applications/${app.id}`}>
-                    <Eye className="w-4 h-4 mr-2" /> Review
+                    <Eye className="w-3.5 h-3.5 mr-1.5" /> Review
                   </Link>
                 </Button>
               </TableCell>
             </TableRow>
           ))}
+
+          {filteredApps.length === 0 && (
+            <TableRow>
+              <TableCell colSpan={8} className="text-center py-10 text-muted-foreground">
+                No loan applications matched your filter criteria.
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </div>

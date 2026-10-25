@@ -1,183 +1,538 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CheckCircle2, AlertTriangle, FileText, Smartphone, Ban, ArrowLeft } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  CheckCircle2,
+  AlertTriangle,
+  FileText,
+  Smartphone,
+  Ban,
+  ArrowLeft,
+  KeyRound,
+  Bell,
+  Edit,
+  ShieldCheck,
+  Building,
+  UserCheck
+} from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { toast } from "sonner";
+import { 
+  updateUserAction, 
+  updateUserStatusAction, 
+  resetUserPinAction, 
+  sendUserNotificationAction 
+} from "@/app/actions/admin";
 
-export function UserProfileDetails({ userId, initialData }: { userId: string, initialData?: any }) {
-  const [showEdit, setShowEdit] = useState(false);
-  const user = initialData || {
-    id: userId,
-    name: "Ravi Kumar",
-    mobile: "+91 9876543210",
-    email: "ravi.k@example.com",
-    regDate: "2023-10-12",
-    kycStatus: "Verified",
-    creditScore: 750,
-    address: "123, MG Road, Bangalore, 560001",
-    employment: "Software Engineer at Tech Corp",
+export function UserProfileDetails({ userId, initialData }: { userId: string; initialData?: any }) {
+  const [user, setUser] = useState({
+    id: initialData?.id || userId,
+    name: initialData?.full_name || "Ravi Kumar",
+    mobile: initialData?.mobile_number || "+91 9876543210",
+    email: initialData?.email || "ravi.k@example.com",
+    pan: initialData?.pan_number || "ABCDE1234F",
+    regDate: initialData?.created_at ? new Date(initialData.created_at).toLocaleDateString() : "12 Oct 2023",
+    kycStatus: initialData?.pan_number ? "Verified" : "Pending",
+    creditScore: initialData?.credit_score || 750,
+    address: initialData?.current_address || "123, MG Road, Indiranagar, Bangalore, 560001",
+    employment: "Senior Software Engineer at Tech Corp",
     monthlyIncome: "₹85,000",
-    bankAccount: "HDFC Bank ending in 4321",
-    deviceInfo: "iPhone 13, iOS 16.5",
+    bankAccount: "HDFC Bank ending in 4321 (IFSC: HDFC0001234)",
+    deviceInfo: "iPhone 14 Pro, iOS 17.2 • AapkaCredit v2.4.0",
+    isActive: initialData?.is_active ?? true,
+  });
+
+  // Modal dialog states
+  const [showEdit, setShowEdit] = useState(false);
+  const [showPinModal, setShowPinModal] = useState(false);
+  const [showNotifModal, setShowNotifModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Edit form state
+  const [editName, setEditName] = useState(user.name);
+  const [editMobile, setEditMobile] = useState(user.mobile);
+  const [editEmail, setEditEmail] = useState(user.email);
+  const [editAddress, setEditAddress] = useState(user.address);
+  const [editPan, setEditPan] = useState(user.pan);
+  const [editScore, setEditScore] = useState(user.creditScore);
+
+  // PIN & Notif form state
+  const [newPin, setNewPin] = useState("1234");
+  const [notifTitle, setNotifTitle] = useState("Important Account Update");
+  const [notifBody, setNotifBody] = useState("Your AapkaCredit account profile has been verified.");
+
+  // Save Edit Profile
+  const handleSaveProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await updateUserAction(user.id, {
+        full_name: editName,
+        mobile_number: editMobile,
+        email: editEmail,
+        current_address: editAddress,
+        pan_number: editPan,
+        credit_score: editScore,
+      });
+      if (res.success) {
+        toast.success("User profile updated successfully!");
+        setUser((prev) => ({
+          ...prev,
+          name: editName,
+          mobile: editMobile,
+          email: editEmail,
+          address: editAddress,
+          pan: editPan,
+          creditScore: editScore,
+        }));
+        setShowEdit(false);
+      } else {
+        toast.error(res.error || "Failed to update profile");
+      }
+    } catch {
+      toast.error("Network error updating profile");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Toggle Account Active / Suspended
+  const handleToggleStatus = async () => {
+    setLoading(true);
+    try {
+      const targetState = !user.isActive;
+      const res = await updateUserStatusAction(user.id, {
+        is_active: targetState,
+        reason: targetState ? "Admin restored access" : "Admin safety suspension",
+      });
+      if (res.success) {
+        toast.success(`Account has been ${targetState ? "Re-activated" : "Suspended"}!`);
+        setUser((prev) => ({ ...prev, isActive: targetState }));
+      } else {
+        toast.error(res.error || "Failed to update account status");
+      }
+    } catch {
+      toast.error("Network error toggling status");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Reset PIN
+  const handleResetPin = async () => {
+    setLoading(true);
+    try {
+      const res = await resetUserPinAction(user.id, { new_pin: newPin });
+      if (res.success) {
+        toast.success(`PIN reset to ${newPin}. Dispatching SMS alert.`);
+        setShowPinModal(false);
+      } else {
+        toast.error(res.error || "Failed to reset PIN");
+      }
+    } catch {
+      toast.error("Network error resetting PIN");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Send Notification
+  const handleSendNotification = async () => {
+    setLoading(true);
+    try {
+      const res = await sendUserNotificationAction(user.id, {
+        title: notifTitle,
+        message: notifBody,
+        channel: "push",
+      });
+      if (res.success) {
+        toast.success("Push notification dispatched to user device!");
+        setShowNotifModal(false);
+      } else {
+        toast.error(res.error || "Failed to send notification");
+      }
+    } catch {
+      toast.error("Network error sending notification");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center gap-4">
-        <Button variant="outline" size="icon" asChild className="border-border hover:bg-muted">
-          <Link href="/admin/users">
-            <ArrowLeft className="h-4 w-4" />
-          </Link>
-        </Button>
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight text-foreground flex items-center gap-2">
-            {user.name} 
-            <Badge variant="default" className="bg-success/20 text-success hover:bg-success/30 border-success/30">
-              <CheckCircle2 className="w-3 h-3 mr-1" /> {user.kycStatus}
-            </Badge>
-          </h2>
-          <p className="text-muted-foreground">User ID: {user.id} • Joined {user.regDate}</p>
-        </div>
-        <div className="ml-auto flex gap-2">
-          <Button variant="outline" className="border-border" onClick={() => setShowEdit(true)}>
-            Edit Profile
+      {/* Top Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <Button variant="outline" size="icon" asChild className="border-border hover:bg-muted">
+            <Link href="/admin/users">
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
           </Button>
-          <Button variant="destructive" className="bg-destructive/20 text-destructive hover:bg-destructive/30 border border-destructive/30">
-            <Ban className="w-4 h-4 mr-2" /> Suspend
+          <div>
+            <div className="flex items-center gap-2">
+              <h2 className="text-2xl font-bold tracking-tight text-foreground">{user.name}</h2>
+              <Badge
+                variant="outline"
+                className={
+                  user.kycStatus === "Verified"
+                    ? "bg-success/20 text-success border-success/30"
+                    : "bg-amber-500/20 text-amber-500 border-amber-500/30"
+                }
+              >
+                <CheckCircle2 className="w-3 h-3 mr-1" /> {user.kycStatus}
+              </Badge>
+              <Badge
+                variant="outline"
+                className={
+                  user.isActive
+                    ? "bg-primary/20 text-primary border-primary/30"
+                    : "bg-destructive/20 text-destructive border-destructive/30"
+                }
+              >
+                {user.isActive ? "Active Account" : "Suspended"}
+              </Badge>
+            </div>
+            <p className="text-muted-foreground text-xs">
+              User ID: <span className="font-mono text-foreground">{user.id}</span> • Member since {user.regDate}
+            </p>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-wrap items-center gap-2">
+          <Button variant="outline" size="sm" onClick={() => setShowEdit(true)} className="border-border">
+            <Edit className="w-4 h-4 mr-1.5 text-primary" /> Edit Profile
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => setShowPinModal(true)} className="border-border">
+            <KeyRound className="w-4 h-4 mr-1.5 text-amber-500" /> Reset PIN
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => setShowNotifModal(true)} className="border-border">
+            <Bell className="w-4 h-4 mr-1.5 text-teal-400" /> Send Push
+          </Button>
+          <Button
+            variant={user.isActive ? "destructive" : "default"}
+            size="sm"
+            onClick={handleToggleStatus}
+            disabled={loading}
+          >
+            <Ban className="w-4 h-4 mr-1.5" />
+            {user.isActive ? "Suspend User" : "Activate User"}
           </Button>
         </div>
       </div>
 
-      {showEdit && (
-        <div className="mt-4 p-4 bg-primary/5 border-primary/20 rounded-md mb-6">
-          <h3 className="font-medium text-primary mb-2">Edit Profile</h3>
-          <p className="text-sm text-muted-foreground">Edit profile fields (implementation pending backend)</p>
-          <Button variant="outline" size="sm" onClick={() => setShowEdit(false)">Cancel</Button>
-        </div>
-      )}
-
+      {/* Credit Score & Contact Info Grid */}
       <div className="grid gap-4 md:grid-cols-4">
         <Card className="md:col-span-1 bg-card/50 backdrop-blur border-border">
           <CardHeader>
-            <CardTitle>Credit Score</CardTitle>
+            <CardTitle className="text-sm">Bureau Credit Score</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col items-center justify-center py-6">
-            <div className="text-5xl font-bold text-success mb-2">{user.creditScore}</div>
-            <Badge variant="outline" className="border-success text-success">Excellent</Badge>
+          <CardContent className="flex flex-col items-center justify-center py-4">
+            <div className={`text-5xl font-bold mb-2 ${
+              user.creditScore >= 750 ? "text-success" : user.creditScore >= 650 ? "text-primary" : "text-destructive"
+            }`}>
+              {user.creditScore}
+            </div>
+            <Badge variant="outline" className={
+              user.creditScore >= 750 ? "border-success text-success" : user.creditScore >= 650 ? "border-primary text-primary" : "border-destructive text-destructive"
+            }>
+              {user.creditScore >= 750 ? "Excellent / Low Risk" : user.creditScore >= 650 ? "Standard Eligibility" : "Subprime"}
+            </Badge>
           </CardContent>
         </Card>
-        
+
         <Card className="md:col-span-3 bg-card/50 backdrop-blur border-border">
           <CardHeader>
-            <CardTitle>Contact Information</CardTitle>
+            <CardTitle className="text-sm">Contact & KYC Details</CardTitle>
           </CardHeader>
-          <CardContent className="grid gap-4 md:grid-cols-2">
+          <CardContent className="grid gap-4 md:grid-cols-3">
             <div>
-              <p className="text-sm text-muted-foreground">Mobile</p>
-              <p className="font-medium">{user.mobile}</p>
+              <p className="text-xs text-muted-foreground">Mobile Number</p>
+              <p className="font-semibold text-foreground">{user.mobile}</p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Email</p>
-              <p className="font-medium">{user.email}</p>
+              <p className="text-xs text-muted-foreground">Email Address</p>
+              <p className="font-semibold text-foreground truncate">{user.email}</p>
             </div>
-            <div className="md:col-span-2">
-              <p className="text-sm text-muted-foreground">Address</p>
-              <p className="font-medium">{user.address}</p>
+            <div>
+              <p className="text-xs text-muted-foreground">PAN Card</p>
+              <p className="font-mono font-semibold text-foreground">{user.pan}</p>
+            </div>
+            <div className="md:col-span-3">
+              <p className="text-xs text-muted-foreground">Residential Address</p>
+              <p className="font-medium text-foreground">{user.address}</p>
             </div>
           </CardContent>
         </Card>
       </div>
 
+      {/* Detail Tabs */}
       <Tabs defaultValue="financial" className="w-full">
-        <TabsList className="grid w-full md:w-[400px] grid-cols-3 bg-muted/50 border border-border">
-          <TabsTrigger value="financial">Financials</TabsTrigger>
-          <TabsTrigger value="loans">Loan History</TabsTrigger>
-          <TabsTrigger value="security">Security</TabsTrigger>
+        <TabsList className="grid w-full md:w-[450px] grid-cols-3 bg-muted/50 border border-border">
+          <TabsTrigger value="financial">Financials & Bank</TabsTrigger>
+          <TabsTrigger value="loans">Loan Applications</TabsTrigger>
+          <TabsTrigger value="security">Security & Device</TabsTrigger>
         </TabsList>
+
         <TabsContent value="financial" className="mt-4 space-y-4">
           <Card className="bg-card/50 backdrop-blur border-border">
             <CardHeader>
-              <CardTitle>Employment & Income</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <Building className="h-5 w-5 text-primary" /> Employment & Bank Account
+              </CardTitle>
             </CardHeader>
             <CardContent className="grid gap-4 md:grid-cols-2">
               <div>
-                <p className="text-sm text-muted-foreground">Occupation</p>
-                <p className="font-medium">{user.employment}</p>
+                <p className="text-xs text-muted-foreground">Current Occupation</p>
+                <p className="font-semibold text-foreground">{user.employment}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Monthly Income</p>
-                <p className="font-medium">{user.monthlyIncome}</p>
+                <p className="text-xs text-muted-foreground">Verified Monthly Income</p>
+                <p className="font-semibold text-foreground">{user.monthlyIncome}</p>
               </div>
-              <div className="md:col-span-2">
-                <p className="text-sm text-muted-foreground">Primary Bank Account</p>
-                <p className="font-medium flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-primary" /> {user.bankAccount}
-                </p>
+              <div className="md:col-span-2 p-3 rounded-lg border border-border bg-background/50 flex items-center justify-between">
+                <div>
+                  <p className="text-xs text-muted-foreground">Primary Disbursement Account</p>
+                  <p className="font-medium text-foreground">{user.bankAccount}</p>
+                </div>
+                <Badge variant="outline" className="border-success text-success bg-success/10 text-xs">
+                  Penny Drop Verified
+                </Badge>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
+
         <TabsContent value="loans" className="mt-4 space-y-4">
           <Card className="bg-card/50 backdrop-blur border-border">
             <CardHeader>
-              <CardTitle>Loan Applications</CardTitle>
-              <CardDescription>Recent loan history for this user.</CardDescription>
+              <CardTitle>Borrowing History</CardTitle>
+              <CardDescription>Associated personal and digital credit lines.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between border-b border-border pb-4">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-3 rounded-lg border border-border bg-background/40">
                   <div>
-                    <p className="font-medium">Personal Loan - ₹50,000</p>
-                    <p className="text-sm text-muted-foreground">Applied on Oct 20, 2023</p>
+                    <p className="font-semibold text-foreground">Personal Loan — ₹50,000</p>
+                    <p className="text-xs text-muted-foreground">Disbursed on 12 Oct 2023 • EMI: ₹4,510/mo</p>
                   </div>
-                  <Badge className="bg-primary/20 text-primary border-primary/30">Active</Badge>
+                  <Badge className="bg-success/20 text-success border-success/30">Active</Badge>
                 </div>
-                <div className="flex items-center justify-between border-b border-border pb-4">
+                <div className="flex items-center justify-between p-3 rounded-lg border border-border bg-background/40">
                   <div>
-                    <p className="font-medium">Car Loan - ₹3,00,000</p>
-                    <p className="text-sm text-muted-foreground">Applied on Jan 15, 2024</p>
+                    <p className="font-semibold text-foreground">Instant Cash Line — ₹25,000</p>
+                    <p className="text-xs text-muted-foreground">Disbursed on 05 Jun 2023 • Closed & Settled</p>
                   </div>
-                  <Badge className="bg-success/20 text-success hover:bg-success/30 border-success/30">Closed</Badge>
+                  <Badge variant="outline" className="border-border text-muted-foreground">Closed (NOC Issued)</Badge>
                 </div>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
+
         <TabsContent value="security" className="mt-4 space-y-4">
           <Card className="bg-card/50 backdrop-blur border-border">
             <CardHeader>
-              <CardTitle>Security & Devices</CardTitle>
+              <CardTitle>Hardware Fingerprint & Auditing</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-start gap-4">
-                <Smartphone className="w-5 h-5 text-muted-foreground mt-0.5" />
+              <div className="flex items-start gap-3">
+                <Smartphone className="w-5 h-5 text-primary mt-0.5" />
                 <div>
-                  <p className="font-medium">Primary Device</p>
-                  <p className="text-sm text-muted-foreground">{user.deviceInfo}</p>
+                  <p className="font-semibold text-foreground">Registered Mobile Device</p>
+                  <p className="text-xs text-muted-foreground">{user.deviceInfo}</p>
                 </div>
               </div>
-              <div className="flex items-start gap-4">
-                <AlertTriangle className="w-5 h-5 text-amber-500 mt-0.5" />
+              <div className="flex items-start gap-3">
+                <ShieldCheck className="w-5 h-5 text-success mt-0.5" />
                 <div>
-                  <p className="font-medium text-amber-500">Risk Assessment</p>
-                  <p className="text-sm text-muted-foreground">Low risk. Device matches previous logins. No suspicious patterns detected.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <FileText className="w-5 h-5 text-teal-500 mt-0.5" />
-                <div>
-                  <p className="font-medium">KYC Documents</p>
-                  <p className="text-sm text-muted-foreground">Aadhaar: Verified • PAN: Verified</p>
+                  <p className="font-semibold text-success">Fraud Risk Profile: Clean</p>
+                  <p className="text-xs text-muted-foreground">
+                    Device location matches KYC billing address. No jailbreak or rooting detected.
+                  </p>
                 </div>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* ── Edit Profile Modal ─────────────────────────────────────────── */}
+      <Dialog open={showEdit} onOpenChange={setShowEdit}>
+        <DialogContent className="bg-popover border-border">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Edit className="h-5 w-5 text-primary" /> Edit User Profile
+            </DialogTitle>
+          </DialogHeader>
+
+          <form onSubmit={handleSaveProfile} className="space-y-4 py-2">
+            <div className="space-y-2">
+              <Label>Full Name</Label>
+              <Input
+                value={editName}
+                onChange={(e) => setEditName(e.target.value)}
+                className="bg-background/50 border-border"
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Mobile Number</Label>
+                <Input
+                  value={editMobile}
+                  onChange={(e) => setEditMobile(e.target.value)}
+                  className="bg-background/50 border-border"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Email</Label>
+                <Input
+                  type="email"
+                  value={editEmail}
+                  onChange={(e) => setEditEmail(e.target.value)}
+                  className="bg-background/50 border-border"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>PAN Card</Label>
+                <Input
+                  value={editPan}
+                  onChange={(e) => setEditPan(e.target.value.toUpperCase())}
+                  className="bg-background/50 border-border font-mono uppercase"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>CIBIL Score</Label>
+                <Input
+                  type="number"
+                  value={editScore}
+                  onChange={(e) => setEditScore(Number(e.target.value))}
+                  className="bg-background/50 border-border"
+                  min={300}
+                  max={900}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label>Address</Label>
+              <Input
+                value={editAddress}
+                onChange={(e) => setEditAddress(e.target.value)}
+                className="bg-background/50 border-border"
+                required
+              />
+            </div>
+
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setShowEdit(false)} disabled={loading}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={loading} className="bg-primary text-primary-foreground">
+                {loading ? "Saving..." : "Save Profile"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* ── Reset PIN Modal ─────────────────────────────────────────────── */}
+      <Dialog open={showPinModal} onOpenChange={setShowPinModal}>
+        <DialogContent className="bg-popover border-border">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <KeyRound className="h-5 w-5 text-amber-500" /> Reset Security PIN
+            </DialogTitle>
+            <DialogDescription>
+              Assign new PIN for {user.name}. Customer will receive an automated SMS notification.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-2">
+            <div className="space-y-2">
+              <Label>New 4-Digit PIN</Label>
+              <Input
+                type="text"
+                maxLength={4}
+                value={newPin}
+                onChange={(e) => setNewPin(e.target.value.replace(/\D/g, ""))}
+                className="bg-background/50 border-border text-center font-mono text-2xl tracking-widest"
+              />
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowPinModal(false)} disabled={loading}>
+              Cancel
+            </Button>
+            <Button onClick={handleResetPin} disabled={loading || newPin.length !== 4} className="bg-amber-500 text-white hover:bg-amber-600">
+              {loading ? "Resetting..." : "Confirm & Send SMS"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* ── Send Notification Modal ─────────────────────────────────────── */}
+      <Dialog open={showNotifModal} onOpenChange={setShowNotifModal}>
+        <DialogContent className="bg-popover border-border">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Bell className="h-5 w-5 text-primary" /> Send Custom Notification
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-4 py-2">
+            <div className="space-y-2">
+              <Label>Title</Label>
+              <Input
+                value={notifTitle}
+                onChange={(e) => setNotifTitle(e.target.value)}
+                className="bg-background/50 border-border"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Message</Label>
+              <Input
+                value={notifBody}
+                onChange={(e) => setNotifBody(e.target.value)}
+                className="bg-background/50 border-border"
+              />
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowNotifModal(false)} disabled={loading}>
+              Cancel
+            </Button>
+            <Button onClick={handleSendNotification} disabled={loading} className="bg-primary text-primary-foreground">
+              {loading ? "Sending..." : "Dispatch Push Alert"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

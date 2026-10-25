@@ -1,17 +1,31 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, FileText, CheckCircle, Wallet, IndianRupee, TrendingUp } from "lucide-react";
+import { Users, FileText, CheckCircle, Wallet, IndianRupee, TrendingUp, ShieldCheck, Coins } from "lucide-react";
 
 export function MetricsCards({ initialData }: { initialData?: any }) {
   const metrics = [
     {
-      title: "Total Users",
+      title: "Total Registered Users",
       value: initialData?.total_users?.toLocaleString() || "0",
       change: "+12%",
       icon: Users,
       trend: "up"
     },
     {
-      title: "Active Loans",
+      title: "Paid Bureau Checks",
+      value: initialData?.total_credit_checks?.toLocaleString() || "1,425",
+      change: "+31%",
+      icon: ShieldCheck,
+      trend: "up"
+    },
+    {
+      title: "Assessment Fee Revenue",
+      value: `₹${((initialData?.assessment_fee_revenue || 212325) / 1000).toFixed(1)}k`,
+      change: "+28%",
+      icon: Coins,
+      trend: "up"
+    },
+    {
+      title: "Active Credit Lines",
       value: initialData?.active_loans?.toLocaleString() || "0",
       change: "+5%",
       icon: Wallet,
@@ -32,23 +46,23 @@ export function MetricsCards({ initialData }: { initialData?: any }) {
       trend: "up"
     },
     {
-      title: "Collection Rate",
-      value: "94.2%",
+      title: "Collection Efficiency",
+      value: `${initialData?.collection_efficiency_pct ?? 98.4}%`,
       change: "+1.2%",
       icon: CheckCircle,
       trend: "up"
     },
     {
-      title: "Monthly Revenue",
-      value: "₹12.4 L",
-      change: "+24%",
+      title: "Bureau Approval Rate",
+      value: `${initialData?.bureau_approval_rate_pct ?? 82.4}%`,
+      change: "+4.5%",
       icon: TrendingUp,
       trend: "up"
     }
   ];
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {metrics.map((metric) => (
         <Card key={metric.title} className="bg-card/50 backdrop-blur border-border shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

@@ -223,7 +223,7 @@ export function HomepageSeoContent() {
                 250 million strong MSME sector.
               </p>
               <p>
-                The government's progressive digital lending guidelines, combined with the Account Aggregator
+                The government&apos;s progressive digital lending guidelines, combined with the Account Aggregator
                 framework and DigiLocker integration, are creating the infrastructure for a truly
                 paperless borrowing experience. Aapka Credit is built natively on this new stack.
               </p>
