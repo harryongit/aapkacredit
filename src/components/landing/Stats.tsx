@@ -1,36 +1,67 @@
 "use client";
+
 import { CountUp } from "@/components/fx/CountUp";
-import { Reveal } from "@/components/fx/Reveal";
+import { Users, IndianRupee, Zap, ThumbsUp } from "lucide-react";
 
 const stats = [
-  { value: 100000, suffix: "+", label: "Users Served" },
-  { value: 500000, suffix: "+", label: "Loan Opportunities Explored" },
-  { value: 99.9, suffix: "%", label: "Platform Uptime" },
-  { value: 98, suffix: "%", label: "Customer Satisfaction" },
+  {
+    icon: Users,
+    value: 50,
+    suffix: " Lakh+",
+    label: "Registered Users",
+    sub: "Across 2,400+ pin codes in India",
+    color: "text-blue-600 bg-blue-50",
+  },
+  {
+    icon: IndianRupee,
+    value: 2500,
+    suffix: "+ Cr",
+    label: "Total Disbursed",
+    sub: "Directly into verified bank accounts",
+    color: "text-emerald-600 bg-emerald-50",
+  },
+  {
+    icon: Zap,
+    value: 2,
+    suffix: " Mins",
+    label: "Sanction Decision",
+    sub: "Powered by instant bureau analytics",
+    color: "text-amber-600 bg-amber-50",
+  },
+  {
+    icon: ThumbsUp,
+    value: 99.4,
+    suffix: "%",
+    label: "Happy Borrowers",
+    sub: "Rated 4.8★ on Google Play Store",
+    color: "text-purple-600 bg-purple-50",
+  },
 ];
 
 export function Stats() {
   return (
-    <section className="relative py-24 bg-background z-10 border-t border-white/10">
-      <div className="mx-auto max-w-7xl px-4">
-        <Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-y border-white/10">
-            {stats.map((s, i) => (
-              <div 
-                key={s.label} 
-                className={`flex flex-col items-center justify-center p-12 text-center transition-colors duration-500 hover:bg-white/[0.02]
-                  ${i !== stats.length - 1 ? 'border-b lg:border-r lg:border-b-0' : ''}
-                  ${i === 1 ? 'md:border-b-0' : ''}
-                `}
+    <section className="py-20 bg-white border-t border-slate-200">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {stats.map((s) => {
+            const Icon = s.icon;
+            return (
+              <div
+                key={s.label}
+                className="bg-slate-50/80 rounded-3xl p-6 border border-slate-200/80 text-center flex flex-col items-center justify-between shadow-xs hover:shadow-md transition"
               >
-                <p className="font-display text-4xl font-bold tracking-tighter text-foreground sm:text-6xl mb-4 text-gradient-blue">
+                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-4 ${s.color}`}>
+                  <Icon className="w-6 h-6" />
+                </div>
+                <div className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-1">
                   <CountUp to={s.value} suffix={s.suffix} />
-                </p>
-                <p className="text-xs font-bold uppercase tracking-widest text-foreground/60">{s.label}</p>
+                </div>
+                <p className="text-sm font-bold text-slate-800">{s.label}</p>
+                <p className="text-xs text-slate-500 mt-1">{s.sub}</p>
               </div>
-            ))}
-          </div>
-        </Reveal>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

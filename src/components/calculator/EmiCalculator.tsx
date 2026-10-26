@@ -1,15 +1,20 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip } from "recharts";
 import { MagneticButton } from "@/components/fx/MagneticButton";
 
 const COLORS = ["#2563EB", "#10B981"]; // Primary blue, Success green
 
 export function EmiCalculator() {
+  const [isMounted, setIsMounted] = useState(false);
   const [principal, setPrincipal] = useState<number>(500000);
   const [rate, setRate] = useState<number>(10.5);
   const [tenureYears, setTenureYears] = useState<number>(5);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const results = useMemo(() => {
     const p = principal;
@@ -86,25 +91,29 @@ export function EmiCalculator() {
             <h3 className="text-4xl font-display font-bold text-foreground">{formatCurrency(results.emi)}</h3>
           </div>
 
-          <div className="h-48 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={chartData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <RechartsTooltip formatter={(value: number) => formatCurrency(value)} />
-              </PieChart>
-            </ResponsiveContainer>
+          <div className="h-48 w-full flex items-center justify-center">
+            {isMounted ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={chartData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    {chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <RechartsTooltip formatter={(value: number) => formatCurrency(value)} />
+                </PieChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="w-32 h-32 rounded-full border-8 border-slate-200 animate-pulse" />
+            )}
           </div>
 
           <div className="w-full space-y-3 mt-4">

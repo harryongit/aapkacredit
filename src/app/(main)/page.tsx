@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/landing/Hero";
+import { LendingPartners } from "@/components/landing/LendingPartners";
 import { TrustPillars } from "@/components/landing/TrustPillars";
 import { LoanProducts } from "@/components/landing/LoanProducts";
+import { EligibilityCalculator } from "@/components/landing/EligibilityCalculator";
 import { Features } from "@/components/landing/Features";
+import { CreditScoreCheck } from "@/components/landing/CreditScoreCheck";
 import { DashboardShowcase } from "@/components/landing/DashboardShowcase";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import { Security } from "@/components/landing/Security";
+import { MobileAppShowcase } from "@/components/landing/MobileAppShowcase";
 import { Education } from "@/components/landing/Education";
 import { Stats } from "@/components/landing/Stats";
 import { Testimonials } from "@/components/landing/Testimonials";
@@ -13,9 +17,9 @@ import { HomepageSeoContent } from "@/components/landing/HomepageSeoContent";
 import { Faq } from "@/components/landing/Faq";
 import { FinalCta } from "@/components/landing/FinalCta";
 import { Contact } from "@/components/landing/Contact";
+import { StickyApplyBar } from "@/components/landing/StickyApplyBar";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
 
-// ✅ Page-level metadata — overrides root layout defaults for the homepage
 export const metadata: Metadata = {
   title: "Instant Loans & Credit | Aapka Credit India",
   description:
@@ -35,26 +39,29 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      {/* ✅ Homepage breadcrumb schema — Home only (single item = valid for homepage) */}
       <BreadcrumbSchema items={[]} />
 
       <Hero />
+      <LendingPartners />
       <TrustPillars />
       <LoanProducts />
+      <EligibilityCalculator />
       <Features />
-      <DashboardShowcase />
+      <CreditScoreCheck />
       <HowItWorks />
+      <DashboardShowcase />
       <Security />
+      <MobileAppShowcase />
       <Education />
       <Stats />
       <Testimonials />
 
-      {/* ✅ SEO content expansion — pushes word count from ~765 to ~1,800+ words */}
       <HomepageSeoContent />
 
       <Faq />
       <FinalCta />
       <Contact />
+      <StickyApplyBar />
     </>
   );
 }

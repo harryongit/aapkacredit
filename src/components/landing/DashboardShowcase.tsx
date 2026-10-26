@@ -1,6 +1,6 @@
 "use client";
+
 import { TrendingUp, Wallet, CheckCircle2, Activity, Calculator } from "lucide-react";
-import { SectionHeading } from "./SectionHeading";
 import { Reveal } from "@/components/fx/Reveal";
 
 function HealthRing({ value = 78 }: { value?: number }) {
@@ -8,9 +8,9 @@ function HealthRing({ value = 78 }: { value?: number }) {
   const c = 2 * Math.PI * r;
   const dash = (value / 100) * c;
   return (
-    <div className="relative h-32 w-32">
+    <div className="relative h-32 w-32 shrink-0">
       <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
-        <circle cx="50" cy="50" r={r} stroke="rgba(255,255,255,0.08)" strokeWidth="8" fill="none" />
+        <circle cx="50" cy="50" r={r} stroke="#e2e8f0" strokeWidth="8" fill="none" />
         <circle
           cx="50"
           cy="50"
@@ -23,15 +23,15 @@ function HealthRing({ value = 78 }: { value?: number }) {
         />
         <defs>
           <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#3B82F6" />
+            <stop offset="0%" stopColor="#2563EB" />
             <stop offset="100%" stopColor="#10B981" />
           </linearGradient>
         </defs>
       </svg>
       <div className="absolute inset-0 grid place-items-center">
         <div className="text-center">
-          <p className="font-display text-3xl font-semibold text-foreground">{value}</p>
-          <p className="text-[10px] uppercase tracking-wider text-foreground/50">Health</p>
+          <p className="font-display text-2xl font-bold text-slate-900">{value}</p>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</p>
         </div>
       </div>
     </div>
@@ -40,197 +40,205 @@ function HealthRing({ value = 78 }: { value?: number }) {
 
 const offers = [
   {
-    product: "Aapka Prime",
-    rate: "10.4%",
-    emi: "₹18,420",
-    tag: "Best Match",
-    tone: "text-emerald-400",
+    product: "Flexi Personal Loan",
+    rate: "10.49%",
+    emi: "₹8,885",
+    tag: "Lowest Interest",
+    tone: "text-emerald-600 bg-emerald-50",
   },
   {
-    product: "Aapka Express",
-    rate: "10.9%",
-    emi: "₹18,850",
-    tag: "Fast Approval",
-    tone: "text-sky-400",
+    product: "Instant Cash Advance",
+    rate: "11.20%",
+    emi: "₹4,250",
+    tag: "5-Min Payout",
+    tone: "text-blue-600 bg-blue-50",
   },
   {
-    product: "Aapka Plus",
-    rate: "11.2%",
-    emi: "₹19,070",
-    tag: "Low Fees",
-    tone: "text-violet-400",
+    product: "MSME Growth Loan",
+    rate: "12.50%",
+    emi: "₹21,400",
+    tag: "Zero Collateral",
+    tone: "text-purple-600 bg-purple-50",
   },
 ];
 
 export function DashboardShowcase() {
   return (
-    <section className="relative py-28">
-      <div className="mx-auto max-w-7xl px-4">
-        <SectionHeading
-          eyebrow="Product"
-          title={
-            <>
-              A workspace as <span className="text-gradient-blue">smart as your money</span>
-            </>
-          }
-          subtitle="Your credit profile, offers, EMI planning and timeline — together in one place."
-        />
+    <section className="py-24 bg-white border-t border-slate-200">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Heading */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-700 mb-3">
+            Borrower Experience
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            An Intuitive Dashboard Built For Total Control
+          </h2>
+          <p className="mt-3 text-base text-slate-600">
+            Track active sanctions, schedule AutoPay EMIs, monitor bureau health, and unlock pre-approved offers.
+          </p>
+        </div>
 
-        <Reveal className="relative mt-16">
-          <div
-            className="pointer-events-none absolute -inset-8 -z-10 rounded-[40px] opacity-50 blur-3xl"
-            style={{
-              background: "radial-gradient(closest-side, rgba(59,130,246,0.5), transparent 70%)",
-            }}
-          />
-          <div className="glass-strong relative rounded-3xl border border-foreground/10 p-3 shadow-elegant sm:p-5">
-            {/* window chrome */}
-            <div className="mb-4 flex items-center gap-2 px-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
-              <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/70" />
-              <span className="ml-3 text-[11px] text-foreground/40">aapkacredit.app / dashboard</span>
+        <Reveal className="relative">
+          <div className="bg-slate-50 rounded-3xl border border-slate-200/90 p-4 sm:p-6 shadow-xl">
+            {/* Window Chrome Header */}
+            <div className="mb-4 flex items-center justify-between px-2 pb-3 border-b border-slate-200/70">
+              <div className="flex items-center gap-2">
+                <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+                <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                <span className="ml-2 text-xs font-semibold text-slate-500">aapkacredit.com / borrower-portal</span>
+              </div>
+              <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800">
+                Live Portal Demo
+              </span>
             </div>
 
-            <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
-              {/* profile */}
-              <div className="glass rounded-2xl p-5 lg:col-span-4">
-                <p className="text-[11px] uppercase tracking-wider text-foreground/50">Credit Profile</p>
-                <div className="mt-3 flex items-center gap-4">
-                  <HealthRing value={78} />
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+              
+              {/* Credit Profile Widget */}
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs lg:col-span-4 flex flex-col justify-between">
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Bureau Health Profile</p>
+                <div className="flex items-center gap-4">
+                  <HealthRing value={782} />
                   <div className="space-y-2">
                     <div>
-                      <p className="text-xs text-foreground/50">Score</p>
-                      <p className="font-display text-2xl font-semibold text-foreground">782</p>
+                      <p className="text-[11px] text-slate-400 font-semibold uppercase">CIBIL Status</p>
+                      <p className="font-extrabold text-xl text-emerald-600">Excellent (782)</p>
                     </div>
                     <div>
-                      <p className="text-xs text-foreground/50">Utilization</p>
-                      <p className="text-sm font-medium text-emerald-400">28%</p>
+                      <p className="text-[11px] text-slate-400 font-semibold uppercase">Credit Utilization</p>
+                      <p className="text-sm font-bold text-slate-800">24% (Optimal)</p>
                     </div>
                   </div>
                 </div>
+                <div className="pt-3 border-t border-slate-100 mt-2 text-[11px] text-slate-500 font-medium">
+                  Verified by TransUnion CIBIL & Experian
+                </div>
               </div>
 
-              {/* offers */}
-              <div className="glass rounded-2xl p-5 lg:col-span-5">
-                <div className="flex items-center justify-between">
-                  <p className="text-[11px] uppercase tracking-wider text-foreground/50">Loan Offers</p>
-                  <Wallet className="h-4 w-4 text-foreground/40" />
+              {/* Loan Offers Widget */}
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs lg:col-span-5">
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Pre-Approved Sanctions</p>
+                  <Wallet className="h-4 w-4 text-blue-600" />
                 </div>
-                <ul className="mt-3 space-y-2">
+                <ul className="space-y-2.5">
                   {offers.map((o) => (
                     <li
                       key={o.product}
-                      className="flex items-center justify-between rounded-xl bg-white/[0.03] p-3 ring-1 ring-white/5"
+                      className="flex items-center justify-between rounded-xl bg-slate-50/80 p-3 border border-slate-100"
                     >
                       <div>
-                        <p className="text-sm font-medium text-foreground">{o.product}</p>
-                        <p className={`text-[11px] ${o.tone}`}>{o.tag}</p>
+                        <p className="text-xs font-bold text-slate-900">{o.product}</p>
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${o.tone}`}>
+                          {o.tag}
+                        </span>
                       </div>
                       <div className="text-right">
-                        <p className="text-xs text-foreground/50">EMI</p>
-                        <p className="text-sm font-semibold text-foreground">{o.emi}</p>
+                        <p className="text-[10px] text-slate-400 uppercase font-semibold">Monthly EMI</p>
+                        <p className="text-xs font-extrabold text-slate-900">{o.emi}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-xs text-foreground/50">Rate</p>
-                        <p className="text-sm font-semibold text-foreground">{o.rate}</p>
+                        <p className="text-[10px] text-slate-400 uppercase font-semibold">Interest</p>
+                        <p className="text-xs font-extrabold text-emerald-600">{o.rate}</p>
                       </div>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              {/* EMI calc */}
-              <div className="glass rounded-2xl p-5 lg:col-span-3">
-                <div className="flex items-center justify-between">
-                  <p className="text-[11px] uppercase tracking-wider text-foreground/50">EMI Planner</p>
-                  <Calculator className="h-4 w-4 text-foreground/40" />
+              {/* Instant Sanction Widget */}
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs lg:col-span-3 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-xs font-bold uppercase tracking-wider text-slate-500">EMI Scheduler</p>
+                    <Calculator className="h-4 w-4 text-emerald-600" />
+                  </div>
+                  <p className="font-black text-2xl text-blue-600">₹8,885 <span className="text-xs font-normal text-slate-500">/ mo</span></p>
+                  <div className="mt-3 space-y-1.5 text-xs">
+                    <div className="flex justify-between text-slate-600">
+                      <span>Principal</span>
+                      <span className="font-bold text-slate-800">₹1,00,000</span>
+                    </div>
+                    <div className="flex justify-between text-slate-600">
+                      <span>Tenure</span>
+                      <span className="font-bold text-slate-800">12 Months</span>
+                    </div>
+                    <div className="flex justify-between text-slate-600">
+                      <span>Interest</span>
+                      <span className="font-bold text-emerald-600">12.0% p.a.</span>
+                    </div>
+                  </div>
                 </div>
-                <p className="mt-3 font-display text-3xl font-semibold text-foreground">₹18,420</p>
-                <p className="text-xs text-foreground/50">/ month</p>
-                <div className="mt-4 space-y-2 text-xs">
-                  <div className="flex justify-between text-foreground/60">
-                    <span>Amount</span>
-                    <span className="text-foreground">₹10,00,000</span>
-                  </div>
-                  <div className="flex justify-between text-foreground/60">
-                    <span>Tenure</span>
-                    <span className="text-foreground">60 mo</span>
-                  </div>
-                  <div className="flex justify-between text-foreground/60">
-                    <span>Rate</span>
-                    <span className="text-foreground">10.4%</span>
-                  </div>
+                <div className="pt-3 border-t border-slate-100 mt-2">
+                  <span className="text-[11px] font-bold text-emerald-600">AutoPay Active (HDFC Bank)</span>
                 </div>
               </div>
 
-              {/* timeline */}
-              <div className="glass rounded-2xl p-5 lg:col-span-7">
-                <div className="flex items-center justify-between">
-                  <p className="text-[11px] uppercase tracking-wider text-foreground/50">Activity</p>
-                  <Activity className="h-4 w-4 text-foreground/40" />
+              {/* Activity Timeline */}
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs lg:col-span-7">
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Recent Disbursal Milestones</p>
+                  <Activity className="h-4 w-4 text-purple-600" />
                 </div>
-                <ul className="mt-3 space-y-3 text-sm">
+                <ul className="space-y-3 text-xs">
                   {[
-                    {
-                      t: "Eligibility check completed",
-                      s: "Profile matched",
-                      time: "2m ago",
-                      ok: true,
-                    },
-                    { t: "KYC verified", s: "PAN + Aadhaar", time: "1h ago", ok: true },
-                    { t: "Profile updated", s: "Income & employment", time: "Today", ok: true },
+                    { t: "Disbursal Credited via IMPS", s: "₹1,00,000 to A/C ending 4821 (UTR: IMPS918204)", time: "Just now", ok: true },
+                    { t: "Digital Loan Agreement Signed", s: "Key Fact Statement accepted via Aadhaar OTP", time: "3 mins ago", ok: true },
+                    { t: "DigiLocker e-KYC Verified", s: "UIDAI Aadhaar XML + Live Selfie Match (99.4%)", time: "5 mins ago", ok: true },
                   ].map((a) => (
-                    <li key={a.t} className="flex items-start gap-3">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-400" />
+                    <li key={a.t} className="flex items-start gap-2.5">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600 shrink-0" />
                       <div className="flex-1">
-                        <p className="text-foreground">{a.t}</p>
-                        <p className="text-xs text-foreground/50">{a.s}</p>
+                        <p className="font-bold text-slate-900">{a.t}</p>
+                        <p className="text-slate-500 text-[11px]">{a.s}</p>
                       </div>
-                      <span className="text-xs text-foreground/40">{a.time}</span>
+                      <span className="text-[10px] font-semibold text-slate-400">{a.time}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              {/* trend */}
-              <div className="glass rounded-2xl p-5 lg:col-span-5">
+              {/* Trend Chart */}
+              <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs lg:col-span-5 flex flex-col justify-between">
                 <div className="flex items-center justify-between">
-                  <p className="text-[11px] uppercase tracking-wider text-foreground/50">
-                    Repayment Trend
-                  </p>
-                  <TrendingUp className="h-4 w-4 text-emerald-400" />
+                  <p className="text-xs font-bold uppercase tracking-wider text-slate-500">On-Time Repayment Record</p>
+                  <TrendingUp className="h-4 w-4 text-emerald-600" />
                 </div>
-                <svg viewBox="0 0 300 100" className="mt-3 h-24 w-full">
+                <svg viewBox="0 0 300 80" className="mt-2 h-16 w-full">
                   <defs>
                     <linearGradient id="ar" x1="0" x2="0" y1="0" y2="1">
-                      <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.5" />
-                      <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
+                      <stop offset="0%" stopColor="#2563EB" stopOpacity="0.3" />
+                      <stop offset="100%" stopColor="#2563EB" stopOpacity="0" />
                     </linearGradient>
                   </defs>
                   <path
-                    d="M0,80 C40,60 60,70 90,50 C120,30 150,55 180,40 C210,28 240,35 300,15 L300,100 L0,100 Z"
+                    d="M0,60 C40,50 60,55 90,40 C120,25 150,45 180,30 C210,20 240,25 300,10 L300,80 L0,80 Z"
                     fill="url(#ar)"
                   />
                   <path
-                    d="M0,80 C40,60 60,70 90,50 C120,30 150,55 180,40 C210,28 240,35 300,15"
+                    d="M0,60 C40,50 60,55 90,40 C120,25 150,45 180,30 C210,20 240,25 300,10"
                     fill="none"
-                    stroke="#3B82F6"
-                    strokeWidth="2"
+                    stroke="#2563EB"
+                    strokeWidth="2.5"
                   />
                 </svg>
-                <div className="mt-2 flex justify-between text-[11px] text-foreground/50">
-                  <span>Jan</span>
-                  <span>Mar</span>
+                <div className="flex justify-between text-[11px] font-medium text-slate-400">
                   <span>May</span>
                   <span>Jul</span>
                   <span>Sep</span>
                   <span>Nov</span>
+                  <span>Jan</span>
+                  <span>Mar</span>
                 </div>
               </div>
+
             </div>
           </div>
         </Reveal>
+
       </div>
     </section>
   );

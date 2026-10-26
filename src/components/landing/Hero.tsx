@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useId } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -13,14 +13,31 @@ import {
   Lock,
   Smartphone,
   ChevronRight,
+  TrendingUp,
 } from "lucide-react";
+
+const liveDisbursals = [
+  { name: "Rahul M.", city: "Bengaluru", amount: "₹1,50,000", time: "2m ago" },
+  { name: "Ananya S.", city: "Jaipur", amount: "₹75,000", time: "3m ago" },
+  { name: "Vikram P.", city: "Mumbai", amount: "₹3,00,000", time: "5m ago" },
+  { name: "Deepak K.", city: "Hyderabad", amount: "₹45,000", time: "8m ago" },
+  { name: "Sneha G.", city: "Delhi NCR", amount: "₹2,20,000", time: "11m ago" },
+];
 
 export function Hero() {
   const router = useRouter();
   const [mobileNumber, setMobileNumber] = useState("");
   const [loanAmount, setLoanAmount] = useState<number>(300000);
   const [tenureMonths, setTenureMonths] = useState<number>(24);
+  const [tickerIdx, setTickerIdx] = useState(0);
   const interestRate = 10.49; // 10.49% p.a.
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTickerIdx((prev) => (prev + 1) % liveDisbursals.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, []);
 
   // EMI Formula: P * r * (1+r)^n / ((1+r)^n - 1)
   const monthlyRate = interestRate / 12 / 100;
@@ -53,10 +70,23 @@ export function Hero() {
           
           {/* ── Left Column: Value Proposition & High Trust ── */}
           <div className="lg:col-span-7 space-y-6 text-left">
-            {/* Top Pill */}
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100/80 px-3.5 py-1.5 text-xs font-semibold text-blue-700 border border-blue-200/60 shadow-xs">
-              <Zap className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
-              <span>5-Minute Disbursal • RBI Regulated NBFC Lending Partners</span>
+            {/* Top Micro Badges Row */}
+            <div className="flex flex-wrap items-center gap-2.5">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-100/90 px-3.5 py-1 text-xs font-bold text-blue-700 border border-blue-200/60 shadow-xs">
+                <Zap className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
+                <span>5-Min Disbursal • RBI Regulated</span>
+              </div>
+
+              {/* Dynamic Live Disbursal Ticker (Navi / KreditBee Style) */}
+              <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-200/80 shadow-xs">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span>
+                  Disbursed <strong className="font-extrabold text-emerald-950">{liveDisbursals[tickerIdx].amount}</strong> to {liveDisbursals[tickerIdx].name} ({liveDisbursals[tickerIdx].city}) • {liveDisbursals[tickerIdx].time}
+                </span>
+              </div>
             </div>
 
             {/* Main Headline */}

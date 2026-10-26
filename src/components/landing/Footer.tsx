@@ -1,184 +1,192 @@
 "use client";
-import { Instagram, Linkedin, Facebook, Twitter, Youtube } from "lucide-react";
-import Image from "next/image";
-import whitelogo from "@/assets/whitelogo.svg";
+
 import Link from "next/link";
-import { MapPin, Phone, Mail } from "lucide-react";
-
-const cols = [
-  {
-    title: "Product",
-    links: [
-      { label: "Personal Loans", href: "/personal-loan" },
-      { label: "Business Loans", href: "/business-loan" },
-      { label: "Education Loans", href: "/education-loan" },
-      { label: "EMI Calculator", href: "/calculator" },
-      { label: "Blog & Guides", href: "/blog" },
-      { label: "FAQs", href: "/#faq" },
-      { label: "Contact", href: "/#contact" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About Us", href: "/about" },
-      { label: "Careers", href: "/careers" },
-      { label: "Press", href: "/press" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { label: "Privacy Policy", href: "/privacy-policy" },
-      { label: "Terms of Service", href: "/terms" },
-      { label: "Compliance", href: "/compliance" },
-      { label: "Grievance Redressal", href: "/grievance" },
-    ],
-  },
-];
-
-const socialLinks = [
-  {
-    href: "https://www.linkedin.com/showcase/aapkacredit/",
-    label: "Follow Aapka Credit on LinkedIn",
-    icon: Linkedin,
-  },
-  {
-    href: "https://www.instagram.com/aapkacredit",
-    label: "Follow Aapka Credit on Instagram",
-    icon: Instagram,
-  },
-  {
-    href: "https://www.youtube.com/channel/UCqveHQesgiWUyAjeb9-YU3A",
-    label: "Subscribe to Aapka Credit on YouTube",
-    icon: null,
-    customIcon: (
-      <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
-        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-      </svg>
-    ),
-  },
-  {
-    href: "https://www.facebook.com/aapkacredit",
-    label: "Follow Aapka Credit on Facebook",
-    icon: Facebook,
-  },
-  {
-    href: "https://x.com/aapkacredit",
-    label: "Follow Aapka Credit on X (Twitter)",
-    icon: Twitter,
-  },
-];
+import Image from "next/image";
+import blacklogo from "@/assets/blacklogo.svg";
+import { ShieldCheck, MapPin, Phone, Mail, Award, Lock, ExternalLink } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-white/10 bg-[#07090F] z-10">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:py-24">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
-          {/* Brand + NAP */}
-          <div className="lg:col-span-5">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-3 font-display text-xl font-bold uppercase tracking-widest text-foreground"
-            >
-              <Image src={whitelogo} alt="Aapka Credit Logo" className="h-8 w-auto" />
-              Aapka Credit
-            </Link>
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-foreground/50">
-              Smarter Loans. Better Financial Decisions. India&apos;s next-generation digital lending
-              platform.
-            </p>
+    <footer className="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        
+        {/* Top Partner Disclosure Strip */}
+        <div className="p-6 bg-slate-800/80 rounded-2xl border border-slate-700/80 mb-12 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/20">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-white">RBI Regulated NBFC Digital Lending Platform</p>
+              <p className="text-xs text-slate-400">
+                Loans facilitated by Aapka Credit are sanctioned and disbursed directly by RBI-registered Non-Banking Financial Companies (NBFCs).
+              </p>
+            </div>
+          </div>
+          <Link
+            href="/compliance"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:text-blue-300 transition whitespace-nowrap"
+          >
+            <span>View NBFC Partners & Licenses</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </Link>
+        </div>
 
-            <address className="mt-8 not-italic space-y-4">
-              <div className="flex items-start gap-4 text-sm text-foreground/50">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-foreground/30" aria-hidden="true" />
-                <span>
-                  Prism Cosmic Private Limited<br />
-                  TODO: Street, City, State – PIN<br />
-                  India
-                </span>
+        {/* 4 Navigation Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
+          
+          {/* Col 1: Brand Info */}
+          <div className="lg:col-span-2 space-y-4">
+            <Link href="/" className="flex items-center gap-2.5">
+              <div className="bg-white p-1.5 rounded-lg inline-block">
+                <Image src={blacklogo} alt="Aapka Credit Logo" className="h-6 w-auto" />
               </div>
-              <div className="flex items-center gap-4 text-sm text-foreground/50">
-                <Phone className="h-4 w-4 shrink-0 text-foreground/30" aria-hidden="true" />
-                <a href="tel:+91XXXXXXXXXX" className="hover:text-primary transition-colors">
-                  +91-XXXXXXXXXX
-                </a>
+              <span className="font-extrabold text-xl text-white tracking-tight">
+                Aapka<span className="text-blue-400">Credit</span>
+              </span>
+            </Link>
+            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+              Aapka Credit is India&apos;s premier digital lending ecosystem providing instant, paperless personal, business, and education loans with full regulatory transparency.
+            </p>
+            <div className="pt-2 text-xs text-slate-400 space-y-2">
+              <div className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
+                <span>Prism Cosmic Private Limited • Bengaluru, Karnataka – 560103, India</span>
               </div>
-              <div className="flex items-center gap-4 text-sm text-foreground/50">
-                <Mail className="h-4 w-4 shrink-0 text-foreground/30" aria-hidden="true" />
-                <a href="mailto:support@aapkacredit.com" className="hover:text-primary transition-colors">
+              <div className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-slate-500 shrink-0" />
+                <a href="mailto:support@aapkacredit.com" className="hover:text-white transition">
                   support@aapkacredit.com
                 </a>
               </div>
-            </address>
-
-            <div className="mt-12">
-              <p className="text-[10px] uppercase tracking-widest text-foreground/30 mb-4">Built by</p>
-              <a
-                href="https://prismcosmic.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-bold uppercase tracking-widest text-foreground hover:text-primary transition-colors"
-              >
-                Prism Cosmic Private Limited
-              </a>
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-slate-500 shrink-0" />
+                <span>Toll-Free Support: 1800-891-2400 (Mon–Sat, 9AM–7PM)</span>
+              </div>
             </div>
+          </div>
 
-            <div className="mt-10 flex flex-wrap gap-3">
-              {socialLinks.map((s) => (
+          {/* Col 2: Loan Products */}
+          <div>
+            <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">Loan Products</h4>
+            <ul className="space-y-2.5 text-xs text-slate-400">
+              <li>
+                <Link href="/personal-loan" className="hover:text-blue-400 transition">
+                  Flexi Personal Loan
+                </Link>
+              </li>
+              <li>
+                <Link href="/business-loan" className="hover:text-blue-400 transition">
+                  MSME Business Loan
+                </Link>
+              </li>
+              <li>
+                <Link href="/education-loan" className="hover:text-blue-400 transition">
+                  Education & Career Loan
+                </Link>
+              </li>
+              <li>
+                <Link href="/calculator" className="hover:text-blue-400 transition">
+                  Instant EMI Calculator
+                </Link>
+              </li>
+              <li>
+                <Link href="/apply" className="hover:text-blue-400 transition">
+                  Apply Online
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 3: Company & Trust */}
+          <div>
+            <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">Company & Governance</h4>
+            <ul className="space-y-2.5 text-xs text-slate-400">
+              <li>
+                <Link href="/about" className="hover:text-blue-400 transition">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/compliance" className="hover:text-blue-400 transition">
+                  Digital Lending Compliance
+                </Link>
+              </li>
+              <li>
+                <Link href="/grievance" className="hover:text-blue-400 transition">
+                  Grievance Redressal
+                </Link>
+              </li>
+              <li>
+                <Link href="/careers" className="hover:text-blue-400 transition">
+                  Careers
+                </Link>
+              </li>
+              <li>
+                <Link href="/press" className="hover:text-blue-400 transition">
+                  Media & Press
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 4: Legal & Policies */}
+          <div>
+            <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider">Legal & RBI Policy</h4>
+            <ul className="space-y-2.5 text-xs text-slate-400">
+              <li>
+                <Link href="/privacy-policy" className="hover:text-blue-400 transition">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-blue-400 transition">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
                 <a
-                  key={s.href}
-                  href={s.href}
+                  href="https://sachet.rbi.org.in/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="grid h-10 w-10 place-items-center border border-white/10 text-foreground/50 transition-colors hover:border-primary hover:text-primary hover:bg-primary/5"
+                  className="hover:text-blue-400 transition flex items-center gap-1"
                 >
-                  {s.icon ? (
-                    <s.icon className="h-4 w-4" aria-hidden="true" />
-                  ) : (
-                    s.customIcon
-                  )}
+                  <span>RBI Sachet Portal</span>
+                  <ExternalLink className="w-3 h-3" />
                 </a>
-              ))}
-            </div>
+              </li>
+              <li>
+                <Link href="/#faq" className="hover:text-blue-400 transition">
+                  Help & FAQs
+                </Link>
+              </li>
+            </ul>
           </div>
 
-          {/* Nav columns */}
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-7">
-            {cols.map((c) => (
-              <div key={c.title}>
-                <p className="text-[10px] uppercase tracking-widest text-foreground/30 font-bold">{c.title}</p>
-                <ul className="mt-8 space-y-4">
-                  {c.links.map((l) => (
-                    <li key={l.label}>
-                      {l.href.startsWith("#") || l.href.startsWith("/#") ? (
-                        <a
-                          href={l.href}
-                          className="text-sm text-foreground/60 transition-colors hover:text-primary"
-                        >
-                          {l.label}
-                        </a>
-                      ) : (
-                        <Link
-                          href={l.href}
-                          className="text-sm text-foreground/60 transition-colors hover:text-primary"
-                        >
-                          {l.label}
-                        </Link>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+        </div>
+
+        {/* Regulatory Disclaimer Text */}
+        <div className="pt-8 text-[11px] text-slate-400 leading-relaxed space-y-2 border-b border-slate-800 pb-8">
+          <p>
+            <strong>Regulatory Disclaimer:</strong> Aapka Credit is a technology-led digital lending platform owned and operated by Prism Cosmic Private Limited. Aapka Credit partners exclusively with RBI-registered NBFCs and scheduled commercial banks to sanction and disburse loans. Aapka Credit does not directly engage in unlicensed money lending activities. All interest rates, loan approvals, processing charges, and repayment terms are determined as per credit appraisal algorithms and guidelines laid down by the Reserve Bank of India (RBI).
+          </p>
+          <p>
+            <strong>Annual Percentage Rate (APR) Disclosure:</strong> APR for personal loans ranges between 10.49% to 28.00% depending on borrower risk category, tenure, and credit assessment. Loan tenures range from a minimum of 3 months to a maximum of 60 months. Representative calculation: For a sanction of ₹1,00,000 for 12 months at 12% APR, monthly EMI will be ₹8,885, total interest payable will be ₹6,619, and total repayment will be ₹1,06,619.
+          </p>
+        </div>
+
+        {/* Bottom Copyright */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+          <p>© 2026 Aapka Credit (Prism Cosmic Private Limited). All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1 text-emerald-400 font-semibold">
+              <Lock className="w-3.5 h-3.5" /> 256-Bit SSL Encrypted
+            </span>
+            <span>•</span>
+            <span>Made with pride in India 🇮🇳</span>
           </div>
         </div>
 
-        <div className="mt-24 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center">
-          <p className="text-[10px] uppercase tracking-widest text-foreground/30 font-bold">© 2026 Aapka Credit by Prism Cosmic Private Limited. All Rights Reserved.</p>
-          <p className="text-[10px] uppercase tracking-widest text-foreground/30 font-bold">Made with care in India 🇮🇳</p>
-        </div>
       </div>
     </footer>
   );
