@@ -1,22 +1,20 @@
 "use client";
+
 import { useEffect, useState } from "react";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, ArrowRight, ShieldCheck, PhoneCall } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import whitelogo from "@/assets/whitelogo.svg";
-import { MagneticButton } from "@/components/fx/MagneticButton";
+import blacklogo from "@/assets/blacklogo.svg";
 import { cn } from "@/lib/utils";
 import { LoginModal } from "@/components/auth/LoginModal";
 
-const links = [
-  { label: "Loans", href: "/#loans" },
-  { label: "Calculator", href: "/calculator" },
-  { label: "Blog", href: "/blog" },
-  { label: "Eligibility", href: "/#how" },
-  { label: "Features", href: "/#features" },
-  { label: "Security", href: "/#security" },
+const navLinks = [
+  { label: "Personal Loan", href: "/personal-loan" },
+  { label: "Business Loan", href: "/business-loan" },
+  { label: "Education Loan", href: "/education-loan" },
+  { label: "EMI Calculator", href: "/calculator" },
+  { label: "How It Works", href: "/#how" },
   { label: "FAQs", href: "/#faq" },
-  { label: "Contact", href: "/#contact" },
 ];
 
 export function Navbar() {
@@ -25,91 +23,118 @@ export function Navbar() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-        scrolled ? "py-3" : "py-5",
-      )}
-    >
-      <div className="mx-auto max-w-7xl px-4">
-        <div
-          className={cn(
-            "flex items-center justify-between rounded-full border border-transparent px-4 py-2.5 transition-all duration-500 sm:px-6",
-            scrolled && "glass-strong border-foreground/10",
-          )}
-        >
-          <Link
-            href="/"
-            className="flex items-center gap-2 font-display text-base font-semibold tracking-tight text-foreground"
-          >
-            <Image src={whitelogo} alt="Aapka Credit Logo" className="h-8 w-auto dark:invert-0 invert" priority />
-            <span>Aapka Credit</span>
+    <header className="fixed inset-x-0 top-0 z-50">
+      {/* ── Top Micro Announcement Bar ── */}
+      <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 text-white text-[11px] font-medium py-1 px-4 text-center flex items-center justify-center gap-2">
+        <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+        <span>RBI Regulated NBFC Lending Partners • 100% Paperless DigiLocker e-KYC • Instant Disbursal</span>
+      </div>
+
+      {/* ── Main Navigation ── */}
+      <nav
+        className={cn(
+          "w-full transition-all duration-300 bg-white/95 backdrop-blur-md border-b",
+          scrolled ? "py-2.5 shadow-sm border-slate-200" : "py-3.5 border-slate-200/60"
+        )}
+      >
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          {/* Brand Logo */}
+          <Link href="/" className="flex items-center gap-2.5">
+            <Image src={blacklogo} alt="Aapka Credit Logo" className="h-8 w-auto" priority />
+            <span className="font-extrabold text-xl tracking-tight text-slate-900">
+              Aapka<span className="text-blue-600">Credit</span>
+            </span>
           </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex">
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="group relative text-sm text-foreground/70 transition hover:text-foreground"
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex items-center gap-7">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition"
               >
-                {l.label}
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-to-r from-[#3B82F6] to-[#10B981] transition-all duration-300 group-hover:w-full" />
-              </a>
+                {link.label}
+              </Link>
             ))}
-          </nav>
-
-          <div className="hidden lg:flex items-center gap-4">
-
-            <MagneticButton onClick={() => setIsLoginModalOpen(true)} variant="primary" className="px-5 py-2.5 text-xs">
-              Login / Apply
-            </MagneticButton>
           </div>
 
+          {/* Right Action CTAs */}
+          <div className="hidden md:flex items-center gap-3">
+            <Link
+              href="/apply/status"
+              className="px-3.5 py-2 text-xs font-bold text-slate-700 hover:text-blue-600 transition"
+            >
+              Track Application
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setIsLoginModalOpen(true)}
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition shadow-xs active:scale-98"
+            >
+              <span>Login / Apply</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+
+          {/* Mobile Menu Hamburger */}
           <button
             type="button"
-            className="rounded-full p-2 text-foreground lg:hidden"
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
+            className="p-2 text-slate-700 lg:hidden rounded-lg hover:bg-slate-100 transition"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle navigation"
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
+        {/* Mobile Dropdown Drawer */}
         {open && (
-          <div className="glass-strong mt-2 rounded-3xl border border-foreground/10 p-4 lg:hidden">
-            <nav className="flex flex-col gap-1">
-              {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
+          <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3 shadow-xl">
+            <div className="flex flex-col space-y-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-3 py-2.5 text-sm text-foreground/80 hover:bg-foreground/5 hover:text-foreground"
+                  className="px-3 py-2 text-sm font-medium text-slate-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition"
                 >
-                  {l.label}
-                </a>
+                  {link.label}
+                </Link>
               ))}
+              <Link
+                href="/apply/status"
+                onClick={() => setOpen(false)}
+                className="px-3 py-2 text-sm font-medium text-slate-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition"
+              >
+                Track Application
+              </Link>
+            </div>
+
+            <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
               <button
                 type="button"
                 onClick={() => {
                   setOpen(false);
                   setIsLoginModalOpen(true);
                 }}
-                className="mt-2 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#10B981] px-3 py-2.5 text-center text-sm font-medium text-foreground"
+                className="w-full py-3 bg-blue-600 text-white text-center font-bold text-sm rounded-xl shadow-xs"
               >
-                Login / Apply
+                Login / Apply Now
               </button>
-            </nav>
+            </div>
           </div>
         )}
-      </div>
+      </nav>
+
       <LoginModal isOpen={isLoginModalOpen} onOpenChange={setIsLoginModalOpen} />
     </header>
   );
