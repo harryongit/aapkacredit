@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
 
@@ -22,6 +23,12 @@ const defaultRevenueData = [
 ];
 
 export function TrendCharts({ initialTrends }: { initialTrends?: any[] }) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const applicationData = initialTrends
     ? initialTrends.map((t: any) => ({
         name: t.month,
@@ -36,6 +43,31 @@ export function TrendCharts({ initialTrends }: { initialTrends?: any[] }) {
         revenue: t.collections,
       }))
     : defaultRevenueData;
+
+  if (!isMounted) {
+    return (
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 mt-4">
+        <Card className="col-span-4 bg-card/50 backdrop-blur border-border shadow-sm">
+          <CardHeader>
+            <CardTitle>Loan Applications Velocity</CardTitle>
+            <CardDescription>Application volume vs sanctioned approval trend over recent months.</CardDescription>
+          </CardHeader>
+          <CardContent className="h-[320px] flex items-center justify-center text-muted-foreground text-sm">
+            Loading analytics visualization...
+          </CardContent>
+        </Card>
+        <Card className="col-span-3 bg-card/50 backdrop-blur border-border shadow-sm">
+          <CardHeader>
+            <CardTitle>Collections Volume</CardTitle>
+            <CardDescription>Monthly EMI collections and settlements.</CardDescription>
+          </CardHeader>
+          <CardContent className="h-[320px] flex items-center justify-center text-muted-foreground text-sm">
+            Loading collections visualization...
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 mt-4">

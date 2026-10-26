@@ -10,6 +10,8 @@ import {
   mockSupportTickets,
   mockAuditLogs,
   mockDisbursements,
+  mockSubadmins,
+  mockDossiers,
 } from "./mockAdminData";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend.aapkacredit.com/api/v1";
@@ -28,6 +30,30 @@ export async function fetchApi(endpoint: string, options: RequestInit = {}) {
     if (url.includes("/admin/audit-logs")) return { success: true, data: mockAuditLogs };
     if (url.includes("/admin/disbursements")) return { success: true, data: mockDisbursements };
     if (url.includes("/admin/repayments")) return { success: true, data: mockRepayments };
+    if (url.includes("/admin/subadmins")) {
+      return {
+        success: true,
+        data: mockSubadmins,
+        meta: {
+          total_subadmins: mockSubadmins.length,
+          active_count: mockSubadmins.filter((s) => s.is_active).length,
+          total_audits_logged: mockSubadmins.reduce((sum, s) => sum + s.total_audits_performed, 0),
+        },
+      };
+    }
+    if (url.includes("/dossier")) {
+      const match = url.match(/\/admin\/loans\/([^/]+)\/dossier/);
+      const loanId = match ? match[1] : "APP-1029";
+      const dossier = mockDossiers[loanId] || mockDossiers["APP-1029"];
+      return { success: true, data: dossier };
+    }
+    if (url.includes("/audit") && method === "POST") {
+      return {
+        success: true,
+        message: "Manual underwriting audit verification logged successfully",
+        data: { is_audited: true, audited_at: new Date().toISOString() },
+      };
+    }
     if (url.includes("/admin/users")) {
       const match = url.match(/\/admin\/users\/([^/]+)/);
       if (match) {

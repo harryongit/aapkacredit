@@ -17,6 +17,7 @@ import {
   LifeBuoy,
   Activity,
   Banknote,
+  UserCheck,
 } from "lucide-react";
 
 const operationsNav = [
@@ -30,6 +31,7 @@ const operationsNav = [
 
 const governanceNav = [
   { name: "Users", href: "/admin/users", icon: Users },
+  { name: "Staff & Sub-Admins", href: "/admin/subadmins", icon: UserCheck },
   { name: "Support Tickets", href: "/admin/support", icon: LifeBuoy },
   { name: "Audit Trail", href: "/admin/audit-logs", icon: Activity },
   { name: "Analytics & BI", href: "/admin/analytics", icon: BarChart3 },

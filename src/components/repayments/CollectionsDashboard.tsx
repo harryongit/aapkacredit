@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,8 +28,12 @@ export function CollectionsDashboard({ initialRepayments = [] }: { initialRepaym
   const [loanId, setLoanId] = useState("APP-1029");
   const [amount, setAmount] = useState<number>(9000);
   const [method, setMethod] = useState("UPI Instant");
-  const [utr, setUtr] = useState(`UPI${Math.floor(1000000000 + Math.random() * 9000000000)}`);
+  const [utr, setUtr] = useState("UPI9823481029");
   const [notes, setNotes] = useState("Direct branch cash collection");
+
+  useEffect(() => {
+    setUtr(`UPI${Math.floor(1000000000 + Math.random() * 9000000000)}`);
+  }, []);
 
   // Calculations
   const paidRepayments = repayments.filter((r) => r.status === "PAID");

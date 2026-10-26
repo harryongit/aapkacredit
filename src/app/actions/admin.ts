@@ -799,3 +799,110 @@ export async function retryDisbursementAction(disbursementId: string, payload?: 
   }
 }
 
+// ── Subadmin RBAC & Staff Management Actions ────────────────────────────────
+export async function getSubadminsAction() {
+  try {
+    const res = await fetchApi("/admin/subadmins");
+    return { success: true, data: res.data || [], meta: res.meta };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Failed to fetch subadmins", data: [] };
+  }
+}
+
+export async function createSubadminAction(payload: {
+  username: string;
+  full_name: string;
+  email: string;
+  password: string;
+  mobile_number?: string;
+  department?: string;
+  permissions: {
+    can_view_applications: boolean;
+    can_audit_documents: boolean;
+    can_approve_loans: boolean;
+    can_reject_loans: boolean;
+    can_disburse_loans: boolean;
+    can_download_dossier: boolean;
+    can_manage_subadmins: boolean;
+  };
+}) {
+  try {
+    const res = await fetchApi("/admin/subadmins", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+    revalidatePath("/admin/subadmins");
+    revalidatePath("/admin/audit-logs");
+    return { success: true, message: res.message || "Subadmin created successfully", data: res.data };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Failed to create subadmin" };
+  }
+}
+
+export async function updateSubadminPermissionsAction(subadminId: string, payload: {
+  permissions?: Record<string, boolean>;
+  is_active?: boolean;
+  department?: string;
+  notes?: string;
+}) {
+  try {
+    const res = await fetchApi(`/admin/subadmins/${subadminId}/permissions`, {
+      method: "PUT",
+      body: JSON.stringify(payload),
+    });
+    revalidatePath("/admin/subadmins");
+    revalidatePath("/admin/audit-logs");
+    return { success: true, message: res.message || "Permissions updated successfully", data: res.data };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Failed to update subadmin permissions" };
+  }
+}
+
+export async function deactivateSubadminAction(subadminId: string) {
+  try {
+    const res = await fetchApi(`/admin/subadmins/${subadminId}`, {
+      method: "DELETE",
+    });
+    revalidatePath("/admin/subadmins");
+    revalidatePath("/admin/audit-logs");
+    return { success: true, message: res.message || "Subadmin deactivated successfully" };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Failed to deactivate subadmin" };
+  }
+}
+
+// ── Unified Underwriting & KYC Dossier Actions ──────────────────────────────
+export async function getLoanDossierAction(loanId: string) {
+  try {
+    const res = await fetchApi(`/admin/loans/${loanId}/dossier`);
+    return { success: true, data: res.data };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Failed to fetch loan dossier" };
+  }
+}
+
+export async function submitLoanAuditAction(loanId: string, payload: {
+  selfie_verified: boolean;
+  aadhaar_verified: boolean;
+  pan_verified: boolean;
+  bank_verified: boolean;
+  income_verified: boolean;
+  bureau_verified: boolean;
+  underwriter_notes?: string;
+  risk_category?: string;
+}) {
+  try {
+    const res = await fetchApi(`/admin/loans/${loanId}/audit`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+    revalidatePath(`/admin/applications/${loanId}`);
+    revalidatePath("/admin/applications");
+    revalidatePath("/admin/audit-logs");
+    return { success: true, message: res.message || "Manual audit verification logged successfully", data: res.data };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Failed to save audit verification" };
+  }
+}
+
+
