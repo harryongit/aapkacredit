@@ -5,15 +5,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   CheckCircle2,
-  ShieldCheck,
   Zap,
   ArrowRight,
   Star,
-  Building2,
   Lock,
-  Smartphone,
   ChevronRight,
-  TrendingUp,
+  Sparkles,
+  PieChart,
+  ShieldCheck,
+  Clock,
 } from "lucide-react";
 
 const liveDisbursals = [
@@ -22,6 +22,16 @@ const liveDisbursals = [
   { name: "Vikram P.", city: "Mumbai", amount: "₹3,00,000", time: "5m ago" },
   { name: "Deepak K.", city: "Hyderabad", amount: "₹45,000", time: "8m ago" },
   { name: "Sneha G.", city: "Delhi NCR", amount: "₹2,20,000", time: "11m ago" },
+  { name: "Amit B.", city: "Pune", amount: "₹4,50,000", time: "14m ago" },
+];
+
+const loanPurposes = [
+  { label: "Personal", amount: 300000, tenure: 24, icon: "💳" },
+  { label: "Business", amount: 1000000, tenure: 36, icon: "💼" },
+  { label: "Wedding", amount: 500000, tenure: 36, icon: "💍" },
+  { label: "Medical", amount: 200000, tenure: 18, icon: "🏥" },
+  { label: "Home Reno", amount: 400000, tenure: 36, icon: "🏠" },
+  { label: "Education", amount: 600000, tenure: 48, icon: "🎓" },
 ];
 
 export function Hero() {
@@ -29,6 +39,7 @@ export function Hero() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [loanAmount, setLoanAmount] = useState<number>(300000);
   const [tenureMonths, setTenureMonths] = useState<number>(24);
+  const [selectedPurpose, setSelectedPurpose] = useState<string>("Personal");
   const [tickerIdx, setTickerIdx] = useState(0);
   const interestRate = 10.49; // 10.49% p.a.
 
@@ -46,7 +57,9 @@ export function Hero() {
       (Math.pow(1 + monthlyRate, tenureMonths) - 1)
   );
   const totalPayable = emi * tenureMonths;
-  const totalInterest = totalPayable - loanAmount;
+  const totalInterest = Math.max(0, totalPayable - loanAmount);
+  const principalPercent = Math.round((loanAmount / totalPayable) * 100) || 75;
+  const interestPercent = 100 - principalPercent;
 
   const handleMobileSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,13 +70,20 @@ export function Hero() {
     }
   };
 
+  const handlePurposeSelect = (purpose: (typeof loanPurposes)[0]) => {
+    setSelectedPurpose(purpose.label);
+    setLoanAmount(purpose.amount);
+    setTenureMonths(purpose.tenure);
+  };
+
   const amountPresets = [50000, 100000, 300000, 500000, 1000000, 2500000];
   const tenurePresets = [6, 12, 24, 36, 48, 60];
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-blue-50/70 via-white to-slate-50/40 pt-28 pb-16 lg:pt-36 lg:pb-24">
+    <section className="relative overflow-hidden bg-gradient-to-b from-blue-50/80 via-white to-slate-50/50 pt-28 pb-16 lg:pt-36 lg:pb-24">
       {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-tr from-blue-100/40 via-emerald-100/30 to-transparent blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-tr from-blue-100/50 via-emerald-100/30 to-indigo-100/30 blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-40 right-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -78,7 +98,7 @@ export function Hero() {
               </div>
 
               {/* Dynamic Live Disbursal Ticker (Navi / KreditBee Style) */}
-              <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-200/80 shadow-xs">
+              <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-200/80 shadow-xs transition-all duration-300">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -100,7 +120,7 @@ export function Hero() {
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-slate-600 max-w-2xl leading-relaxed">
-              India&apos;s most trusted digital lending platform. 100% paperless KYC, low interest rates starting from{" "}
+              India&apos;s most trusted digital lending ecosystem. 100% paperless KYC via DigiLocker, low interest rates starting from{" "}
               <strong className="text-slate-900 font-semibold">10.49% p.a.</strong>, and instant IMPS cash transfer directly to your bank account.
             </p>
 
@@ -112,11 +132,11 @@ export function Hero() {
               </div>
               <div className="flex items-center gap-2.5 text-sm font-medium text-slate-700">
                 <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span>Instant Bank Disbursal via IMPS</span>
+                <span>Instant Bank Disbursal via IMPS (24x7)</span>
               </div>
               <div className="flex items-center gap-2.5 text-sm font-medium text-slate-700">
                 <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                <span>Zero Prepayment & Foreclosure Charges</span>
+                <span>Zero Prepayment & Foreclosure Penalties</span>
               </div>
               <div className="flex items-center gap-2.5 text-sm font-medium text-slate-700">
                 <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
@@ -125,8 +145,8 @@ export function Hero() {
             </div>
 
             {/* Instant Mobile Sanction Form */}
-            <div className="pt-4 max-w-lg">
-              <form onSubmit={handleMobileSubmit} className="flex flex-col sm:flex-row gap-2.5 p-1.5 bg-white rounded-2xl shadow-lg border border-slate-200">
+            <div className="pt-3 max-w-lg">
+              <form onSubmit={handleMobileSubmit} className="flex flex-col sm:flex-row gap-2.5 p-1.5 bg-white rounded-2xl shadow-lg border border-slate-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 transition">
                 <div className="relative flex-1 flex items-center pl-3">
                   <span className="text-sm font-bold text-slate-400 mr-2">+91</span>
                   <input
@@ -153,15 +173,15 @@ export function Hero() {
               </p>
             </div>
 
-            {/* Social Proof Strip */}
-            <div className="pt-6 border-t border-slate-200/80 flex flex-wrap items-center gap-6 sm:gap-10">
+            {/* Social Proof Strip with User Trust */}
+            <div className="pt-5 border-t border-slate-200/80 flex flex-wrap items-center gap-6 sm:gap-10">
               <div className="flex items-center gap-2">
                 <div className="flex text-amber-400">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-4 w-4 fill-amber-400" />
                   ))}
                 </div>
-                <span className="text-xs font-bold text-slate-800">4.8 / 5 Rating</span>
+                <span className="text-xs font-bold text-slate-800">4.9 / 5 Rating</span>
               </div>
               <div className="text-xs text-slate-600 font-medium">
                 <strong className="text-slate-900 font-bold">50 Lakh+</strong> Happy Customers
@@ -172,23 +192,46 @@ export function Hero() {
             </div>
           </div>
 
-          {/* ── Right Column: Interactive Loan EMI Calculator (Navi / KreditBee Style) ── */}
+          {/* ── Right Column: Interactive Loan EMI Calculator (Elevated Fintech) ── */}
           <div className="lg:col-span-5">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200/90 relative">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200/90 relative hover:border-slate-300 transition-all duration-300">
               
-              {/* Badge */}
-              <div className="flex items-center justify-between pb-5 border-b border-slate-100">
-                <div>
-                  <h3 className="text-lg font-bold text-slate-900">Instant EMI Calculator</h3>
-                  <p className="text-xs text-slate-500">Calculate customized monthly instalments</p>
+              {/* Header & Purpose Pills */}
+              <div className="pb-4 border-b border-slate-100">
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900 flex items-center gap-1.5">
+                      <Sparkles className="w-4 h-4 text-blue-600" /> Instant EMI Calculator
+                    </h3>
+                    <p className="text-xs text-slate-500">Calculate customized monthly instalments</p>
+                  </div>
+                  <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-full border border-emerald-200">
+                    From 10.49% p.a.
+                  </span>
                 </div>
-                <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-full border border-emerald-200">
-                  From 10.49% p.a.
-                </span>
+
+                {/* Purpose Pills Selector */}
+                <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide pt-1 pb-0.5">
+                  {loanPurposes.map((p) => (
+                    <button
+                      key={p.label}
+                      type="button"
+                      onClick={() => handlePurposeSelect(p)}
+                      className={`text-xs px-2.5 py-1 rounded-lg font-semibold shrink-0 transition flex items-center gap-1 ${
+                        selectedPurpose === p.label
+                          ? "bg-blue-600 text-white shadow-xs"
+                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      }`}
+                    >
+                      <span>{p.icon}</span>
+                      <span>{p.label}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Slider 1: Loan Amount */}
-              <div className="pt-5 space-y-3">
+              <div className="pt-4 space-y-2.5">
                 <div className="flex justify-between items-center">
                   <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Loan Amount</label>
                   <span className="text-lg font-extrabold text-blue-600">₹{loanAmount.toLocaleString("en-IN")}</span>
@@ -203,13 +246,13 @@ export function Hero() {
                   className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                 />
                 {/* Preset Chips */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
+                <div className="flex flex-wrap gap-1.5 pt-0.5">
                   {amountPresets.map((preset) => (
                     <button
                       key={preset}
                       type="button"
                       onClick={() => setLoanAmount(preset)}
-                      className={`text-[11px] font-semibold px-2 py-1 rounded-md border transition ${
+                      className={`text-[11px] font-semibold px-2 py-0.5 rounded-md border transition ${
                         loanAmount === preset
                           ? "bg-blue-600 text-white border-blue-600"
                           : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
@@ -222,7 +265,7 @@ export function Hero() {
               </div>
 
               {/* Slider 2: Tenure */}
-              <div className="pt-6 space-y-3">
+              <div className="pt-5 space-y-2.5">
                 <div className="flex justify-between items-center">
                   <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Loan Tenure</label>
                   <span className="text-lg font-extrabold text-slate-900">{tenureMonths} Months</span>
@@ -237,13 +280,13 @@ export function Hero() {
                   className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                 />
                 {/* Tenure Chips */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
+                <div className="flex flex-wrap gap-1.5 pt-0.5">
                   {tenurePresets.map((t) => (
                     <button
                       key={t}
                       type="button"
                       onClick={() => setTenureMonths(t)}
-                      className={`text-[11px] font-semibold px-2.5 py-1 rounded-md border transition ${
+                      className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-md border transition ${
                         tenureMonths === t
                           ? "bg-slate-900 text-white border-slate-900"
                           : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
@@ -255,12 +298,39 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Output Box */}
-              <div className="mt-6 p-4 rounded-2xl bg-gradient-to-br from-blue-50/80 to-indigo-50/60 border border-blue-100">
+              {/* Output Box with Visual Breakdown */}
+              <div className="mt-5 p-4 rounded-2xl bg-gradient-to-br from-blue-50/90 to-indigo-50/70 border border-blue-100">
                 <div className="flex items-baseline justify-between mb-2">
                   <span className="text-xs font-semibold text-slate-600">Estimated Monthly EMI</span>
                   <span className="text-2xl font-black text-blue-700">₹{emi.toLocaleString("en-IN")}<span className="text-xs text-slate-500 font-normal"> / mo</span></span>
                 </div>
+
+                {/* Visual Principal vs Interest Progress Bar */}
+                <div className="my-2.5">
+                  <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden flex">
+                    <div
+                      style={{ width: `${principalPercent}%` }}
+                      className="bg-emerald-500 h-full transition-all duration-300"
+                      title={`Principal: ${principalPercent}%`}
+                    />
+                    <div
+                      style={{ width: `${interestPercent}%` }}
+                      className="bg-blue-600 h-full transition-all duration-300"
+                      title={`Interest: ${interestPercent}%`}
+                    />
+                  </div>
+                  <div className="flex justify-between text-[10px] font-semibold text-slate-500 mt-1">
+                    <span className="flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+                      Principal: {principalPercent}%
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-full bg-blue-600 inline-block" />
+                      Interest: {interestPercent}%
+                    </span>
+                  </div>
+                </div>
+
                 <div className="grid grid-cols-2 gap-2 pt-2 border-t border-blue-200/60 text-xs">
                   <div>
                     <span className="text-slate-500 block">Total Interest</span>
@@ -274,7 +344,7 @@ export function Hero() {
               </div>
 
               {/* Action Button */}
-              <div className="mt-5">
+              <div className="mt-4">
                 <Link
                   href={`/apply?amount=${loanAmount}&tenure=${tenureMonths}`}
                   className="w-full flex items-center justify-center gap-2 py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl transition shadow-md shadow-emerald-600/25 active:scale-98"
@@ -282,9 +352,13 @@ export function Hero() {
                   <span>Apply for ₹{loanAmount.toLocaleString("en-IN")} Now</span>
                   <ChevronRight className="h-4 w-4" />
                 </Link>
-                <p className="text-[11px] text-center text-slate-400 mt-2 font-medium">
-                  Instant decision in 2 minutes • 100% online
-                </p>
+                <div className="flex items-center justify-center gap-4 text-[11px] text-slate-500 mt-2 font-medium">
+                  <span className="flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-emerald-600" /> Disbursal in 5 mins
+                  </span>
+                  <span>•</span>
+                  <span>100% Online Paperless</span>
+                </div>
               </div>
 
             </div>
@@ -295,3 +369,4 @@ export function Hero() {
     </section>
   );
 }
+

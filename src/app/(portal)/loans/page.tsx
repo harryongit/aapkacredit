@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Search, Filter, Download } from "lucide-react";
+import { RazorpayCheckoutButton } from "@/components/payments/RazorpayCheckoutButton";
+
 
 const mockActiveLoans = [
   {
@@ -116,10 +118,15 @@ export default function LoansPage() {
                   </div>
                 </div>
                 <div className="border-t border-border p-4 flex justify-end">
-                  <button className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-all">
-                    Pay Upcoming EMI
-                  </button>
+                  <RazorpayCheckoutButton
+                    amount={loan.emi}
+                    loanId={loan.id}
+                    purpose={`EMI Repayment for ${loan.type} (#${loan.id})`}
+                    buttonText={`Pay EMI ₹${loan.emi.toLocaleString('en-IN')}`}
+                    className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-all cursor-pointer"
+                  />
                 </div>
+
               </div>
             ))
           ) : (

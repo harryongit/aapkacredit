@@ -69,8 +69,18 @@ function FloatInput({
   );
 }
 
+const inquiryTopics = [
+  "Personal Loan",
+  "Business Loan",
+  "Education Loan",
+  "Check Eligibility",
+  "Track Application",
+  "Grievance / Support",
+];
+
 export function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [selectedTopic, setSelectedTopic] = useState("Personal Loan");
   const [errors, setErrors] = useState<Partial<Record<Field, string>>>({});
   const [loading, setLoading] = useState(false);
 
@@ -89,7 +99,7 @@ export function Contact() {
     setErrors({});
     setLoading(true);
     setTimeout(() => {
-      toast.success("Message received! Our lending advisor will call you shortly.");
+      toast.success(`Message received for ${selectedTopic}! Our lending advisor will call you shortly.`);
       setForm({ name: "", email: "", phone: "", message: "" });
       setLoading(false);
     }, 600);
@@ -100,8 +110,8 @@ export function Contact() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-700 mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-700 mb-3 border border-blue-200">
             Get In Touch
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -112,8 +122,81 @@ export function Contact() {
           </p>
         </div>
 
+        {/* 3 Quick Direct Support Channels */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <a
+            href="tel:18008912400"
+            className="p-4 bg-white rounded-2xl border border-slate-200 shadow-2xs hover:shadow-md hover:border-blue-300 transition flex items-center gap-3 group"
+          >
+            <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition">
+              <Phone className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-[11px] font-bold text-slate-400 block uppercase">Toll-Free Helpline</span>
+              <span className="text-sm font-extrabold text-slate-900 group-hover:text-blue-600 transition">1800-891-2400</span>
+            </div>
+          </a>
+
+          <a
+            href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20know%20about%20loans"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-4 bg-white rounded-2xl border border-slate-200 shadow-2xs hover:shadow-md hover:border-emerald-300 transition flex items-center gap-3 group"
+          >
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition">
+              <MessageSquare className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-[11px] font-bold text-slate-400 block uppercase">WhatsApp Support</span>
+              <span className="text-sm font-extrabold text-slate-900 group-hover:text-emerald-600 transition">Chat on WhatsApp</span>
+            </div>
+          </a>
+
+          <a
+            href="mailto:support@aapkacredit.com"
+            className="p-4 bg-white rounded-2xl border border-slate-200 shadow-2xs hover:shadow-md hover:border-blue-300 transition flex items-center gap-3 group"
+          >
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">
+              <Mail className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-[11px] font-bold text-slate-400 block uppercase">Email Support</span>
+              <span className="text-sm font-extrabold text-slate-900 group-hover:text-indigo-600 transition truncate block">support@aapkacredit.com</span>
+            </div>
+          </a>
+        </div>
+
         <Reveal>
           <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-lg">
+            
+            {/* Topic Chips */}
+            <div className="mb-5">
+              <label className="text-xs font-bold text-slate-600 uppercase tracking-wider block mb-2">
+                What are you looking for?
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {inquiryTopics.map((topic) => (
+                  <button
+                    key={topic}
+                    type="button"
+                    onClick={() => {
+                      setSelectedTopic(topic);
+                      if (!form.message) {
+                        setForm((prev) => ({ ...prev, message: `Inquiring about ${topic}. ` }));
+                      }
+                    }}
+                    className={`text-xs px-3 py-1.5 rounded-xl font-semibold transition ${
+                      selectedTopic === topic
+                        ? "bg-blue-600 text-white shadow-xs"
+                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    }`}
+                  >
+                    {topic}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <form onSubmit={onSubmit} className="space-y-4">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <FloatInput
@@ -147,7 +230,7 @@ export function Contact() {
 
               <FloatInput
                 id="message"
-                label="How can we assist you? (Loan amount, type, questions)"
+                label="How can we assist you? (Loan amount, requirement, questions)"
                 icon={MessageSquare}
                 textarea
                 value={form.message}
@@ -158,7 +241,7 @@ export function Contact() {
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-2 text-xs text-slate-500">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Your enquiry is kept 100% confidential under RBI privacy norms</span>
+                  <span>Confidential under RBI norms • Response in &lt; 15 mins</span>
                 </div>
                 <button
                   type="submit"

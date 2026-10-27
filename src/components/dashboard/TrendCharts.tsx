@@ -93,12 +93,12 @@ export function TrendCharts({ initialTrends }: { initialTrends?: any[] }) {
               </defs>
               <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
               <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#333" />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
               <Tooltip
-                contentStyle={{ backgroundColor: "#0f172a", borderColor: "#1e293b", borderRadius: "8px" }}
+                contentStyle={{ backgroundColor: "#0f172a", borderColor: "#334155", borderRadius: "12px", color: "#f8fafc", boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)" }}
               />
-              <Area type="monotone" name="Total Applications" dataKey="total" stroke="#3B82F6" fillOpacity={1} fill="url(#colorTotal)" />
-              <Area type="monotone" name="Approved Loans" dataKey="approved" stroke="#10B981" fillOpacity={1} fill="url(#colorApproved)" />
+              <Area type="monotone" name="Total Applications" dataKey="total" stroke="#3B82F6" strokeWidth={2} fillOpacity={1} fill="url(#colorTotal)" />
+              <Area type="monotone" name="Approved Loans" dataKey="approved" stroke="#10B981" strokeWidth={2} fillOpacity={1} fill="url(#colorApproved)" />
             </AreaChart>
           </ResponsiveContainer>
         </CardContent>
@@ -122,13 +122,13 @@ export function TrendCharts({ initialTrends }: { initialTrends?: any[] }) {
                 axisLine={false}
                 tickFormatter={(value) => `₹${value / 100000}L`}
               />
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#333" />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
               <Tooltip
-                cursor={{ fill: "#1e293b" }}
-                contentStyle={{ backgroundColor: "#0f172a", borderColor: "#1e293b", borderRadius: "8px" }}
-                formatter={(val: any) => [`₹${Number(val).toLocaleString()}`, "Collections"]}
+                cursor={{ fill: "rgba(59, 130, 246, 0.08)" }}
+                contentStyle={{ backgroundColor: "#0f172a", borderColor: "#334155", borderRadius: "12px", color: "#f8fafc", boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)" }}
+                formatter={(val: any) => [`₹${Number(val).toLocaleString("en-IN")}`, "Collections"]}
               />
-              <Bar dataKey="revenue" fill="#3B82F6" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="revenue" fill="#3B82F6" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>

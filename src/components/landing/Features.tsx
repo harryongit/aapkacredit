@@ -83,16 +83,32 @@ export function Features() {
 
         {/* ── Side-by-Side Comparison Matrix (Like Navi & KreditBee) ── */}
         <div className="bg-slate-50/70 rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm mb-16 overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-[600px]">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-200">
+            <div>
+              <h3 className="text-lg font-bold text-slate-900">Digital Fintech vs Traditional Branch Banking</h3>
+              <p className="text-xs text-slate-500">Transparent comparison of turnaround time, costs, and flexibility</p>
+            </div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100/80 text-emerald-800 text-xs font-bold border border-emerald-200">
+              <Check className="w-4 h-4 text-emerald-600" />
+              <span>Saves Avg. ₹18,500 & 12 Days</span>
+            </div>
+          </div>
+
+          <table className="w-full text-left border-collapse min-w-[620px]">
             <thead>
               <tr className="border-b border-slate-200">
-                <th className="pb-4 text-sm font-bold text-slate-500 uppercase tracking-wider w-2/5">
+                <th className="pb-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-2/5">
                   Lending Feature
                 </th>
-                <th className="pb-4 text-base font-extrabold text-blue-600 w-3/10">
-                  ⚡ Aapka Credit
+                <th className="pb-4 text-sm font-extrabold text-blue-700 w-3/10 bg-blue-50/80 px-4 py-2.5 rounded-t-xl">
+                  <div className="flex items-center gap-1.5">
+                    <span>⚡ Aapka Credit</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-600 text-white uppercase tracking-wider">
+                      Winner
+                    </span>
+                  </div>
                 </th>
-                <th className="pb-4 text-sm font-bold text-slate-400 w-3/10">
+                <th className="pb-4 text-xs font-bold text-slate-400 w-3/10 pl-4">
                   🏦 Traditional Banks
                 </th>
               </tr>
@@ -101,13 +117,13 @@ export function Features() {
               {comparisons.map((row) => (
                 <tr key={row.feature} className="hover:bg-white/80 transition">
                   <td className="py-4 text-sm font-bold text-slate-800 pr-4">{row.feature}</td>
-                  <td className="py-4 text-sm font-semibold text-emerald-700 pr-4">
+                  <td className="py-4 text-sm font-semibold text-emerald-800 pr-4 bg-blue-50/50 px-4 border-x border-blue-100">
                     <div className="flex items-start gap-2">
                       <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                       <span>{row.aapka}</span>
                     </div>
                   </td>
-                  <td className="py-4 text-sm text-slate-500">
+                  <td className="py-4 text-sm text-slate-500 pl-4">
                     <div className="flex items-start gap-2">
                       <X className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
                       <span>{row.banks}</span>
@@ -126,13 +142,13 @@ export function Features() {
             return (
               <div
                 key={c.title}
-                className="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm hover:shadow-md transition duration-200 flex flex-col justify-between"
+                className="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-blue-300 transition-all duration-200 flex flex-col justify-between group"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200/60 text-blue-600 flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200/60 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white transition-all duration-200">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">{c.title}</h3>
+                  <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">{c.title}</h3>
                   <p className="text-xs text-slate-600 leading-relaxed">{c.desc}</p>
                 </div>
               </div>
