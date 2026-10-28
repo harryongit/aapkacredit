@@ -105,8 +105,15 @@ export async function fetchApi(endpoint: string, options: RequestInit = {}) {
 
     const data = await response.json().catch(() => ({}));
 
+    const isSensitiveUnderwriting =
+      endpoint.includes("/dossier") ||
+      endpoint.includes("/audit") ||
+      endpoint.includes("/approve") ||
+      endpoint.includes("/reject") ||
+      endpoint.includes("/disburse");
+
     if (!response.ok) {
-      if (IS_DISCONNECTED_TEST_MODE) {
+      if (IS_DISCONNECTED_TEST_MODE && !isSensitiveUnderwriting) {
         return getMockFallback(endpoint, options.method);
       }
       throw new Error(data.message || data.detail || `API request failed with status ${response.status}`);
@@ -114,8 +121,22 @@ export async function fetchApi(endpoint: string, options: RequestInit = {}) {
 
     return data;
   } catch (err: any) {
-    // When backend is disconnected, immediately return mock data
-    return getMockFallback(endpoint, options.method);
+    const isSensitiveUnderwriting =
+      endpoint.includes("/dossier") ||
+      endpoint.includes("/audit") ||
+      endpoint.includes("/approve") ||
+      endpoint.includes("/reject") ||
+      endpoint.includes("/disburse");
+
+    // Underwriting and financial mutations must FAIL CLOSED to prevent approving real loans on unverified data
+    if (isSensitiveUnderwriting && !IS_DISCONNECTED_TEST_MODE) {
+      throw new Error(`Live backend connection failed: ${err.message || "Underwriting and disbursement operations must fail closed."}`);
+    }
+
+    if (IS_DISCONNECTED_TEST_MODE) {
+      return getMockFallback(endpoint, options.method);
+    }
+    throw err;
   }
 }
 
