@@ -14,9 +14,9 @@ import {
   mockDossiers,
 } from "./mockAdminData";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend.aapkacredit.com/api/v1";
-// Disconnect mode flag (can be toggled in .env or defaults to graceful fallback)
-const IS_DISCONNECTED_TEST_MODE = process.env.ADMIN_DISCONNECTED_MODE === "true" || true;
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+// Disconnect mode flag (can be explicitly enabled with ADMIN_DISCONNECTED_MODE=true for offline development)
+const IS_DISCONNECTED_TEST_MODE = process.env.ADMIN_DISCONNECTED_MODE === "true";
 
 export async function fetchApi(endpoint: string, options: RequestInit = {}) {
   // If explicitly configured for disconnected testing or if fetch fails, return mock data
@@ -94,7 +94,7 @@ export async function fetchApi(endpoint: string, options: RequestInit = {}) {
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 1500); // 1.5s timeout for local test speed
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout for live backend response
 
     const response = await fetch(`${API_URL}${endpoint}`, {
       ...options,

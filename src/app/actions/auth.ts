@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend.aapkacredit.com/api/v1";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
 
 export async function loginAction(
   prevState: { error: string } | null,
@@ -16,7 +16,7 @@ export async function loginAction(
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 1200);
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout for live backend
 
     const res = await fetch(`${API_URL}/auth/admin-login`, {
       method: "POST",
@@ -29,9 +29,11 @@ export async function loginAction(
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.success && data.data?.access_token) {
       token = data.data.access_token;
+    } else if (!res.ok && data.message) {
+      return { error: data.message || "Invalid admin or subadmin credentials" };
     }
   } catch {
-    // Standalone test mode fallback
+    // Standalone test mode fallback if backend server is not running
   }
 
   const cookieStore = await cookies();
